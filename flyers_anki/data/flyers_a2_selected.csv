@@ -1,0 +1,430 @@
+﻿word,phrase_type,level,official_write,training_include,write_priority,level_label,topic,pos,special_type,source
+a.m. (for time),phrase,A2 Flyers,no,yes,special,特殊（special）,time,phrase,time,Cambridge 2025 PDF
+across,word,A2 Flyers,no,yes,core,核心（core）,general,adverb,,Cambridge 2025 PDF
+act,word,A2 Flyers,no,yes,core,核心（core）,general,verb,,Cambridge 2025 PDF
+actor,word,A2 Flyers,no,yes,core,核心（core）,people,mixed,,Cambridge 2025 PDF
+after,word,A2 Flyers,no,yes,core,核心（core）,general,adverb,,Cambridge 2025 PDF
+ago,word,A2 Flyers,no,yes,core,核心（core）,general,adverb,,Cambridge 2025 PDF
+agree,word,A2 Flyers,no,yes,core,核心（core）,general,verb,,Cambridge 2025 PDF
+air,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+airport,word,A2 Flyers,no,yes,extended,扩展（extended）,places,mixed,,Cambridge 2025 PDF
+alone,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+also,word,A2 Flyers,no,yes,core,核心（core）,general,adverb,,Cambridge 2025 PDF
+anyone,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+appear,word,A2 Flyers,no,yes,core,核心（core）,general,verb,,Cambridge 2025 PDF
+April,word,A2 Flyers,no,yes,special,特殊（special）,time,mixed,month,Cambridge 2025 PDF
+arrive,word,A2 Flyers,no,yes,core,核心（core）,general,verb,,Cambridge 2025 PDF
+art,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+artist,word,A2 Flyers,no,yes,core,核心（core）,people,mixed,,Cambridge 2025 PDF
+as,word,A2 Flyers,no,yes,core,核心（core）,general,adverb,,Cambridge 2025 PDF
+as ... as,phrase,A2 Flyers,no,yes,tricky,易错（tricky）,general,phrase,,Cambridge 2025 PDF
+at the moment,phrase,A2 Flyers,no,yes,special,特殊（special）,time,phrase,time,Cambridge 2025 PDF
+August,word,A2 Flyers,no,yes,special,特殊（special）,time,mixed,month,Cambridge 2025 PDF
+autumn (US fall),phrase,A2 Flyers,no,yes,tricky,易错（tricky）,general,phrase,,Cambridge 2025 PDF
+away,word,A2 Flyers,no,yes,core,核心（core）,general,adverb,,Cambridge 2025 PDF
+backpack (UK rucksack),phrase,A2 Flyers,no,yes,tricky,易错（tricky）,travel,phrase,,Cambridge 2025 PDF
+bank,word,A2 Flyers,no,yes,core,核心（core）,places,mixed,,Cambridge 2025 PDF
+beetle,word,A2 Flyers,no,yes,core,核心（core）,nature_animals,mixed,,Cambridge 2025 PDF
+before,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+begin,word,A2 Flyers,no,yes,core,核心（core）,general,verb,,Cambridge 2025 PDF
+belt,word,A2 Flyers,no,yes,core,核心（core）,home_objects,mixed,,Cambridge 2025 PDF
+Betty,word,A2 Flyers,yes,yes,must_write,必写（must_write）,people,mixed,name,Cambridge 2025 PDF
+bin,word,A2 Flyers,no,yes,core,核心（core）,home_objects,mixed,,Cambridge 2025 PDF
+biscuit (US cookie),phrase,A2 Flyers,no,yes,tricky,易错（tricky）,food,phrase,,Cambridge 2025 PDF
+bit,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+bored,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+borrow,word,A2 Flyers,no,yes,core,核心（core）,general,verb,,Cambridge 2025 PDF
+break,word,A2 Flyers,no,yes,core,核心（core）,general,verb,,Cambridge 2025 PDF
+bridge,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+broken,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+brush,word,A2 Flyers,no,yes,core,核心（core）,home_objects,mixed,,Cambridge 2025 PDF
+burn,word,A2 Flyers,no,yes,core,核心（core）,general,verb,,Cambridge 2025 PDF
+businessman/woman,word,A2 Flyers,no,yes,tricky,易错（tricky）,people,mixed,,Cambridge 2025 PDF
+butter,word,A2 Flyers,no,yes,core,核心（core）,food,mixed,,Cambridge 2025 PDF
+butterfly,word,A2 Flyers,no,yes,extended,扩展（extended）,nature_animals,mixed,,Cambridge 2025 PDF
+by myself,phrase,A2 Flyers,no,yes,tricky,易错（tricky）,general,phrase,,Cambridge 2025 PDF
+by yourself,phrase,A2 Flyers,no,yes,tricky,易错（tricky）,general,phrase,,Cambridge 2025 PDF
+camel,word,A2 Flyers,no,yes,core,核心（core）,nature_animals,mixed,,Cambridge 2025 PDF
+camp,word,A2 Flyers,no,yes,core,核心（core）,general,verb,,Cambridge 2025 PDF
+card,word,A2 Flyers,no,yes,core,核心（core）,home_objects,mixed,,Cambridge 2025 PDF
+castle,word,A2 Flyers,no,yes,core,核心（core）,places,mixed,,Cambridge 2025 PDF
+cave,word,A2 Flyers,no,yes,core,核心（core）,places,mixed,,Cambridge 2025 PDF
+cereal,word,A2 Flyers,no,yes,core,核心（core）,food,mixed,,Cambridge 2025 PDF
+chat,word,A2 Flyers,no,yes,core,核心（core）,general,verb,,Cambridge 2025 PDF
+cheap,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+chemist('s),word,A2 Flyers,no,yes,tricky,易错（tricky）,places,mixed,,Cambridge 2025 PDF
+chess,word,A2 Flyers,no,yes,core,核心（core）,school_fun,mixed,,Cambridge 2025 PDF
+chopsticks,word,A2 Flyers,no,yes,tricky,易错（tricky）,general,mixed,,Cambridge 2025 PDF
+club,word,A2 Flyers,no,yes,core,核心（core）,school_fun,mixed,,Cambridge 2025 PDF
+college,word,A2 Flyers,no,yes,extended,扩展（extended）,places,mixed,,Cambridge 2025 PDF
+comb,word,A2 Flyers,no,yes,core,核心（core）,home_objects,mixed,,Cambridge 2025 PDF
+competition,word,A2 Flyers,no,yes,tricky,易错（tricky）,school_fun,mixed,,Cambridge 2025 PDF
+conversation,word,A2 Flyers,no,yes,tricky,易错（tricky）,school_fun,mixed,,Cambridge 2025 PDF
+cooker,word,A2 Flyers,no,yes,core,核心（core）,home_objects,mixed,,Cambridge 2025 PDF
+cookie (UK biscuit),phrase,A2 Flyers,no,yes,tricky,易错（tricky）,food,phrase,,Cambridge 2025 PDF
+corner,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+could (for possibility),phrase,A2 Flyers,no,yes,tricky,易错（tricky）,general,phrase,,Cambridge 2025 PDF
+creature,word,A2 Flyers,no,yes,extended,扩展（extended）,nature_animals,mixed,,Cambridge 2025 PDF
+crown,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+cut,word,A2 Flyers,no,yes,core,核心（core）,general,verb,,Cambridge 2025 PDF
+cycle,word,A2 Flyers,no,yes,core,核心（core）,general,verb,,Cambridge 2025 PDF
+dark,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+date (as in time),phrase,A2 Flyers,no,yes,tricky,易错（tricky）,general,phrase,,Cambridge 2025 PDF
+David,word,A2 Flyers,yes,yes,must_write,必写（must_write）,people,mixed,name,Cambridge 2025 PDF
+dear (as in Dear Harry),phrase,A2 Flyers,no,yes,tricky,易错（tricky）,general,phrase,,Cambridge 2025 PDF
+December,word,A2 Flyers,no,yes,special,特殊（special）,time,mixed,month,Cambridge 2025 PDF
+decide,word,A2 Flyers,no,yes,core,核心（core）,general,verb,,Cambridge 2025 PDF
+deep,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+desert,word,A2 Flyers,no,yes,core,核心（core）,nature_animals,mixed,,Cambridge 2025 PDF
+design,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+designer,word,A2 Flyers,no,yes,extended,扩展（extended）,people,mixed,,Cambridge 2025 PDF
+diary,word,A2 Flyers,no,yes,core,核心（core）,home_objects,mixed,,Cambridge 2025 PDF
+dictionary,word,A2 Flyers,no,yes,tricky,易错（tricky）,home_objects,mixed,,Cambridge 2025 PDF
+drum,word,A2 Flyers,no,yes,core,核心（core）,school_fun,mixed,,Cambridge 2025 PDF
+during,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+A2 Flyers A–Z wordlist ﻿ ﻿ each,phrase,A2 Flyers,no,yes,tricky,易错（tricky）,general,phrase,,Cambridge 2025 PDF
+eagle,word,A2 Flyers,no,yes,core,核心（core）,nature_animals,mixed,,Cambridge 2025 PDF
+early,word,A2 Flyers,no,yes,core,核心（core）,time,mixed,,Cambridge 2025 PDF
+Earth,word,A2 Flyers,no,yes,core,核心（core）,nature_animals,mixed,,Cambridge 2025 PDF
+east,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+elbow,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+else,word,A2 Flyers,no,yes,core,核心（core）,general,adverb,,Cambridge 2025 PDF
+Emma,word,A2 Flyers,yes,yes,must_write,必写（must_write）,people,mixed,name,Cambridge 2025 PDF
+empty,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+end,word,A2 Flyers,no,yes,core,核心（core）,general,verb,,Cambridge 2025 PDF
+engine,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+engineer,word,A2 Flyers,no,yes,extended,扩展（extended）,people,mixed,,Cambridge 2025 PDF
+enough,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+enter (a competition),phrase,A2 Flyers,no,yes,tricky,易错（tricky）,general,phrase,,Cambridge 2025 PDF
+entrance,word,A2 Flyers,no,yes,extended,扩展（extended）,places,mixed,,Cambridge 2025 PDF
+environment,word,A2 Flyers,no,yes,tricky,易错（tricky）,nature_animals,mixed,,Cambridge 2025 PDF
+ever,word,A2 Flyers,no,yes,core,核心（core）,general,adverb,,Cambridge 2025 PDF
+everywhere,word,A2 Flyers,no,yes,tricky,易错（tricky）,general,adverb,,Cambridge 2025 PDF
+exit,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+factory,word,A2 Flyers,no,yes,extended,扩展（extended）,places,mixed,,Cambridge 2025 PDF
+fall (UK autumn),phrase,A2 Flyers,no,yes,tricky,易错（tricky）,general,phrase,,Cambridge 2025 PDF
+fall over,phrase,A2 Flyers,no,yes,tricky,易错（tricky）,actions_phrases,verb,,Cambridge 2025 PDF
+far,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+fast,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+February,word,A2 Flyers,no,yes,special,特殊（special）,time,mixed,month,Cambridge 2025 PDF
+feel,word,A2 Flyers,no,yes,core,核心（core）,general,verb,,Cambridge 2025 PDF
+fetch,word,A2 Flyers,no,yes,core,核心（core）,general,verb,,Cambridge 2025 PDF
+a few,phrase,A2 Flyers,no,yes,tricky,易错（tricky）,general,phrase,,Cambridge 2025 PDF
+file (as in open and close a file),phrase,A2 Flyers,no,yes,tricky,易错（tricky）,general,phrase,,Cambridge 2025 PDF
+find out,phrase,A2 Flyers,no,yes,tricky,易错（tricky）,actions_phrases,verb,,Cambridge 2025 PDF
+finger,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+finish,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+fire,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+fire engine (US fire truck),phrase,A2 Flyers,no,yes,tricky,易错（tricky）,general,phrase,,Cambridge 2025 PDF
+fire fighter,phrase,A2 Flyers,no,yes,tricky,易错（tricky）,general,phrase,,Cambridge 2025 PDF
+fire station,phrase,A2 Flyers,no,yes,tricky,易错（tricky）,places,phrase,,Cambridge 2025 PDF
+flag,word,A2 Flyers,no,yes,core,核心（core）,home_objects,mixed,,Cambridge 2025 PDF
+flashlight (UK torch),phrase,A2 Flyers,no,yes,tricky,易错（tricky）,general,phrase,,Cambridge 2025 PDF
+flour,word,A2 Flyers,no,yes,core,核心（core）,food,mixed,,Cambridge 2025 PDF
+fog,word,A2 Flyers,no,yes,core,核心（core）,nature_animals,mixed,,Cambridge 2025 PDF
+foggy,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+follow,word,A2 Flyers,no,yes,core,核心（core）,general,verb,,Cambridge 2025 PDF
+for,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+forget,word,A2 Flyers,no,yes,core,核心（core）,general,verb,,Cambridge 2025 PDF
+fork,word,A2 Flyers,no,yes,core,核心（core）,home_objects,mixed,,Cambridge 2025 PDF
+Frank,word,A2 Flyers,yes,yes,must_write,必写（must_write）,people,mixed,name,Cambridge 2025 PDF
+fridge,word,A2 Flyers,no,yes,core,核心（core）,home_objects,mixed,,Cambridge 2025 PDF
+frightening,word,A2 Flyers,no,yes,tricky,易错（tricky）,general,mixed,,Cambridge 2025 PDF
+front,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+full,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+fur,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+furry,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+future,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+gate,word,A2 Flyers,no,yes,core,核心（core）,nature_animals,mixed,,Cambridge 2025 PDF
+George,word,A2 Flyers,yes,yes,must_write,必写（must_write）,people,mixed,name,Cambridge 2025 PDF
+get to,phrase,A2 Flyers,no,yes,tricky,易错（tricky）,actions_phrases,verb,,Cambridge 2025 PDF
+glass,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+glove,word,A2 Flyers,no,yes,core,核心（core）,home_objects,mixed,,Cambridge 2025 PDF
+glue,word,A2 Flyers,no,yes,core,核心（core）,home_objects,mixed,,Cambridge 2025 PDF
+go away,phrase,A2 Flyers,no,yes,tricky,易错（tricky）,actions_phrases,phrase,,Cambridge 2025 PDF
+go out,phrase,A2 Flyers,no,yes,tricky,易错（tricky）,actions_phrases,verb,,Cambridge 2025 PDF
+gold,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+golf,word,A2 Flyers,no,yes,core,核心（core）,school_fun,mixed,,Cambridge 2025 PDF
+group,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+guess,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+gym,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+half,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+happen,word,A2 Flyers,no,yes,core,核心（core）,general,verb,,Cambridge 2025 PDF
+hard,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+Harry,word,A2 Flyers,yes,yes,must_write,必写（must_write）,people,mixed,name,Cambridge 2025 PDF
+hate,word,A2 Flyers,no,yes,core,核心（core）,general,verb,,Cambridge 2025 PDF
+hear,word,A2 Flyers,no,yes,core,核心（core）,general,verb,,Cambridge 2025 PDF
+heavy,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+Helen,word,A2 Flyers,yes,yes,must_write,必写（must_write）,people,mixed,name,Cambridge 2025 PDF
+high,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+hill,word,A2 Flyers,no,yes,core,核心（core）,nature_animals,mixed,,Cambridge 2025 PDF
+hole,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+Holly,word,A2 Flyers,yes,yes,must_write,必写（must_write）,people,mixed,name,Cambridge 2025 PDF
+honey,word,A2 Flyers,no,yes,core,核心（core）,food,mixed,,Cambridge 2025 PDF
+hope,word,A2 Flyers,no,yes,core,核心（core）,general,verb,,Cambridge 2025 PDF
+hotel,word,A2 Flyers,no,yes,core,核心（core）,places,mixed,,Cambridge 2025 PDF
+hour,word,A2 Flyers,no,yes,core,核心（core）,time,mixed,,Cambridge 2025 PDF
+how long,phrase,A2 Flyers,no,yes,tricky,易错（tricky）,general,phrase,,Cambridge 2025 PDF
+hurry,word,A2 Flyers,no,yes,core,核心（core）,general,verb,,Cambridge 2025 PDF
+husband,word,A2 Flyers,no,yes,extended,扩展（extended）,people,mixed,,Cambridge 2025 PDF
+if,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+if you want,phrase,A2 Flyers,no,yes,tricky,易错（tricky）,actions_phrases,phrase,,Cambridge 2025 PDF
+in a minute,phrase,A2 Flyers,no,yes,tricky,易错（tricky）,actions_phrases,phrase,,Cambridge 2025 PDF
+information,word,A2 Flyers,no,yes,tricky,易错（tricky）,general,mixed,,Cambridge 2025 PDF
+insect,word,A2 Flyers,no,yes,core,核心（core）,nature_animals,mixed,,Cambridge 2025 PDF
+instrument,word,A2 Flyers,no,yes,tricky,易错（tricky）,school_fun,mixed,,Cambridge 2025 PDF
+interested,word,A2 Flyers,no,yes,tricky,易错（tricky）,general,mixed,,Cambridge 2025 PDF
+interesting,word,A2 Flyers,no,yes,tricky,易错（tricky）,general,mixed,,Cambridge 2025 PDF
+invent,word,A2 Flyers,no,yes,core,核心（core）,general,verb,,Cambridge 2025 PDF
+invitation,word,A2 Flyers,no,yes,tricky,易错（tricky）,general,mixed,,Cambridge 2025 PDF
+jam,word,A2 Flyers,no,yes,core,核心（core）,food,mixed,,Cambridge 2025 PDF
+January,word,A2 Flyers,no,yes,special,特殊（special）,time,mixed,month,Cambridge 2025 PDF
+job,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+join (a club),phrase,A2 Flyers,no,yes,tricky,易错（tricky）,actions_phrases,verb,,Cambridge 2025 PDF
+journalist,word,A2 Flyers,no,yes,tricky,易错（tricky）,people,mixed,,Cambridge 2025 PDF
+July,word,A2 Flyers,no,yes,special,特殊（special）,time,mixed,month,Cambridge 2025 PDF
+June,word,A2 Flyers,no,yes,special,特殊（special）,time,mixed,month,Cambridge 2025 PDF
+just,word,A2 Flyers,no,yes,core,核心（core）,general,adverb,,Cambridge 2025 PDF
+Katy,word,A2 Flyers,yes,yes,must_write,必写（must_write）,people,mixed,name,Cambridge 2025 PDF
+keep,word,A2 Flyers,no,yes,core,核心（core）,general,verb,,Cambridge 2025 PDF
+key,word,A2 Flyers,no,yes,core,核心（core）,home_objects,mixed,,Cambridge 2025 PDF
+kilometre (US kilometer),phrase,A2 Flyers,no,yes,tricky,易错（tricky）,general,phrase,,Cambridge 2025 PDF
+kind,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+king,word,A2 Flyers,no,yes,core,核心（core）,people,mixed,,Cambridge 2025 PDF
+knee,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+knife,word,A2 Flyers,no,yes,core,核心（core）,home_objects,mixed,,Cambridge 2025 PDF
+land,word,A2 Flyers,no,yes,core,核心（core）,general,verb,,Cambridge 2025 PDF
+large,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+late,word,A2 Flyers,no,yes,core,核心（core）,time,mixed,,Cambridge 2025 PDF
+later,word,A2 Flyers,no,yes,core,核心（core）,time,adverb,,Cambridge 2025 PDF
+lazy,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+leave,word,A2 Flyers,no,yes,core,核心（core）,general,verb,,Cambridge 2025 PDF
+left (as in direction),phrase,A2 Flyers,no,yes,tricky,易错（tricky）,general,phrase,,Cambridge 2025 PDF
+let,word,A2 Flyers,no,yes,core,核心（core）,general,verb,,Cambridge 2025 PDF
+letter (as in mail),phrase,A2 Flyers,no,yes,tricky,易错（tricky）,home_objects,phrase,,Cambridge 2025 PDF
+lie (as in lie down),phrase,A2 Flyers,no,yes,tricky,易错（tricky）,general,verb,,Cambridge 2025 PDF
+lift (ride),phrase,A2 Flyers,no,yes,tricky,易错（tricky）,general,phrase,,Cambridge 2025 PDF
+lift,word,A2 Flyers,no,yes,core,核心（core）,general,verb,,Cambridge 2025 PDF
+light,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+a little,phrase,A2 Flyers,no,yes,tricky,易错（tricky）,general,phrase,,Cambridge 2025 PDF
+London,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+look after,phrase,A2 Flyers,no,yes,tricky,易错（tricky）,actions_phrases,verb,,Cambridge 2025 PDF
+look like,phrase,A2 Flyers,no,yes,tricky,易错（tricky）,actions_phrases,verb,,Cambridge 2025 PDF
+lovely,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+low,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+lucky,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+make sure,phrase,A2 Flyers,no,yes,tricky,易错（tricky）,actions_phrases,verb,,Cambridge 2025 PDF
+manager,word,A2 Flyers,no,yes,extended,扩展（extended）,people,mixed,,Cambridge 2025 PDF
+March,word,A2 Flyers,no,yes,special,特殊（special）,time,mixed,month,Cambridge 2025 PDF
+match (football),phrase,A2 Flyers,no,yes,tricky,易错（tricky）,general,phrase,,Cambridge 2025 PDF
+maths (US math),phrase,A2 Flyers,no,yes,tricky,易错（tricky）,school_fun,phrase,,Cambridge 2025 PDF
+May,word,A2 Flyers,no,yes,special,特殊（special）,time,mixed,month,Cambridge 2025 PDF
+meal,word,A2 Flyers,no,yes,core,核心（core）,food,mixed,,Cambridge 2025 PDF
+mechanic,word,A2 Flyers,no,yes,extended,扩展（extended）,people,mixed,,Cambridge 2025 PDF
+meet,word,A2 Flyers,no,yes,core,核心（core）,general,verb,,Cambridge 2025 PDF
+member,word,A2 Flyers,no,yes,core,核心（core）,people,mixed,,Cambridge 2025 PDF
+metal,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+Michael,word,A2 Flyers,yes,yes,must_write,必写（must_write）,people,mixed,name,Cambridge 2025 PDF
+midday,word,A2 Flyers,no,yes,special,特殊（special）,time,mixed,time,Cambridge 2025 PDF
+middle,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+midnight,word,A2 Flyers,no,yes,special,特殊（special）,time,mixed,time,Cambridge 2025 PDF
+might,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+mind,word,A2 Flyers,no,yes,core,核心（core）,general,verb,,Cambridge 2025 PDF
+minute,word,A2 Flyers,no,yes,core,核心（core）,time,mixed,,Cambridge 2025 PDF
+mix,word,A2 Flyers,no,yes,core,核心（core）,general,verb,,Cambridge 2025 PDF
+money,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+month,word,A2 Flyers,no,yes,core,核心（core）,time,mixed,,Cambridge 2025 PDF
+much,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+museum,word,A2 Flyers,no,yes,core,核心（core）,places,mixed,,Cambridge 2025 PDF
+nest,word,A2 Flyers,no,yes,core,核心（core）,nature_animals,mixed,,Cambridge 2025 PDF
+news,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+next,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+no problem,phrase,A2 Flyers,no,yes,tricky,易错（tricky）,actions_phrases,phrase,,Cambridge 2025 PDF
+noisy,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+no-one,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+north,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+November,word,A2 Flyers,no,yes,special,特殊（special）,time,mixed,month,Cambridge 2025 PDF
+ocean,word,A2 Flyers,no,yes,core,核心（core）,nature_animals,mixed,,Cambridge 2025 PDF
+October,word,A2 Flyers,no,yes,special,特殊（special）,time,mixed,month,Cambridge 2025 PDF
+octopus,word,A2 Flyers,no,yes,extended,扩展（extended）,nature_animals,mixed,,Cambridge 2025 PDF
+of course,phrase,A2 Flyers,no,yes,tricky,易错（tricky）,actions_phrases,phrase,,Cambridge 2025 PDF
+office,word,A2 Flyers,no,yes,core,核心（core）,places,mixed,,Cambridge 2025 PDF
+Oliver,word,A2 Flyers,yes,yes,must_write,必写（must_write）,people,mixed,name,Cambridge 2025 PDF
+olives,word,A2 Flyers,no,yes,core,核心（core）,food,mixed,,Cambridge 2025 PDF
+once,word,A2 Flyers,no,yes,special,特殊（special）,time,adverb,time,Cambridge 2025 PDF
+online,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+other,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+oven,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+over,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+p.m. (for time),phrase,A2 Flyers,no,yes,special,特殊（special）,time,phrase,time,Cambridge 2025 PDF
+pajamas (UK pyjamas),phrase,A2 Flyers,no,yes,tricky,易错（tricky）,general,phrase,,Cambridge 2025 PDF
+past,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+path,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+pepper,word,A2 Flyers,no,yes,core,核心（core）,food,mixed,,Cambridge 2025 PDF
+photographer,word,A2 Flyers,no,yes,tricky,易错（tricky）,people,mixed,,Cambridge 2025 PDF
+piece,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+pilot,word,A2 Flyers,no,yes,core,核心（core）,people,mixed,,Cambridge 2025 PDF
+pizza,word,A2 Flyers,no,yes,core,核心（core）,food,mixed,,Cambridge 2025 PDF
+planet,word,A2 Flyers,no,yes,core,核心（core）,nature_animals,mixed,,Cambridge 2025 PDF
+platform,word,A2 Flyers,no,yes,extended,扩展（extended）,places,mixed,,Cambridge 2025 PDF
+pocket,word,A2 Flyers,no,yes,core,核心（core）,home_objects,mixed,,Cambridge 2025 PDF
+police officer,phrase,A2 Flyers,no,yes,tricky,易错（tricky）,people,phrase,,Cambridge 2025 PDF
+police station,phrase,A2 Flyers,no,yes,tricky,易错（tricky）,places,phrase,,Cambridge 2025 PDF
+pond,word,A2 Flyers,no,yes,core,核心（core）,nature_animals,mixed,,Cambridge 2025 PDF
+poor,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+pop music,phrase,A2 Flyers,no,yes,tricky,易错（tricky）,school_fun,phrase,,Cambridge 2025 PDF
+post,word,A2 Flyers,no,yes,core,核心（core）,general,verb,,Cambridge 2025 PDF
+post office,phrase,A2 Flyers,no,yes,tricky,易错（tricky）,places,phrase,,Cambridge 2025 PDF
+prefer,word,A2 Flyers,no,yes,core,核心（core）,general,verb,,Cambridge 2025 PDF
+prize,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+programme (US program),phrase,A2 Flyers,no,yes,tricky,易错（tricky）,home_objects,phrase,,Cambridge 2025 PDF
+pull,word,A2 Flyers,no,yes,core,核心（core）,general,verb,,Cambridge 2025 PDF
+push,word,A2 Flyers,no,yes,core,核心（core）,general,verb,,Cambridge 2025 PDF
+puzzle,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+pyjamas (US pajamas),phrase,A2 Flyers,no,yes,tricky,易错（tricky）,general,phrase,,Cambridge 2025 PDF
+quarter,word,A2 Flyers,no,yes,special,特殊（special）,time,mixed,time,Cambridge 2025 PDF
+queen,word,A2 Flyers,no,yes,core,核心（core）,people,mixed,,Cambridge 2025 PDF
+quite,word,A2 Flyers,no,yes,core,核心（core）,general,adverb,,Cambridge 2025 PDF
+quiz,word,A2 Flyers,no,yes,core,核心（core）,school_fun,mixed,,Cambridge 2025 PDF
+race,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+racing (car; bike),phrase,A2 Flyers,no,yes,tricky,易错（tricky）,general,phrase,,Cambridge 2025 PDF
+railway,word,A2 Flyers,no,yes,extended,扩展（extended）,places,mixed,,Cambridge 2025 PDF
+ready,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+repair,word,A2 Flyers,no,yes,core,核心（core）,general,verb,,Cambridge 2025 PDF
+repeat,word,A2 Flyers,no,yes,core,核心（core）,general,verb,,Cambridge 2025 PDF
+restaurant,word,A2 Flyers,no,yes,tricky,易错（tricky）,places,mixed,,Cambridge 2025 PDF
+rich,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+Richard,word,A2 Flyers,yes,yes,must_write,必写（must_write）,people,mixed,name,Cambridge 2025 PDF
+right,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+right (as in direction),phrase,A2 Flyers,no,yes,tricky,易错（tricky）,general,phrase,,Cambridge 2025 PDF
+ring,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+Robert,word,A2 Flyers,yes,yes,must_write,必写（must_write）,people,mixed,name,Cambridge 2025 PDF
+rock music,phrase,A2 Flyers,no,yes,tricky,易错（tricky）,school_fun,phrase,,Cambridge 2025 PDF
+rocket,word,A2 Flyers,no,yes,core,核心（core）,travel,mixed,,Cambridge 2025 PDF
+rucksack (US backpack),phrase,A2 Flyers,no,yes,tricky,易错（tricky）,travel,phrase,,Cambridge 2025 PDF
+salt,word,A2 Flyers,no,yes,core,核心（core）,food,mixed,,Cambridge 2025 PDF
+same,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+Sarah,word,A2 Flyers,yes,yes,must_write,必写（must_write）,people,mixed,name,Cambridge 2025 PDF
+save,word,A2 Flyers,no,yes,core,核心（core）,general,verb,,Cambridge 2025 PDF
+score,word,A2 Flyers,no,yes,core,核心（core）,school_fun,mixed,,Cambridge 2025 PDF
+screen,word,A2 Flyers,no,yes,core,核心（core）,home_objects,mixed,,Cambridge 2025 PDF
+search,word,A2 Flyers,no,yes,core,核心（core）,school_fun,verb,,Cambridge 2025 PDF
+secret,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+sell,word,A2 Flyers,no,yes,core,核心（core）,general,verb,,Cambridge 2025 PDF
+September,word,A2 Flyers,no,yes,special,特殊（special）,time,mixed,month,Cambridge 2025 PDF
+shelf,word,A2 Flyers,no,yes,core,核心（core）,home_objects,mixed,,Cambridge 2025 PDF
+should,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+silver,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+since,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+singer,word,A2 Flyers,no,yes,core,核心（core）,people,mixed,,Cambridge 2025 PDF
+ski,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+A2 Flyers A–Z wordlist ﻿ ﻿ skyscraper,phrase,A2 Flyers,no,yes,tricky,易错（tricky）,general,phrase,,Cambridge 2025 PDF
+sledge,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+smell,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+snack,word,A2 Flyers,no,yes,core,核心（core）,food,mixed,,Cambridge 2025 PDF
+snowboarding,word,A2 Flyers,no,yes,tricky,易错（tricky）,general,mixed,,Cambridge 2025 PDF
+so,word,A2 Flyers,no,yes,core,核心（core）,general,adverb,,Cambridge 2025 PDF
+soap,word,A2 Flyers,no,yes,core,核心（core）,home_objects,mixed,,Cambridge 2025 PDF
+soft,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+soon,word,A2 Flyers,no,yes,core,核心（core）,general,adverb,,Cambridge 2025 PDF
+Sophia,word,A2 Flyers,yes,yes,must_write,必写（must_write）,people,mixed,name,Cambridge 2025 PDF
+sore,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+sound,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+south,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+space,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+speak,word,A2 Flyers,no,yes,core,核心（core）,general,verb,,Cambridge 2025 PDF
+spend,word,A2 Flyers,no,yes,core,核心（core）,general,verb,,Cambridge 2025 PDF
+spoon,word,A2 Flyers,no,yes,core,核心（core）,food,mixed,,Cambridge 2025 PDF
+spot,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+spring,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+stadium,word,A2 Flyers,no,yes,extended,扩展（extended）,places,mixed,,Cambridge 2025 PDF
+stage (theatre),phrase,A2 Flyers,no,yes,tricky,易错（tricky）,school_fun,phrase,,Cambridge 2025 PDF
+stamp,word,A2 Flyers,no,yes,core,核心（core）,home_objects,mixed,,Cambridge 2025 PDF
+stay,word,A2 Flyers,no,yes,core,核心（core）,general,verb,,Cambridge 2025 PDF
+step,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+still,word,A2 Flyers,no,yes,core,核心（core）,general,adverb,,Cambridge 2025 PDF
+stone,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+storm,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+straight on,phrase,A2 Flyers,no,yes,tricky,易错（tricky）,actions_phrases,phrase,,Cambridge 2025 PDF
+strawberry,word,A2 Flyers,no,yes,tricky,易错（tricky）,food,mixed,,Cambridge 2025 PDF
+stream,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+stripe,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+student,word,A2 Flyers,no,yes,extended,扩展（extended）,people,mixed,,Cambridge 2025 PDF
+study,word,A2 Flyers,no,yes,core,核心（core）,school_fun,verb,,Cambridge 2025 PDF
+such,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+sugar,word,A2 Flyers,no,yes,core,核心（core）,food,mixed,,Cambridge 2025 PDF
+summer,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+sunglasses,word,A2 Flyers,no,yes,tricky,易错（tricky）,general,mixed,,Cambridge 2025 PDF
+sure,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+swan,word,A2 Flyers,no,yes,core,核心（core）,nature_animals,mixed,,Cambridge 2025 PDF
+swing,word,A2 Flyers,no,yes,core,核心（core）,school_fun,mixed,,Cambridge 2025 PDF
+take (as in time e.g. it takes 20 minutes),phrase,A2 Flyers,no,yes,tricky,易错（tricky）,general,verb,,Cambridge 2025 PDF
+taste,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+taxi,word,A2 Flyers,no,yes,core,核心（core）,travel,mixed,,Cambridge 2025 PDF
+team,word,A2 Flyers,no,yes,core,核心（core）,school_fun,mixed,,Cambridge 2025 PDF
+tent,word,A2 Flyers,no,yes,core,核心（core）,travel,mixed,,Cambridge 2025 PDF
+thank,word,A2 Flyers,no,yes,core,核心（core）,general,verb,,Cambridge 2025 PDF
+theatre (US theater),phrase,A2 Flyers,no,yes,tricky,易错（tricky）,places,phrase,,Cambridge 2025 PDF
+tidy,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+time,word,A2 Flyers,no,yes,special,特殊（special）,time,mixed,time,Cambridge 2025 PDF
+timetable,word,A2 Flyers,no,yes,special,特殊（special）,time,mixed,time,Cambridge 2025 PDF
+toe,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+tomorrow,word,A2 Flyers,no,yes,special,特殊（special）,time,mixed,time,Cambridge 2025 PDF
+tonight,word,A2 Flyers,no,yes,special,特殊（special）,time,mixed,time,Cambridge 2025 PDF
+torch (US flashlight),phrase,A2 Flyers,no,yes,tricky,易错（tricky）,home_objects,phrase,,Cambridge 2025 PDF
+tortoise,word,A2 Flyers,no,yes,extended,扩展（extended）,nature_animals,mixed,,Cambridge 2025 PDF
+touch,word,A2 Flyers,no,yes,core,核心（core）,general,verb,,Cambridge 2025 PDF
+tour,word,A2 Flyers,no,yes,core,核心（core）,travel,mixed,,Cambridge 2025 PDF
+tune,word,A2 Flyers,no,yes,core,核心（core）,school_fun,mixed,,Cambridge 2025 PDF
+turn,word,A2 Flyers,no,yes,core,核心（core）,general,verb,,Cambridge 2025 PDF
+turn off,phrase,A2 Flyers,no,yes,tricky,易错（tricky）,actions_phrases,verb,,Cambridge 2025 PDF
+turn on,phrase,A2 Flyers,no,yes,tricky,易错（tricky）,actions_phrases,verb,,Cambridge 2025 PDF
+twice,word,A2 Flyers,no,yes,special,特殊（special）,time,adverb,time,Cambridge 2025 PDF
+tyre (US tire),phrase,A2 Flyers,no,yes,tricky,易错（tricky）,general,phrase,,Cambridge 2025 PDF
+unfriendly,word,A2 Flyers,no,yes,tricky,易错（tricky）,general,mixed,,Cambridge 2025 PDF
+university,word,A2 Flyers,no,yes,tricky,易错（tricky）,places,mixed,,Cambridge 2025 PDF
+unkind,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+untidy,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+until,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+use,word,A2 Flyers,no,yes,core,核心（core）,general,verb,,Cambridge 2025 PDF
+view,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+violin,word,A2 Flyers,no,yes,core,核心（core）,home_objects,mixed,,Cambridge 2025 PDF
+visit,word,A2 Flyers,no,yes,core,核心（core）,general,verb,,Cambridge 2025 PDF
+volleyball,word,A2 Flyers,no,yes,tricky,易错（tricky）,school_fun,mixed,,Cambridge 2025 PDF
+waiter,word,A2 Flyers,no,yes,core,核心（core）,people,mixed,,Cambridge 2025 PDF
+warm,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+way,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+west,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+wheel,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+while,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+wife,word,A2 Flyers,no,yes,core,核心（core）,people,mixed,,Cambridge 2025 PDF
+wifi,word,A2 Flyers,no,yes,core,核心（core）,home_objects,mixed,,Cambridge 2025 PDF
+wild,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+will,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+William,word,A2 Flyers,yes,yes,must_write,必写（must_write）,people,mixed,name,Cambridge 2025 PDF
+win,word,A2 Flyers,no,yes,core,核心（core）,general,verb,,Cambridge 2025 PDF
+wing,word,A2 Flyers,no,yes,core,核心（core）,nature_animals,mixed,,Cambridge 2025 PDF
+winner,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+winter,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+wish,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+wood,word,A2 Flyers,no,yes,core,核心（core）,nature_animals,mixed,,Cambridge 2025 PDF
+wool,word,A2 Flyers,no,yes,core,核心（core）,general,mixed,,Cambridge 2025 PDF
+yoghurt,word,A2 Flyers,no,yes,extended,扩展（extended）,food,mixed,,Cambridge 2025 PDF
+you’re welcome,phrase,A2 Flyers,no,yes,tricky,易错（tricky）,actions_phrases,phrase,,Cambridge 2025 PDF
+x-ray,word,A2 Flyers,no,yes,core,核心（core）,home_objects,mixed,,Cambridge 2025 PDF
+yet,word,A2 Flyers,no,yes,core,核心（core）,general,adverb,,Cambridge 2025 PDF
+zero,word,A2 Flyers,yes,yes,must_write,必写（must_write）,time,mixed,number,Cambridge 2025 PDF
+a hundred,phrase,A2 Flyers,yes,yes,must_write,必写（must_write）,time,phrase,number,Cambridge 2025 PDF
+a thousand,phrase,A2 Flyers,yes,yes,must_write,必写（must_write）,time,phrase,number,Cambridge 2025 PDF
+a million,phrase,A2 Flyers,yes,yes,must_write,必写（must_write）,time,phrase,number,Cambridge 2025 PDF
+21th,word,A2 Flyers,yes,yes,must_write,必写（must_write）,time,mixed,number,Cambridge 2025 PDF
+22nd,word,A2 Flyers,yes,yes,must_write,必写（must_write）,time,mixed,number,Cambridge 2025 PDF
+23rd,word,A2 Flyers,yes,yes,must_write,必写（must_write）,time,mixed,number,Cambridge 2025 PDF
+24th,word,A2 Flyers,yes,yes,must_write,必写（must_write）,time,mixed,number,Cambridge 2025 PDF
+25th,word,A2 Flyers,yes,yes,must_write,必写（must_write）,time,mixed,number,Cambridge 2025 PDF
+26th,word,A2 Flyers,yes,yes,must_write,必写（must_write）,time,mixed,number,Cambridge 2025 PDF
+27th,word,A2 Flyers,yes,yes,must_write,必写（must_write）,time,mixed,number,Cambridge 2025 PDF
+28th,word,A2 Flyers,yes,yes,must_write,必写（must_write）,time,mixed,number,Cambridge 2025 PDF
+29th,word,A2 Flyers,yes,yes,must_write,必写（must_write）,time,mixed,number,Cambridge 2025 PDF
+30th,word,A2 Flyers,yes,yes,must_write,必写（must_write）,time,mixed,number,Cambridge 2025 PDF
+31st,word,A2 Flyers,yes,yes,must_write,必写（must_write）,time,mixed,number,Cambridge 2025 PDF

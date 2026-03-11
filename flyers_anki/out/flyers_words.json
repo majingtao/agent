@@ -1,0 +1,3579 @@
+[
+  {
+    "english": "a.m. (for time)",
+    "chinese": "是。",
+    "audio_file": "85a0ae0c49fe92b6.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "across",
+    "chinese": "穿过",
+    "audio_file": "c55704728716728d.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "act",
+    "chinese": "行为",
+    "audio_file": "316c9c3ed45a83ee.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "actor",
+    "chinese": "演员",
+    "audio_file": "8e62561c3ac6d3fb.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "actually",
+    "chinese": "实际上",
+    "audio_file": "7ddf80803ddb70e6.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "adventure",
+    "chinese": "冒险",
+    "audio_file": "7cb4872d41405353.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "after",
+    "chinese": "后",
+    "audio_file": "632a2406bbcbcd55.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "ago",
+    "chinese": "前",
+    "audio_file": "6d0a578ca2f2c0e7.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "agree",
+    "chinese": "同意",
+    "audio_file": "6a6334b478289b4f.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "air",
+    "chinese": "空气",
+    "audio_file": "3c4588116394d216.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "airport",
+    "chinese": "飞机场",
+    "audio_file": "4a776428d7409fc7.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "alone",
+    "chinese": "独自的",
+    "audio_file": "c42bbd90740264d1.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "already",
+    "chinese": "已经",
+    "audio_file": "1ebf4e55c604b92c.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "also",
+    "chinese": "还",
+    "audio_file": "07ccfe360dce69b8.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "amazing",
+    "chinese": "惊人的",
+    "audio_file": "922c8158165d7c65.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "ambulance",
+    "chinese": "救护车",
+    "audio_file": "e0d0f09d7ff710fc.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "anyone",
+    "chinese": "任何人",
+    "audio_file": "b1f8e4a5ec893d89.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "anything",
+    "chinese": "任何事物",
+    "audio_file": "f0e166dc34d14d6c.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "anywhere",
+    "chinese": "任何地方",
+    "audio_file": "419107f1667df41b.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "appear",
+    "chinese": "出现",
+    "audio_file": "fb67f8d67111c4f8.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "April",
+    "chinese": "四月",
+    "audio_file": "3fcf026bbfffb63f.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "arrive",
+    "chinese": "到达",
+    "audio_file": "a2f26a443b13754a.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "art",
+    "chinese": "艺术",
+    "audio_file": "2c5f64ab07ccb3e4.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "artist",
+    "chinese": "艺术家",
+    "audio_file": "0441f9e2d94c39a7.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "as",
+    "chinese": "作为",
+    "audio_file": "f970e2767d0cfe75.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "as ... as",
+    "chinese": "一样一样",
+    "audio_file": "fd58883f4b3fead2.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "astronaut",
+    "chinese": "宇航员",
+    "audio_file": "901d32488aa7079e.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "at the moment",
+    "chinese": "眼下",
+    "audio_file": "da217c26976d7228.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "August",
+    "chinese": "八月",
+    "audio_file": "41ba70891fb6f393.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "autumn (US fall)",
+    "chinese": "秋天",
+    "audio_file": "3a4b5f2f801ada67.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "away",
+    "chinese": "离开",
+    "audio_file": "efb5803993a803fe.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "backpack (UK rucksack)",
+    "chinese": "背包",
+    "audio_file": "96982677cff68197.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "bandage",
+    "chinese": "绷带",
+    "audio_file": "7e0c8a3fd825a5f9.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "bank",
+    "chinese": "银行",
+    "audio_file": "bd5af1f610a12434.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "beetle",
+    "chinese": "甲虫",
+    "audio_file": "3c9447e3247bb6d9.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "before",
+    "chinese": "前",
+    "audio_file": "2f44417567bc123b.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "begin",
+    "chinese": "开始",
+    "audio_file": "8d589afa4dfaeeed.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "believe",
+    "chinese": "相信",
+    "audio_file": "2d46f6286511bd2e.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "belt",
+    "chinese": "腰带",
+    "audio_file": "960dc476150dbdbe.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "Betty",
+    "chinese": "贝蒂",
+    "audio_file": "7e754adda86a60e0.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "bicycle",
+    "chinese": "自行车",
+    "audio_file": "9e8e37aeb4449d57.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "bin",
+    "chinese": "垃圾桶",
+    "audio_file": "c1111bd512b29e82.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "biscuit (US cookie)",
+    "chinese": "饼干",
+    "audio_file": "2e728dd31fb5949b.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "bit",
+    "chinese": "少量",
+    "audio_file": "f67169dfbf72c4ca.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "bored",
+    "chinese": "无聊的",
+    "audio_file": "f5b5c28becf7fdb1.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "borrow",
+    "chinese": "借",
+    "audio_file": "485ec278821f55d1.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "bracelet",
+    "chinese": "手镯",
+    "audio_file": "992df610cee45108.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "break",
+    "chinese": "休息",
+    "audio_file": "1cbfb724ceee46cd.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "bridge",
+    "chinese": "桥",
+    "audio_file": "98ac6b4b086b5a2f.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "broken",
+    "chinese": "破碎的",
+    "audio_file": "54ddc3c7d064822e.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "brush",
+    "chinese": "刷子",
+    "audio_file": "68f6f171811b2ced.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "burn",
+    "chinese": "烧伤",
+    "audio_file": "a985c9764e0e6d73.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "business",
+    "chinese": "商业",
+    "audio_file": "f5d7e2532cc9ad16.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "businessman/woman",
+    "chinese": "商人或女人",
+    "audio_file": "8d2d6113c81a7a4e.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "butter",
+    "chinese": "黄油",
+    "audio_file": "d74fdde2944f475a.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "butterfly",
+    "chinese": "蝴蝶",
+    "audio_file": "9fd8301ac24fb88e.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "by myself",
+    "chinese": "我自己",
+    "audio_file": "371946bb61c37e0d.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "by yourself",
+    "chinese": "自己",
+    "audio_file": "bf6d5dd3b1d3126d.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "calendar",
+    "chinese": "日历",
+    "audio_file": "a0e7b2a565119c0a.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "camel",
+    "chinese": "骆驼",
+    "audio_file": "a4995d016a80cf23.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "camp",
+    "chinese": "营",
+    "audio_file": "ad82e95a9c7482cf.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "card",
+    "chinese": "卡片",
+    "audio_file": "5dd2199ad68327cc.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "cartoon",
+    "chinese": "卡通片",
+    "audio_file": "46e25e123679ab1c.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "castle",
+    "chinese": "城堡",
+    "audio_file": "9355a9f9948fa985.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "cave",
+    "chinese": "洞穴",
+    "audio_file": "e386df9ee22e271d.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "century",
+    "chinese": "世纪",
+    "audio_file": "151aa0094f11d845.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "cereal",
+    "chinese": "谷物",
+    "audio_file": "42a1751fa85f0a50.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "channel",
+    "chinese": "渠道",
+    "audio_file": "c485d2ed5cc4ce64.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "chat",
+    "chinese": "聊天",
+    "audio_file": "aa8af3ebe14831a7.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "cheap",
+    "chinese": "便宜的",
+    "audio_file": "e40b34e3380d6d2b.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "chemist('s)",
+    "chinese": "化学家",
+    "audio_file": "69982f39092b212a.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "chess",
+    "chinese": "棋",
+    "audio_file": "b016f48d898c745b.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "chopsticks",
+    "chinese": "筷子",
+    "audio_file": "1c55726d7354d244.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "club",
+    "chinese": "俱乐部",
+    "audio_file": "95cc6b4ac5abdead.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "collect",
+    "chinese": "收集",
+    "audio_file": "0788a6922bd5f9f1.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "college",
+    "chinese": "大学",
+    "audio_file": "b0edd88cd46d6f04.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "comb",
+    "chinese": "梳子",
+    "audio_file": "40a1269384fda0e2.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "competition",
+    "chinese": "竞赛",
+    "audio_file": "3190dbf13beaf51d.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "concert",
+    "chinese": "音乐会",
+    "audio_file": "0909553c7a647d10.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "conversation",
+    "chinese": "对话",
+    "audio_file": "b24e9760291913ee.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "cooker",
+    "chinese": "炊具",
+    "audio_file": "1872ecb7cbf5bbf4.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "cookie (UK biscuit)",
+    "chinese": "曲奇饼",
+    "audio_file": "2dccd1ab3e03990a.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "corner",
+    "chinese": "角落",
+    "audio_file": "6e27392494718b70.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "costume",
+    "chinese": "戏服",
+    "audio_file": "4f99e8ee797ac772.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "could (for possibility)",
+    "chinese": "可以",
+    "audio_file": "f0441366488bd123.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "creature",
+    "chinese": "生物",
+    "audio_file": "8a52e7a8d3b4c955.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "crown",
+    "chinese": "王冠",
+    "audio_file": "408e69f65e4ddaf5.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "cushion",
+    "chinese": "软垫",
+    "audio_file": "c136346b280c4957.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "cut",
+    "chinese": "切",
+    "audio_file": "fe47aa7c733c490d.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "cycle",
+    "chinese": "循环",
+    "audio_file": "9a4c07402cc2f374.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "dark",
+    "chinese": "黑暗的",
+    "audio_file": "a82fd95db10ff25d.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "date (as in time)",
+    "chinese": "日期",
+    "audio_file": "5fc732311905cb27.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "David",
+    "chinese": "大卫",
+    "audio_file": "464e07afc9e46359.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "dear (as in Dear Harry)",
+    "chinese": "亲爱的",
+    "audio_file": "ff17bacf4c3020d5.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "December",
+    "chinese": "十二月",
+    "audio_file": "82331503174acbae.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "decide",
+    "chinese": "决定",
+    "audio_file": "681647a719e45584.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "deep",
+    "chinese": "深的",
+    "audio_file": "6627415e807ee33c.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "delicious",
+    "chinese": "可口的",
+    "audio_file": "d9f4b96fcf222c8f.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "desert",
+    "chinese": "沙漠",
+    "audio_file": "3fd6b6210e33bb04.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "design",
+    "chinese": "设计",
+    "audio_file": "31c13f47ad87dd7b.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "designer",
+    "chinese": "设计师",
+    "audio_file": "230ace927da4bb74.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "diary",
+    "chinese": "日记",
+    "audio_file": "23eee8e941181188.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "dictionary",
+    "chinese": "字典",
+    "audio_file": "abc20d7bde1df257.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "dinosaur",
+    "chinese": "恐龙",
+    "audio_file": "03318769a5ee1354.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "disappear",
+    "chinese": "消失",
+    "audio_file": "eb17b0496bd600be.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "drum",
+    "chinese": "鼓",
+    "audio_file": "ac9bfee113e7ab68.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "during",
+    "chinese": "期间",
+    "audio_file": "bc500dd033a84b00.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "each",
+    "chinese": "每个",
+    "audio_file": "933dd8674c563081.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "eagle",
+    "chinese": "鹰",
+    "audio_file": "b09315ea09c6d3b5.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "early",
+    "chinese": "早期的",
+    "audio_file": "2b3de800b4576343.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "Earth",
+    "chinese": "地球",
+    "audio_file": "5cdd21c97f86686c.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "east",
+    "chinese": "东方",
+    "audio_file": "320381dbf7cd2f31.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "elbow",
+    "chinese": "弯头",
+    "audio_file": "ac2b72088d4f7523.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "else",
+    "chinese": "别的",
+    "audio_file": "2954e92a9b4d0e99.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "Emma",
+    "chinese": "艾玛",
+    "audio_file": "4535367f2f39b5a2.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "empty",
+    "chinese": "空的",
+    "audio_file": "a2e4822a98337283.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "end",
+    "chinese": "结尾",
+    "audio_file": "7f021a1415b86f2d.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "engine",
+    "chinese": "引擎",
+    "audio_file": "ad1943a9fd6d3d7e.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "engineer",
+    "chinese": "工程师",
+    "audio_file": "9d127ff383d59526.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "enormous",
+    "chinese": "巨大的",
+    "audio_file": "cc2563de8ad57af7.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "enough",
+    "chinese": "足够的",
+    "audio_file": "edc1e3ea2ca4939a.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "enter (a competition)",
+    "chinese": "进入",
+    "audio_file": "e2a7106f1cc8bb1e.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "entrance",
+    "chinese": "入口",
+    "audio_file": "2a20afe023299a12.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "envelope",
+    "chinese": "信封",
+    "audio_file": "299a866d8c08b377.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "environment",
+    "chinese": "环境",
+    "audio_file": "e900e40bc91d3f9f.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "ever",
+    "chinese": "曾经",
+    "audio_file": "c8d11180c956e5b5.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "everywhere",
+    "chinese": "到处",
+    "audio_file": "cbebc850f5f849e8.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "excellent",
+    "chinese": "出色的",
+    "audio_file": "7a3af604e52e2577.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "excited",
+    "chinese": "兴奋的",
+    "audio_file": "7b849a50da92f39d.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "exit",
+    "chinese": "出口",
+    "audio_file": "f24f62eeb789199b.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "expensive",
+    "chinese": "昂贵的",
+    "audio_file": "f384d48efac7ae57.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "explain",
+    "chinese": "解释",
+    "audio_file": "979283b6c70653c5.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "explore",
+    "chinese": "探索",
+    "audio_file": "972c97bdc47dfc8d.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "extinct",
+    "chinese": "灭绝的",
+    "audio_file": "f89f75d0702ca67b.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "factory",
+    "chinese": "工厂",
+    "audio_file": "9549dd6065d01921.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "fall (UK autumn)",
+    "chinese": "落下",
+    "audio_file": "96f223040672ea79.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "fall over",
+    "chinese": "摔倒",
+    "audio_file": "9ba66d9ef889844d.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "far",
+    "chinese": "远的",
+    "audio_file": "17d965747c701d6f.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "fast",
+    "chinese": "快速地",
+    "audio_file": "31d4541b8e926a24.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "February",
+    "chinese": "二月",
+    "audio_file": "659e59f062c75f81.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "feel",
+    "chinese": "感觉",
+    "audio_file": "88698b6a4506539f.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "festival",
+    "chinese": "节日",
+    "audio_file": "ae8fc55ccdc61c98.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "fetch",
+    "chinese": "拿来",
+    "audio_file": "5374034a40c8d680.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "a few",
+    "chinese": "几个",
+    "audio_file": "d32356ae23a43913.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "file (as in open and close a file)",
+    "chinese": "文件",
+    "audio_file": "8c7dd922ad47494f.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "find out",
+    "chinese": "查出",
+    "audio_file": "5ad2c5b490a54c67.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "finger",
+    "chinese": "手指",
+    "audio_file": "e7efda40b1c94805.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "finish",
+    "chinese": "结束",
+    "audio_file": "3248bc7547ce97b2.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "fire",
+    "chinese": "火",
+    "audio_file": "015f28b9df1bdd36.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "fire engine (US fire truck)",
+    "chinese": "消防车",
+    "audio_file": "64cd2db408bdab31.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "fire fighter",
+    "chinese": "消防员",
+    "audio_file": "9c00d42793a43e8f.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "fire station",
+    "chinese": "消防局",
+    "audio_file": "d00ebc44df334ca3.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "flag",
+    "chinese": "旗帜",
+    "audio_file": "327a6c4304ad5938.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "flashlight (UK torch)",
+    "chinese": "手电筒",
+    "audio_file": "d051e0c9448d3764.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "flour",
+    "chinese": "面粉",
+    "audio_file": "61f2982918cfbafc.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "fog",
+    "chinese": "多雾路段",
+    "audio_file": "3811727de5b0ddf6.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "foggy",
+    "chinese": "有雾的",
+    "audio_file": "f666a8be6b2e0c1f.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "follow",
+    "chinese": "跟随",
+    "audio_file": "a4010945e4bd924b.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "for prep of time forget",
+    "chinese": "为了准备时间忘记",
+    "audio_file": "e85a7c9992bebcfb.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "fork",
+    "chinese": "叉",
+    "audio_file": "b2fcb4ba898f4797.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "Frank",
+    "chinese": "坦率",
+    "audio_file": "f9dc77cece7fa16f.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "fridge",
+    "chinese": "冰箱",
+    "audio_file": "2be977f3ff92dd10.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "friendly",
+    "chinese": "友好的",
+    "audio_file": "be68582f77aecadc.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "frightening",
+    "chinese": "令人恐惧的",
+    "audio_file": "8e608ab527b56d43.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "front",
+    "chinese": "正面",
+    "audio_file": "e6ec529ba185279a.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "full",
+    "chinese": "满的",
+    "audio_file": "e9dc924f238fa6cc.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "fur",
+    "chinese": "毛皮",
+    "audio_file": "40bc2c3326dcc0c9.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "furry",
+    "chinese": "毛茸茸的",
+    "audio_file": "f96af09d8bd35393.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "future",
+    "chinese": "未来",
+    "audio_file": "da907a1b8f74e692.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "gate",
+    "chinese": "门",
+    "audio_file": "63d721d24d2dde77.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "geography",
+    "chinese": "地理",
+    "audio_file": "996dfb007ba9e551.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "George",
+    "chinese": "乔治",
+    "audio_file": "578ad8e10dc4edb5.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "get to",
+    "chinese": "到达",
+    "audio_file": "59ee7a5a0d326ed9.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "glass",
+    "chinese": "玻璃",
+    "audio_file": "2570c919f5ef1d70.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "glove",
+    "chinese": "手套",
+    "audio_file": "ea9e801b0d806f23.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "glue",
+    "chinese": "胶水",
+    "audio_file": "1ed4de8986cf6e4a.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "go away",
+    "chinese": "离开",
+    "audio_file": "158ee90f12f717dc.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "go out",
+    "chinese": "出去",
+    "audio_file": "f0ebc176acb87aaf.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "gold",
+    "chinese": "金子",
+    "audio_file": "e07e81c20cf5935f.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "golf",
+    "chinese": "高尔夫球",
+    "audio_file": "c6cf642b8f1cac11.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "group",
+    "chinese": "团体",
+    "audio_file": "db0f6f37ebeb6ea0.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "guess",
+    "chinese": "猜测",
+    "audio_file": "4142047431f5f974.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "gym",
+    "chinese": "健身房",
+    "audio_file": "e4d81f13f96fb9bc.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "half",
+    "chinese": "一半",
+    "audio_file": "7afe399f1415b137.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "happen",
+    "chinese": "发生",
+    "audio_file": "00abeeeae7a8ed66.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "hard",
+    "chinese": "难的",
+    "audio_file": "d64a84456adc959f.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "Harry",
+    "chinese": "哈利",
+    "audio_file": "db05833c29e688b5.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "hate",
+    "chinese": "恨",
+    "audio_file": "0e609404e53b251f.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "hear",
+    "chinese": "听到",
+    "audio_file": "613d5e4f4cd6c686.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "heavy",
+    "chinese": "重的",
+    "audio_file": "7cfe64ea44dc3bbe.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "Helen",
+    "chinese": "海伦",
+    "audio_file": "29e00d3659d1c5e7.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "high",
+    "chinese": "高的",
+    "audio_file": "8d966b2253a91708.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "hill",
+    "chinese": "爬坡道",
+    "audio_file": "debaee4affbeaba9.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "history",
+    "chinese": "历史",
+    "audio_file": "3cd15f8f2940aff8.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "hole",
+    "chinese": "洞",
+    "audio_file": "de97e75e5b460452.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "Holly",
+    "chinese": "冬青",
+    "audio_file": "c75c2126061533bf.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "honey",
+    "chinese": "蜂蜜",
+    "audio_file": "b60eb83bf533eecf.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "hope",
+    "chinese": "希望",
+    "audio_file": "8c728e685ddde9f7.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "horrible",
+    "chinese": "可怕",
+    "audio_file": "dda10458ea5ff9de.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "hotel",
+    "chinese": "酒店",
+    "audio_file": "e919c49d5f0cd737.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "hour",
+    "chinese": "小时",
+    "audio_file": "896c55cc5e46fab3.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "how long",
+    "chinese": "多长时间",
+    "audio_file": "849ba522751a8c63.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "hurry",
+    "chinese": "匆忙",
+    "audio_file": "79ac065e81b44be3.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "husband",
+    "chinese": "丈夫",
+    "audio_file": "a2d4100de5a4c446.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "if",
+    "chinese": "如果",
+    "audio_file": "39c8942e1038872a.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "if you want",
+    "chinese": "如果你想",
+    "audio_file": "c71240a42a7f4f94.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "important",
+    "chinese": "重要的",
+    "audio_file": "48818f3da3d36ad7.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "improve",
+    "chinese": "提升",
+    "audio_file": "33c0478b996aa768.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "in a minute",
+    "chinese": "一分钟后",
+    "audio_file": "43d6cb1b3fee4835.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "information",
+    "chinese": "信息",
+    "audio_file": "bb3ccd5881d65144.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "insect",
+    "chinese": "昆虫",
+    "audio_file": "dce41a93f7edb175.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "instead",
+    "chinese": "反而",
+    "audio_file": "8dee49165153fc68.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "instrument",
+    "chinese": "乐器",
+    "audio_file": "2d083cc4d6c7dfd9.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "interested",
+    "chinese": "感兴趣的",
+    "audio_file": "02641a6848cacbd6.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "interesting",
+    "chinese": "有趣的",
+    "audio_file": "a76637b62ea99acd.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "invent",
+    "chinese": "发明",
+    "audio_file": "1b9dc195c72d59c6.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "invitation",
+    "chinese": "邀请函",
+    "audio_file": "7341db8eb3e39bdb.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "jam",
+    "chinese": "果酱",
+    "audio_file": "5275cb415e5bc394.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "January",
+    "chinese": "一月",
+    "audio_file": "86f5978d9b80124f.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "job",
+    "chinese": "工作",
+    "audio_file": "9dddd5ce1b1375bc.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "join (a club)",
+    "chinese": "加入",
+    "audio_file": "731b886d80d2ea13.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "journalist",
+    "chinese": "记者",
+    "audio_file": "82ad21b5762c06c3.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "journey",
+    "chinese": "旅行",
+    "audio_file": "98dc0157e90a9b28.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "July",
+    "chinese": "七月",
+    "audio_file": "1b539f6f34e8503c.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "June",
+    "chinese": "六月",
+    "audio_file": "688937ccaf2a2b0c.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "just",
+    "chinese": "只是",
+    "audio_file": "8134b84030cca528.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "Katy",
+    "chinese": "凯蒂",
+    "audio_file": "3225d24edf6b0aec.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "keep",
+    "chinese": "保持",
+    "audio_file": "18ccf61d533b600b.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "key",
+    "chinese": "钥匙",
+    "audio_file": "3c6e0b8a9c15224a.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "kilometre (US kilometer)",
+    "chinese": "公里",
+    "audio_file": "1921596d8e6f8748.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "kind",
+    "chinese": "种类",
+    "audio_file": "d939aaf7d2291c6f.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "king",
+    "chinese": "国王",
+    "audio_file": "b2086154f101464a.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "knee",
+    "chinese": "膝盖",
+    "audio_file": "22b84b6e35ace0cd.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "knife",
+    "chinese": "刀",
+    "audio_file": "4cbfe67340292113.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "land",
+    "chinese": "土地",
+    "audio_file": "87cf962b35146c21.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "language",
+    "chinese": "语言",
+    "audio_file": "8512ae7d57b13962.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "large",
+    "chinese": "大的",
+    "audio_file": "afacdb0a401ccdf6.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "late",
+    "chinese": "晚的",
+    "audio_file": "f2c67381db28fa11.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "later",
+    "chinese": "之后",
+    "audio_file": "c18788c2f274c779.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "lazy",
+    "chinese": "懒惰的",
+    "audio_file": "0ffe34b4e04c2b28.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "leave",
+    "chinese": "离开",
+    "audio_file": "6c374e70334072ae.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "left (as in direction)",
+    "chinese": "左边",
+    "audio_file": "811882fecd5c7618.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "let",
+    "chinese": "让",
+    "audio_file": "e1686078d1b60d35.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "letter (as in mail)",
+    "chinese": "信",
+    "audio_file": "f5b75010ea8a54b9.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "lie (as in lie down)",
+    "chinese": "说谎",
+    "audio_file": "2a2f953aacab0ef3.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "lift (ride)",
+    "chinese": "举起",
+    "audio_file": "969beeb6d80f0d8d.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "lift",
+    "chinese": "举起",
+    "audio_file": "969beeb6d80f0d8d.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "light",
+    "chinese": "光",
+    "audio_file": "2ac43aa43bf473f9.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "a little",
+    "chinese": "一点",
+    "audio_file": "225ca0b4604f639c.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "London",
+    "chinese": "伦敦",
+    "audio_file": "59ead8d1e124ccfb.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "look after",
+    "chinese": "照顾",
+    "audio_file": "50d5b9b739ca88d2.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "look like",
+    "chinese": "看起来像",
+    "audio_file": "c8845ad6a3fb9f3a.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "lovely",
+    "chinese": "迷人的",
+    "audio_file": "061fba5bdfc076bb.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "low",
+    "chinese": "低的",
+    "audio_file": "53cced8d281a1a0a.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "lucky",
+    "chinese": "幸运的",
+    "audio_file": "339a65e93299ad8d.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "magazine",
+    "chinese": "杂志",
+    "audio_file": "4014e2d4452343d7.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "make sure",
+    "chinese": "确保",
+    "audio_file": "c8fa7fbac605c655.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "manager",
+    "chinese": "经理",
+    "audio_file": "1d0258c2440a8d19.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "March",
+    "chinese": "行进",
+    "audio_file": "fa3e5edac607a88d.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "married",
+    "chinese": "已婚",
+    "audio_file": "4750ac30159ebf45.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "match (football)",
+    "chinese": "匹配",
+    "audio_file": "e3cc92c14a5e6dd1.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "maths (US math)",
+    "chinese": "数学",
+    "audio_file": "d939e7a6b17e374c.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "May",
+    "chinese": "可能",
+    "audio_file": "195fbb57ffe74497.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "meal",
+    "chinese": "一顿饭",
+    "audio_file": "d9ed7694f0cdbc0c.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "mechanic",
+    "chinese": "机械",
+    "audio_file": "bcd8b14bbfc1b0ae.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "medicine",
+    "chinese": "药品",
+    "audio_file": "d9e5d212320e7d96.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "meet",
+    "chinese": "见面",
+    "audio_file": "df421bd994d485f5.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "meeting",
+    "chinese": "会议",
+    "audio_file": "d48788168076b999.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "member",
+    "chinese": "成员",
+    "audio_file": "aa08769cdcb26674.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "metal",
+    "chinese": "金属",
+    "audio_file": "86094b61cb9f63b7.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "Michael",
+    "chinese": "迈克尔",
+    "audio_file": "3e06fa3927cbdf4e.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "midday",
+    "chinese": "正午",
+    "audio_file": "a1388c34abd4f671.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "middle",
+    "chinese": "中间",
+    "audio_file": "4a548addbfb239bb.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "midnight",
+    "chinese": "午夜",
+    "audio_file": "1506aeeb8c3a699b.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "might",
+    "chinese": "可能",
+    "audio_file": "ad88adbdac50799a.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "million",
+    "chinese": "百万",
+    "audio_file": "bafd00e88d3bc205.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "mind",
+    "chinese": "头脑",
+    "audio_file": "ca4152fe6cdd26b7.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "minute",
+    "chinese": "分钟",
+    "audio_file": "0a7d55be9d12a369.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "missing",
+    "chinese": "丢失的",
+    "audio_file": "ea21841da70e6405.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "mix",
+    "chinese": "混合",
+    "audio_file": "da386e629171b833.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "money",
+    "chinese": "钱",
+    "audio_file": "9726255eec083aa5.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "month",
+    "chinese": "月",
+    "audio_file": "7436f942d5ea836c.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "motorway",
+    "chinese": "高速公路",
+    "audio_file": "b2092b8d0aada160.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "much",
+    "chinese": "很多",
+    "audio_file": "ef56b0b0ddb93c28.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "museum",
+    "chinese": "博物馆",
+    "audio_file": "eb0ea0bc6c91e1e8.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "necklace",
+    "chinese": "项链",
+    "audio_file": "bb7409e82cb01b88.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "nest",
+    "chinese": "巢",
+    "audio_file": "99475e3ed1620ac4.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "news",
+    "chinese": "消息",
+    "audio_file": "508c75c8507a2ae5.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "newspaper",
+    "chinese": "报纸",
+    "audio_file": "69da234ae73a51cb.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "next",
+    "chinese": "下一个",
+    "audio_file": "d0cab90d8d20d57e.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "no problem",
+    "chinese": "没问题",
+    "audio_file": "3d3d9e5241728f93.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "noisy",
+    "chinese": "嘈杂",
+    "audio_file": "5f2bc8db49c998db.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "no-one",
+    "chinese": "没有人",
+    "audio_file": "689274002237a482.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "north",
+    "chinese": "北",
+    "audio_file": "8d8d1437907bca79.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "November",
+    "chinese": "十一月",
+    "audio_file": "7e823b37564da492.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "nowhere",
+    "chinese": "无处",
+    "audio_file": "03840d46dad93250.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "ocean",
+    "chinese": "海洋",
+    "audio_file": "45d20b1d2cc2d52e.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "October",
+    "chinese": "十月",
+    "audio_file": "eca60ae8611369fe.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "octopus",
+    "chinese": "章鱼",
+    "audio_file": "fcf1eed859669962.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "of course",
+    "chinese": "当然",
+    "audio_file": "0ca964bb74251fce.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "office",
+    "chinese": "办公室",
+    "audio_file": "e72f4545eb68c96c.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "Oliver",
+    "chinese": "奥利弗",
+    "audio_file": "27090706d42a2525.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "olives",
+    "chinese": "橄榄",
+    "audio_file": "db79e16594b0f8d2.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "once",
+    "chinese": "一次",
+    "audio_file": "e2eff6c2dafd909d.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "online",
+    "chinese": "在线的",
+    "audio_file": "7f46165474d11ee5.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "other",
+    "chinese": "其他",
+    "audio_file": "795f3202b17cb6bc.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "oven",
+    "chinese": "烤箱",
+    "audio_file": "2eb6869481471d70.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "over",
+    "chinese": "超过",
+    "audio_file": "3b759a9ca8023456.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "p.m. (for time)",
+    "chinese": "下午",
+    "audio_file": "e66e8a1a8f96a080.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "pajamas (UK pyjamas)",
+    "chinese": "睡衣",
+    "audio_file": "fa3f7aa5d0f65346.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "passenger",
+    "chinese": "乘客",
+    "audio_file": "4e85eddf886882ca.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "past",
+    "chinese": "过去的",
+    "audio_file": "68e2d83709f31793.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "path",
+    "chinese": "小路",
+    "audio_file": "d6fe1d0be6347b8e.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "pepper",
+    "chinese": "胡椒",
+    "audio_file": "b3f952d5d9adea6f.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "perhaps",
+    "chinese": "也许",
+    "audio_file": "48643de4e709ff78.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "photographer",
+    "chinese": "摄影师",
+    "audio_file": "ab5b03817caa01c4.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "piece",
+    "chinese": "片",
+    "audio_file": "5ae347410caf4613.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "pilot",
+    "chinese": "飞行员",
+    "audio_file": "a3452f94738cbeef.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "pizza",
+    "chinese": "比萨",
+    "audio_file": "7cf2db5ec261a0fa.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "planet",
+    "chinese": "行星",
+    "audio_file": "5f295bce38d311f2.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "plastic",
+    "chinese": "塑料",
+    "audio_file": "3f01a108d7ed6079.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "platform",
+    "chinese": "平台",
+    "audio_file": "34a6e5d64ade17ef.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "pleased",
+    "chinese": "高兴",
+    "audio_file": "9be78c2b7882913b.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "pocket",
+    "chinese": "口袋",
+    "audio_file": "9aa91f81de7610b3.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "police officer",
+    "chinese": "警官",
+    "audio_file": "3c11a4ad969604de.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "police station",
+    "chinese": "警察局",
+    "audio_file": "b0ac271cd511270d.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "pond",
+    "chinese": "池塘",
+    "audio_file": "d873154f06723343.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "poor",
+    "chinese": "贫穷的",
+    "audio_file": "5cffaf9375c0ef1d.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "pop music",
+    "chinese": "流行音乐",
+    "audio_file": "56b810548d5c105c.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "popular",
+    "chinese": "受欢迎的",
+    "audio_file": "5fa3852b08951fcd.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "post",
+    "chinese": "邮政",
+    "audio_file": "42b90196b487c540.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "post office",
+    "chinese": "邮局",
+    "audio_file": "6c337334520251d8.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "postcard",
+    "chinese": "明信片",
+    "audio_file": "ae76ff49d7dc8473.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "prefer",
+    "chinese": "更喜欢",
+    "audio_file": "02a048690ba283e3.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "prepare",
+    "chinese": "准备",
+    "audio_file": "0ee63ccea22773b7.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "prize",
+    "chinese": "奖",
+    "audio_file": "4fcdcb5e7b6131e5.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "problem",
+    "chinese": "问题",
+    "audio_file": "0861a099e9593791.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "programme (US program)",
+    "chinese": "程序",
+    "audio_file": "e82324fc57b0a4ff.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "project",
+    "chinese": "项目",
+    "audio_file": "46f86faa6bbf9ac9.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "pull",
+    "chinese": "拉",
+    "audio_file": "f43dff9a0dc54f06.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "push",
+    "chinese": "推",
+    "audio_file": "21a361d96e3e13f5.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "puzzle",
+    "chinese": "谜",
+    "audio_file": "2d8aa42a0347c2d6.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "pyjamas (US pajamas)",
+    "chinese": "睡衣",
+    "audio_file": "8bed01677b0d8eb3.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "pyramid",
+    "chinese": "金字塔",
+    "audio_file": "437233c74e25fe50.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "quarter",
+    "chinese": "四分之一",
+    "audio_file": "ac9e2504b3cf2cad.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "queen",
+    "chinese": "女王",
+    "audio_file": "72545f3f86fad045.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "quite",
+    "chinese": "相当",
+    "audio_file": "1a505b46f54bdd13.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "quiz",
+    "chinese": "测验",
+    "audio_file": "da89e38d2085d08a.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "race",
+    "chinese": "种族",
+    "audio_file": "2e2a7a2e57d1578b.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "racing (car; bike)",
+    "chinese": "赛车",
+    "audio_file": "6210325f74de8222.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "railway",
+    "chinese": "铁路",
+    "audio_file": "0edf49df2720a145.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "ready",
+    "chinese": "准备好",
+    "audio_file": "b2fdab230a2c39f3.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "remember",
+    "chinese": "记住",
+    "audio_file": "dc3c99bb4e249a95.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "repair",
+    "chinese": "维修",
+    "audio_file": "9ab776b93b3c6bbb.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "repeat",
+    "chinese": "重复",
+    "audio_file": "32cf6da134a8b268.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "restaurant",
+    "chinese": "餐厅",
+    "audio_file": "6d4b62960a6aa2b1.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "rich",
+    "chinese": "富有的",
+    "audio_file": "e7f4f8bd246c2354.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "Richard",
+    "chinese": "理查德",
+    "audio_file": "c51c8bbd9e8c8bc4.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "right",
+    "chinese": "正确的",
+    "audio_file": "7c4f29407893c334.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "right (as in direction)",
+    "chinese": "正确的",
+    "audio_file": "7c4f29407893c334.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "ring",
+    "chinese": "戒指",
+    "audio_file": "1a5df958e0f29d35.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "Robert",
+    "chinese": "罗伯特",
+    "audio_file": "4ffe35db90d94c60.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "rock music",
+    "chinese": "摇滚音乐",
+    "audio_file": "275bb66de8c563a5.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "rocket",
+    "chinese": "火箭",
+    "audio_file": "fdfedc01c66e9ea2.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "rucksack (US backpack)",
+    "chinese": "背包",
+    "audio_file": "4c70c8de8913a76d.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "salt",
+    "chinese": "盐",
+    "audio_file": "ceb20772e0c9d240.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "same",
+    "chinese": "相同的",
+    "audio_file": "51037a4a37730f52.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "Sarah",
+    "chinese": "莎拉",
+    "audio_file": "28e5481a80aa2bd1.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "save",
+    "chinese": "节省",
+    "audio_file": "43781db5c40ecc39.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "science",
+    "chinese": "科学",
+    "audio_file": "fb5c7f9bb4b32ce2.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "scissors",
+    "chinese": "剪刀",
+    "audio_file": "7d89153387e0f3ff.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "score",
+    "chinese": "分数",
+    "audio_file": "ca1cd3c3055991bf.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "screen",
+    "chinese": "屏幕",
+    "audio_file": "599eba19aa93a929.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "search",
+    "chinese": "搜索",
+    "audio_file": "06a943c59f33a34b.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "secret",
+    "chinese": "秘密",
+    "audio_file": "5ebe2294ecd0e0f0.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "sell",
+    "chinese": "卖",
+    "audio_file": "8325324b47e1e62a.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "September",
+    "chinese": "九月",
+    "audio_file": "cc5d90569e1c8313.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "several",
+    "chinese": "一些",
+    "audio_file": "c902a61794c63ac7.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "shampoo",
+    "chinese": "洗发水",
+    "audio_file": "186764a607df448c.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "shelf",
+    "chinese": "架子",
+    "audio_file": "1f6503307f1eb3ea.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "should",
+    "chinese": "应该",
+    "audio_file": "55f195813a158d82.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "silver",
+    "chinese": "银",
+    "audio_file": "97f014516561ef48.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "since",
+    "chinese": "自从",
+    "audio_file": "50324905c471f3d4.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "singer",
+    "chinese": "歌手",
+    "audio_file": "05011fc72802a068.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "ski",
+    "chinese": "滑雪",
+    "audio_file": "51d1f7159e9bd983.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "skyscraper",
+    "chinese": "摩天大楼",
+    "audio_file": "ff80dfbce0028779.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "sledge",
+    "chinese": "雪橇",
+    "audio_file": "abb647c22e347e6b.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "smell",
+    "chinese": "闻",
+    "audio_file": "d938ad5cbe68bec4.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "snack",
+    "chinese": "小吃",
+    "audio_file": "287c683aedfe88bb.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "snowball",
+    "chinese": "滚雪球",
+    "audio_file": "3b9787927ecbf1b5.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "snowboard",
+    "chinese": "滑雪板",
+    "audio_file": "73271d08680510a9.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "snowboarding",
+    "chinese": "单板滑雪",
+    "audio_file": "65109486fd7435ca.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "snowman",
+    "chinese": "雪人",
+    "audio_file": "b932a6ec0f3bef99.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "so",
+    "chinese": "所以",
+    "audio_file": "b807023f87e63b8a.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "soap",
+    "chinese": "肥皂",
+    "audio_file": "cbf4e0b797105176.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "soft",
+    "chinese": "柔软的",
+    "audio_file": "dc58a7971816b41f.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "somewhere",
+    "chinese": "某处",
+    "audio_file": "59ea424568c393a3.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "soon",
+    "chinese": "很快",
+    "audio_file": "cd9bd96e12a2897f.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "Sophia",
+    "chinese": "索菲亚",
+    "audio_file": "ba15a18cd3a8fb56.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "sore",
+    "chinese": "疮",
+    "audio_file": "a187f64b4907d319.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "sound",
+    "chinese": "声音",
+    "audio_file": "0b8263d341de01f7.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "south",
+    "chinese": "南",
+    "audio_file": "50fd76e33fe5b961.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "space",
+    "chinese": "空间",
+    "audio_file": "ff2364a0be3d20e4.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "spaceship",
+    "chinese": "飞船",
+    "audio_file": "07f8318f740f73cb.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "speak",
+    "chinese": "说话",
+    "audio_file": "69378f8c051ff8c5.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "special",
+    "chinese": "特别的",
+    "audio_file": "0bd6506986ec42e7.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "spend",
+    "chinese": "花费",
+    "audio_file": "d998ff3a339f9318.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "spoon",
+    "chinese": "勺子",
+    "audio_file": "4b8e23084e0f4d55.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "spot",
+    "chinese": "点",
+    "audio_file": "b2e189abf85e809a.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "spotted",
+    "chinese": "斑",
+    "audio_file": "5177d121d52eb809.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "spring",
+    "chinese": "春天",
+    "audio_file": "2a2d595e6ed9a0b2.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "stadium",
+    "chinese": "体育场",
+    "audio_file": "1424ca49c88f7234.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "stage (theatre)",
+    "chinese": "阶段",
+    "audio_file": "9a8c2b9d518bc163.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "stamp",
+    "chinese": "邮票",
+    "audio_file": "96b8c78de832e9d7.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "stay",
+    "chinese": "停留",
+    "audio_file": "99be1ee67a013709.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "step",
+    "chinese": "步",
+    "audio_file": "2764ca9d34e90313.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "still",
+    "chinese": "仍然",
+    "audio_file": "df55340f75b5da45.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "stone",
+    "chinese": "石头",
+    "audio_file": "0a840ef45467fb39.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "storm",
+    "chinese": "风暴",
+    "audio_file": "849c829d658baaef.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "straight on",
+    "chinese": "直接",
+    "audio_file": "ec35753d7eb596b1.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "strange",
+    "chinese": "奇怪的",
+    "audio_file": "73a6fcb016535503.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "strawberry",
+    "chinese": "草莓",
+    "audio_file": "495bf9840649ee1e.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "stream",
+    "chinese": "溪流",
+    "audio_file": "f7b44cfafd5c5222.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "stripe",
+    "chinese": "条纹",
+    "audio_file": "8a98c86b49d93794.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "striped",
+    "chinese": "有条纹的",
+    "audio_file": "615226bc5d8900fd.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "student",
+    "chinese": "学生",
+    "audio_file": "cd73502828457d15.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "study",
+    "chinese": "学习",
+    "audio_file": "2cd1c6ecec2c6d90.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "subject",
+    "chinese": "主题",
+    "audio_file": "b5e3374e43f65448.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "such",
+    "chinese": "这样的",
+    "audio_file": "6f129a2e6e103ea3.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "suddenly",
+    "chinese": "突然",
+    "audio_file": "42ac3f9444573b89.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "sugar",
+    "chinese": "糖",
+    "audio_file": "ada15bd1a5ddf0b7.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "suitcase",
+    "chinese": "手提箱",
+    "audio_file": "15b7493d0730c0e7.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "summer",
+    "chinese": "夏天",
+    "audio_file": "6b1628b016dff46e.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "sunglasses",
+    "chinese": "太阳镜",
+    "audio_file": "2cc465e3eef5bff0.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "sure",
+    "chinese": "当然",
+    "audio_file": "d5e1f5a7f2fe3dab.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "surname",
+    "chinese": "姓",
+    "audio_file": "e8911889a7780cda.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "surprise",
+    "chinese": "惊喜",
+    "audio_file": "b467e81969c71b4c.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "swan",
+    "chinese": "天鹅",
+    "audio_file": "fb52a20dbf0f8d7b.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "swing",
+    "chinese": "摇摆",
+    "audio_file": "ce04e521db2557ac.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "take (as in time e.g. it takes 20 minutes)",
+    "chinese": "拿",
+    "audio_file": "600d6af0f320a021.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "taste",
+    "chinese": "品尝",
+    "audio_file": "cad1c068cb62b068.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "taxi",
+    "chinese": "出租车",
+    "audio_file": "35e768d3043c55b5.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "team",
+    "chinese": "团队",
+    "audio_file": "f894427cc1c571f7.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "telephone",
+    "chinese": "电话",
+    "audio_file": "b9bb7e7b00a4ba1e.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "tent",
+    "chinese": "帐篷",
+    "audio_file": "7b65dcf020279efe.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "thank",
+    "chinese": "感谢",
+    "audio_file": "f5ab96926a6a561a.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "theatre (US theater)",
+    "chinese": "剧院",
+    "audio_file": "a0ff692db630abb3.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "thousand",
+    "chinese": "千",
+    "audio_file": "41b1df40c9b9692c.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "through",
+    "chinese": "通过",
+    "audio_file": "ca23ba209cc33678.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "tidy",
+    "chinese": "整齐的",
+    "audio_file": "3513bf8fe595c018.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "time",
+    "chinese": "时间",
+    "audio_file": "07cc694b9b3fc636.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "timetable",
+    "chinese": "时间表",
+    "audio_file": "0cff3ba35674014e.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "toe",
+    "chinese": "脚趾",
+    "audio_file": "38e60015f4763be1.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "together",
+    "chinese": "一起",
+    "audio_file": "db3f3946ba271882.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "tomorrow",
+    "chinese": "明天",
+    "audio_file": "c23946c050885b2d.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "tonight",
+    "chinese": "今晚",
+    "audio_file": "5f056dbdb4e73cbe.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "torch (US flashlight)",
+    "chinese": "火炬",
+    "audio_file": "69756f3cd326cb18.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "tortoise",
+    "chinese": "龟",
+    "audio_file": "c60346dca558858a.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "touch",
+    "chinese": "触碰",
+    "audio_file": "b96ba508e3690f51.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "tour",
+    "chinese": "旅游",
+    "audio_file": "f0a4025b3b49b3e2.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "traffic",
+    "chinese": "交通",
+    "audio_file": "7c116ff7719dad10.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "trainers",
+    "chinese": "培训师",
+    "audio_file": "7a9f8a960ea3190b.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "tune",
+    "chinese": "调",
+    "audio_file": "7ce1689483acd43d.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "turn",
+    "chinese": "转动",
+    "audio_file": "a850c17cba5eb16b.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "turn off",
+    "chinese": "关",
+    "audio_file": "546fa8c1eeaa45d4.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "turn on",
+    "chinese": "打开",
+    "audio_file": "b197375d9ebab835.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "twice",
+    "chinese": "两次",
+    "audio_file": "acab8a08d87398bb.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "tyre (US tire)",
+    "chinese": "胎",
+    "audio_file": "8cf1a2922e963f27.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "umbrella",
+    "chinese": "伞",
+    "audio_file": "b74012a0fbca4af4.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "unfriendly",
+    "chinese": "不友好的",
+    "audio_file": "1c1d719d29db0c39.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "unhappy",
+    "chinese": "不高兴",
+    "audio_file": "881bea88a78db4d6.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "uniform",
+    "chinese": "制服",
+    "audio_file": "a489ffed938ef1b9.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "university",
+    "chinese": "大学",
+    "audio_file": "10238d6114894bb5.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "unkind",
+    "chinese": "不友善的",
+    "audio_file": "5afeea0e7aa909d3.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "untidy",
+    "chinese": "不整洁",
+    "audio_file": "5e07577a40fd4774.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "until",
+    "chinese": "直到",
+    "audio_file": "3103a7d8f63cb184.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "unusual",
+    "chinese": "异常",
+    "audio_file": "6bd0973b83901130.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "use",
+    "chinese": "使用",
+    "audio_file": "5ef76d30bf923290.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "usually",
+    "chinese": "通常",
+    "audio_file": "4a1dbf51be367295.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "view",
+    "chinese": "看法",
+    "audio_file": "1bda80f2be4d3658.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "violin",
+    "chinese": "小提琴",
+    "audio_file": "baed9eee805dceb1.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "visit",
+    "chinese": "访问",
+    "audio_file": "9de70f6546b2452f.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "volleyball",
+    "chinese": "排球",
+    "audio_file": "91111fb1f8b08843.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "waiter",
+    "chinese": "服务员",
+    "audio_file": "f64cff138020a206.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "warm",
+    "chinese": "温暖的",
+    "audio_file": "a957a3153eb7126b.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "way",
+    "chinese": "方式",
+    "audio_file": "c83b72dd001482ce.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "west",
+    "chinese": "西方",
+    "audio_file": "da4f0053a5c13882.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "wheel",
+    "chinese": "车轮",
+    "audio_file": "5eda0ea98768e91b.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "while",
+    "chinese": "尽管",
+    "audio_file": "901889f4f34f8ca1.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "whisper",
+    "chinese": "耳语",
+    "audio_file": "24412aa365632abd.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "whistle",
+    "chinese": "哨",
+    "audio_file": "1c6819d0309c7f04.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "wife",
+    "chinese": "妻子",
+    "audio_file": "bb4694a26a39df75.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "wifi",
+    "chinese": "无线上网",
+    "audio_file": "5f27dde10bfa8ada.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "wild",
+    "chinese": "荒野",
+    "audio_file": "48fa4c38043122c0.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "will",
+    "chinese": "将要",
+    "audio_file": "18218139eec55d83.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "William",
+    "chinese": "威廉",
+    "audio_file": "604c8dd5066ee305.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "win",
+    "chinese": "赢",
+    "audio_file": "0b08bd98d279b888.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "wing",
+    "chinese": "翼",
+    "audio_file": "3328e4f7fbcce951.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "winner",
+    "chinese": "优胜者",
+    "audio_file": "978f6f608df5279d.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "winter",
+    "chinese": "冬天",
+    "audio_file": "f6432274349b5cb9.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "wish",
+    "chinese": "希望",
+    "audio_file": "27e76ef6b60400df.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "without",
+    "chinese": "没有",
+    "audio_file": "fc0cb42fe6c10693.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "wonderful",
+    "chinese": "精彩的",
+    "audio_file": "9f608aaed334be3b.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "wood",
+    "chinese": "木头",
+    "audio_file": "22811dd94d65037e.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "wool",
+    "chinese": "羊毛",
+    "audio_file": "27a18ca062a4121b.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "worried",
+    "chinese": "担心",
+    "audio_file": "00285b01ad3ee329.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "yoghurt",
+    "chinese": "酸奶",
+    "audio_file": "19befa1599979552.mp3",
+    "level": "extended",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "you’re welcome",
+    "chinese": "不客气",
+    "audio_file": "d7c52838b3f2af00.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "x-ray",
+    "chinese": "X射线",
+    "audio_file": "369d3da536d00ff2.mp3",
+    "level": "tricky",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "yet",
+    "chinese": "然而",
+    "audio_file": "b8284650440a8e32.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  },
+  {
+    "english": "zero",
+    "chinese": "零",
+    "audio_file": "d02c4c4cde7ae762.mp3",
+    "level": "core",
+    "source": "Cambridge English A2 Flyers word list (official PDF)"
+  }
+]
