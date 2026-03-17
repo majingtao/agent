@@ -1,0 +1,94 @@
+{
+  "version": "1.0",
+  "description": "Index of available Cambridge Flyers speaking banks.",
+  "banks": [
+    {
+      "bank_id": "go-flyers-test1-speaking",
+      "title": "Go Flyers Test 1 Speaking",
+      "source": "Go Flyers Teacher's Notes",
+      "level": "flyers",
+      "parts": [
+        {
+          "part_id": "part_0",
+          "part_name": "Opening questions",
+          "part_type": "opening_personal_info"
+        },
+        {
+          "part_id": "part_1",
+          "part_name": "Find the differences",
+          "part_type": "find_the_differences",
+          "source_images": [
+            "assets/test1/test1-part1-find-the-differences.jpg"
+          ]
+        },
+        {
+          "part_id": "part_2",
+          "part_name": "Information exchange",
+          "part_type": "information_exchange",
+          "source_images": [
+            "assets/test1/test1-part2-information-exchange.jpg"
+          ]
+        },
+        {
+          "part_id": "part_3",
+          "part_name": "Tell the story",
+          "part_type": "tell_the_story",
+          "source_images": [
+            "assets/test1/test1-part3-tell-the-story.jpg"
+          ]
+        },
+        {
+          "part_id": "part_4",
+          "part_name": "Personal questions",
+          "part_type": "personal_questions"
+        }
+      ],
+      "file_name": "test1-speaking-bank.json",
+      "status": "ready"
+    },
+    {
+      "bank_id": "go-flyers-test2-speaking",
+      "title": "Go Flyers Test 2 Speaking",
+      "source": "Go Flyers Teacher's Notes",
+      "level": "flyers",
+      "parts": [
+        {
+          "part_id": "part_0",
+          "part_name": "Opening questions",
+          "part_type": "opening_personal_info"
+        },
+        {
+          "part_id": "part_1",
+          "part_name": "Find the differences",
+          "part_type": "find_the_differences",
+          "source_images": [
+            "assets/test2/test2-part1-find-the-differences.jpg"
+          ]
+        },
+        {
+          "part_id": "part_2",
+          "part_name": "Information exchange",
+          "part_type": "information_exchange",
+          "source_images": [
+            "assets/test2/test2-part2-information-exchange.jpg"
+          ]
+        },
+        {
+          "part_id": "part_3",
+          "part_name": "Tell the story",
+          "part_type": "tell_the_story",
+          "source_images": [
+            "assets/test2/test2-part3-tell-the-story.jpg"
+          ]
+        },
+        {
+          "part_id": "part_4",
+          "part_name": "Personal questions",
+          "part_type": "personal_questions"
+        }
+      ],
+      "file_name": "test2-speaking-bank.json",
+      "status": "ready"
+    }
+  ]
+}
