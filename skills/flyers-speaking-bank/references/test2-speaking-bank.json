@@ -1201,7 +1201,10 @@
             "goal_fit",
             "complete_sentence"
           ],
-          "notes": ""
+          "notes": "",
+          "follow_up_reference_answers": [
+            "Yes, I do."
+          ]
         },
         {
           "id": "p4_ex_002",
@@ -1242,7 +1245,10 @@
           "correction_focus": [
             "time_expression"
           ],
-          "notes": ""
+          "notes": "",
+          "follow_up_reference_answers": [
+            "No, I don't."
+          ]
         },
         {
           "id": "p4_ex_003",
@@ -1286,7 +1292,10 @@
             "goal_fit",
             "complete_sentence"
           ],
-          "notes": ""
+          "notes": "",
+          "follow_up_reference_answers": [
+            "Yes, I do."
+          ]
         },
         {
           "id": "p4_ex_004",
@@ -1332,7 +1341,10 @@
             "like_verb_ing",
             "complete_sentence"
           ],
-          "notes": ""
+          "notes": "",
+          "follow_up_reference_answers": [
+            "Yes, I do. I like going swimming."
+          ]
         },
         {
           "id": "p4_ex_005",
@@ -1383,7 +1395,13 @@
             "present_simple",
             "complete_sentence"
           ],
-          "notes": ""
+          "notes": "",
+          "follow_up_reference_answers": [
+            "Yes, I do.",
+            "Yes, I do.",
+            "Yes, I do.",
+            "Yes, I do. I go fishing with my dad."
+          ]
         }
       ],
       "story_frames": [],

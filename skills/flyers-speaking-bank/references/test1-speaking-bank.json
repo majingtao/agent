@@ -1243,7 +1243,10 @@
               "mode": "pattern_based",
               "instruction": "If there is no official or source reference answer, generate a short A2-level full sentence that matches the target pattern."
             }
-          }
+          },
+          "follow_up_reference_answers": [
+            "Yes, I do."
+          ]
         },
         {
           "id": "p4_ex_002",
@@ -1288,7 +1291,10 @@
               "mode": "pattern_based",
               "instruction": "If there is no official or source reference answer, generate a short A2-level full sentence that matches the target pattern."
             }
-          }
+          },
+          "follow_up_reference_answers": [
+            "No, I don't."
+          ]
         },
         {
           "id": "p4_ex_003",
@@ -1334,7 +1340,10 @@
               "mode": "pattern_based",
               "instruction": "If there is no official or source reference answer, generate a short A2-level full sentence that matches the target pattern."
             }
-          }
+          },
+          "follow_up_reference_answers": [
+            "Yes, I do."
+          ]
         },
         {
           "id": "p4_ex_004",
@@ -1381,7 +1390,10 @@
               "mode": "pattern_based",
               "instruction": "If there is no official or source reference answer, generate a short A2-level full sentence that matches the target pattern."
             }
-          }
+          },
+          "follow_up_reference_answers": [
+            "I play football."
+          ]
         },
         {
           "id": "p4_ex_005",
@@ -1431,7 +1443,11 @@
               "mode": "pattern_based",
               "instruction": "If there is no official or source reference answer, generate a short A2-level full sentence that matches the target pattern."
             }
-          }
+          },
+          "follow_up_reference_answers": [
+            "Yes, I do. I play computer games with my friends.",
+            "Yes, I do. I help my mum with the housework."
+          ]
         }
       ],
       "story_frames": [],

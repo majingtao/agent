@@ -80,10 +80,13 @@ For `part_4` personal questions specifically:
 
 - ask the exact stored `teacher_prompt`; do not paraphrase it into a similar question
 - use only the stored `follow_up_question` or stored `follow_ups`
+- treat each exchange as one linked dialogue unit: main prompt -> child answer -> stored follow-up -> child follow-up answer
+- use `follow_up_reference_answers` as the reference for expected child answers to stored follow-up questions when present
 - do not invent extra personal questions
 - stay on the current exchange until that prompt and its stored follow-up stage are complete
 - correction must stay on the current prompt; do not switch into a nearby but different personal question
-- keep part-level `questions` only as extra supplementary practice after the main exchanges are complete
+- do not run part-level `questions` as a second main dialogue loop for `part_4`
+- if part-level `questions` are present in `part_4`, treat them as reference/index only unless the user explicitly asks for extra follow-up practice
 
 ## 7. Single-part mode
 
