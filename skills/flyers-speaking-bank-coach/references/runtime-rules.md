@@ -81,9 +81,13 @@ For `part_4` personal questions specifically:
 - ask the exact stored `teacher_prompt`; do not paraphrase it into a similar question
 - repeat the stored `teacher_prompt` verbatim; prefer exact repetition over any paraphrase
 - do not replace one stored prompt with a nearby prompt about `like doing` or `free time`
+- do not drop key words from the stored prompt such as `usually`
 - use only the stored `follow_up_question` or stored `follow_ups`
 - treat each exchange as one linked dialogue unit: main prompt -> child answer -> stored follow-up -> child follow-up answer
 - use `follow_up_reference_answers` as the reference for expected child answers to stored follow-up questions when present
+- use stored reference answers as the preferred drill answers for `part_4`
+- if the child gives a different but valid answer, you may briefly accept it, but then bring practice back to the stored reference answer
+- do not drift into new people, places, times, frequencies, or details outside the stored reference answer unless the bank explicitly supports them
 - after the child answers the main prompt, ask only the stored follow-up question(s) for that same exchange
 - do not create a new follow-up sequence
 - do not invent extra personal questions
