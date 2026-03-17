@@ -945,17 +945,22 @@
           },
           "answer_support": {
             "priority_answer": {
-              "text": "Michael is very tired. He brushes his teeth and he's getting ready to go to bed.",
+              "text": "",
               "source": "official"
             },
-            "use_priority_answer_first": true,
+            "use_priority_answer_first": false,
             "fallback_answer_rule": {
               "enabled": true,
               "mode": "story_frame_based",
               "instruction": "Generate a short A2-level story sentence using the frame setup and support questions."
             }
           },
-          "notes": ""
+          "notes": "",
+          "story_mode": {
+            "child_describes_first": true,
+            "teacher_setup_is_not_model_answer": true,
+            "full_model_only_after_attempt_or_need": true
+          }
         },
         {
           "frame_id": "p3_f_002",
@@ -983,17 +988,22 @@
           },
           "answer_support": {
             "priority_answer": {
-              "text": "Michael is sleeping and he is dreaming. In his dream, he is in a desert and he is riding a camel. It's very hot and Michael is very thirsty.",
+              "text": "",
               "source": "official"
             },
-            "use_priority_answer_first": true,
+            "use_priority_answer_first": false,
             "fallback_answer_rule": {
               "enabled": true,
               "mode": "story_frame_based",
               "instruction": "Generate a short A2-level story sentence using the frame setup and support questions."
             }
           },
-          "notes": ""
+          "notes": "",
+          "story_mode": {
+            "child_describes_first": true,
+            "teacher_setup_is_not_model_answer": true,
+            "full_model_only_after_attempt_or_need": true
+          }
         },
         {
           "frame_id": "p3_f_003",
@@ -1020,17 +1030,22 @@
           },
           "answer_support": {
             "priority_answer": {
-              "text": "Michael is now on a big bird. Michael is flying in the sky on the bird and he is excited.",
+              "text": "",
               "source": "official"
             },
-            "use_priority_answer_first": true,
+            "use_priority_answer_first": false,
             "fallback_answer_rule": {
               "enabled": true,
               "mode": "story_frame_based",
               "instruction": "Generate a short A2-level story sentence using the frame setup and support questions."
             }
           },
-          "notes": ""
+          "notes": "",
+          "story_mode": {
+            "child_describes_first": true,
+            "teacher_setup_is_not_model_answer": true,
+            "full_model_only_after_attempt_or_need": true
+          }
         },
         {
           "frame_id": "p3_f_004",
@@ -1058,17 +1073,22 @@
           },
           "answer_support": {
             "priority_answer": {
-              "text": "Michael is in space now. He is going to the moon in a rocket. He wants to walk on the moon.",
+              "text": "",
               "source": "official"
             },
-            "use_priority_answer_first": true,
+            "use_priority_answer_first": false,
             "fallback_answer_rule": {
               "enabled": true,
               "mode": "story_frame_based",
               "instruction": "Generate a short A2-level story sentence using the frame setup and support questions."
             }
           },
-          "notes": ""
+          "notes": "",
+          "story_mode": {
+            "child_describes_first": true,
+            "teacher_setup_is_not_model_answer": true,
+            "full_model_only_after_attempt_or_need": true
+          }
         },
         {
           "frame_id": "p3_f_005",
@@ -1095,17 +1115,22 @@
           },
           "answer_support": {
             "priority_answer": {
-              "text": "Michael falls off the bed and wakes up. He was dreaming.",
+              "text": "",
               "source": "official"
             },
-            "use_priority_answer_first": true,
+            "use_priority_answer_first": false,
             "fallback_answer_rule": {
               "enabled": true,
               "mode": "story_frame_based",
               "instruction": "Generate a short A2-level story sentence using the frame setup and support questions."
             }
           },
-          "notes": ""
+          "notes": "",
+          "story_mode": {
+            "child_describes_first": true,
+            "teacher_setup_is_not_model_answer": true,
+            "full_model_only_after_attempt_or_need": true
+          }
         }
       ]
     },

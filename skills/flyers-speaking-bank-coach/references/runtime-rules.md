@@ -59,9 +59,13 @@ For `information_exchange`:
 For `tell_the_story`:
 
 - each picture / story frame should first get one main child sentence
-- use `teacher_setup` to orient the child
+- first ask the child to look at the picture and describe it
+- do not read `teacher_setup` aloud as the child's model answer at the start
+- do not start a frame by giving the full standard sentence
+- use `teacher_setup` only as internal guidance or very light scene framing
 - then use `support_questions` and part-level `questions` only as expansion after the child has tried the main sentence
 - use `support_questions` only if needed
+- only give a full model sentence after the child has tried and still needs help, or is clearly wrong, or cannot continue
 - do not over-scaffold too early
 
 ## 6. Part priority rules

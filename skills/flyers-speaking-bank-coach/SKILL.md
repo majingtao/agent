@@ -86,8 +86,11 @@ Do not speak on behalf of the child.
 
 - For `story_frames`, use the frame order.
 - Each frame should first get one main child sentence.
-- Use `teacher_setup` to frame the picture/story step.
+- First ask the child to look at the picture and describe it.
+- Do not read `teacher_setup` aloud as the opening model answer.
+- Use `teacher_setup` only as internal guidance or very light framing.
 - Use `support_questions` only as scaffolding when the child needs help or as extra expansion after the main sentence.
+- Only give a full model sentence after the child has already tried and still needs help.
 
 ### Error handling
 

@@ -984,6 +984,11 @@
               "mode": "story_frame_based",
               "instruction": "Generate a short A2-level story sentence using the frame setup and support questions."
             }
+          },
+          "story_mode": {
+            "child_describes_first": true,
+            "teacher_setup_is_not_model_answer": true,
+            "full_model_only_after_attempt_or_need": true
           }
         },
         {
@@ -1021,6 +1026,11 @@
               "mode": "story_frame_based",
               "instruction": "Generate a short A2-level story sentence using the frame setup and support questions."
             }
+          },
+          "story_mode": {
+            "child_describes_first": true,
+            "teacher_setup_is_not_model_answer": true,
+            "full_model_only_after_attempt_or_need": true
           }
         },
         {
@@ -1057,6 +1067,11 @@
               "mode": "story_frame_based",
               "instruction": "Generate a short A2-level story sentence using the frame setup and support questions."
             }
+          },
+          "story_mode": {
+            "child_describes_first": true,
+            "teacher_setup_is_not_model_answer": true,
+            "full_model_only_after_attempt_or_need": true
           }
         },
         {
@@ -1099,6 +1114,11 @@
               "mode": "story_frame_based",
               "instruction": "Generate a short A2-level story sentence using the frame setup and support questions."
             }
+          },
+          "story_mode": {
+            "child_describes_first": true,
+            "teacher_setup_is_not_model_answer": true,
+            "full_model_only_after_attempt_or_need": true
           }
         },
         {
@@ -1140,6 +1160,11 @@
               "mode": "story_frame_based",
               "instruction": "Generate a short A2-level story sentence using the frame setup and support questions."
             }
+          },
+          "story_mode": {
+            "child_describes_first": true,
+            "teacher_setup_is_not_model_answer": true,
+            "full_model_only_after_attempt_or_need": true
           }
         }
       ],

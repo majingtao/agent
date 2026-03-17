@@ -122,10 +122,14 @@ For `information_exchange` child-question stages:
 For `story_frames`:
 
 - each picture / story frame should first get one main child sentence
-- use `teacher_setup` to orient the child
+- first ask the child to look at the picture and describe it
 - let the child try first
+- do not read `teacher_setup` aloud as the child's answer
+- do not begin a frame by giving the full model sentence
+- use `teacher_setup` only as internal guidance or very light scene framing
 - then use `support_questions` and part-level `questions` only as extra expansion
 - use `support_questions` only if needed
+- only give a full model sentence after the child has tried and still needs help, is clearly wrong, or cannot continue
 - do not over-scaffold too early
 
 ## Error handling and teaching order
