@@ -1143,16 +1143,7 @@
         "Put the Tell the story card away and turn to the student.",
         "Now, let's talk about what you do in the summer."
       ],
-      "questions": [
-        "Do you go to an island?",
-        "Do you get up at 1 o'clock?",
-        "Do you spend time with your family?",
-        "Do you like going swimming?",
-        "Do you do water sports?",
-        "Do you spend time with your friends?",
-        "Do you look for shells on the beach?",
-        "Do you go fishing?"
-      ],
+      "questions": [],
       "image_required": false,
       "image_handling": "not_needed",
       "source_images": [],
@@ -1335,7 +1326,6 @@
           "order": 5,
           "teacher_prompt": "Tell me about other things you do in the summer.",
           "student_reference": "I do water sports. I spend more time with my friends. I look for shells on the beach. I go fishing with my dad.",
-          "follow_up_question": "Do you do water sports? Do you spend time with your friends? Do you look for shells on the beach? Do you go fishing?",
           "answer_required": true,
           "expected_answer_type": "multi_sentence_personal_answer",
           "expected_child_response": {
@@ -1393,8 +1383,18 @@
         "exact_teacher_prompt_only": true,
         "exact_follow_up_only": true,
         "stay_on_current_exchange_until_done": true,
-        "questions_are_supplementary_only": true
-      }
+        "questions_are_supplementary_only": false,
+        "strict_order_required": true,
+        "no_extra_question_outside_exchange": true,
+        "no_repeat_follow_up": true
+      },
+      "strict_exchange_order": [
+        "p4_ex_001",
+        "p4_ex_002",
+        "p4_ex_003",
+        "p4_ex_004",
+        "p4_ex_005"
+      ]
     }
   ]
 }

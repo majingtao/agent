@@ -1428,27 +1428,30 @@
             }
           },
           "follow_up_reference_answers": [
+            "Yes, I do.",
             "Yes, I do. I play computer games with my friends.",
             "Yes, I do. I help my mum with the housework."
           ]
         }
       ],
       "story_frames": [],
-      "questions": [
-        "Do you do your homework?",
-        "Do you go out every day?",
-        "Do you visit your grandparents?",
-        "Do you play basketball / football?",
-        "Do you go to the cinema?",
-        "Do you play computer games with your friends?",
-        "Do you help with the housework?"
-      ],
+      "questions": [],
       "part4_mode": {
         "exact_teacher_prompt_only": true,
         "exact_follow_up_only": true,
         "stay_on_current_exchange_until_done": true,
-        "questions_are_supplementary_only": true
-      }
+        "questions_are_supplementary_only": false,
+        "strict_order_required": true,
+        "no_extra_question_outside_exchange": true,
+        "no_repeat_follow_up": true
+      },
+      "strict_exchange_order": [
+        "p4_ex_001",
+        "p4_ex_002",
+        "p4_ex_003",
+        "p4_ex_004",
+        "p4_ex_005"
+      ]
     }
   ]
 }

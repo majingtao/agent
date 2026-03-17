@@ -93,6 +93,7 @@ Do not jump ahead to a later stored exchange early.
 After one stored exchange is complete, move directly to the next stored exchange.
 Do not insert a bridging question between exchanges.
 If the user says `continue`, continue only with the next stored exchange.
+Treat part_4 as a whitelist-only flow: only prompts explicitly present in the current exchange are allowed.
 Ask only the exact stored `teacher_prompt` text.
 Repeat the stored prompt verbatim when asking it.
 Do not paraphrase it.
@@ -101,6 +102,7 @@ After the child answers, ask only the stored `follow_up_question` or stored `fol
 Treat each exchange as one linked unit:
 main prompt -> child answer -> stored follow-up -> child follow-up answer.
 Only move to the next exchange after the current exchange and its stored follow-up stage are complete.
+If both `follow_up_question` and `follow_ups` exist, ask `follow_ups` only.
 Do not blend content from different exchanges (for example, do not turn `Do you do your homework?` into `Do you do your homework every day?`).
 Use `follow_up_reference_answers` when present.
 Use stored reference answers as the preferred drill answers.
