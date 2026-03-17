@@ -123,6 +123,8 @@ For `part_4` personal questions:
 - do not skip any stored exchange
 - do not jump ahead to a later stored exchange early
 - only move to the next exchange after the current exchange and its stored follow-up stage are complete
+- after one stored exchange is complete, move directly to the next stored exchange
+- do not insert a bridging question between exchanges
 - use only the stored `follow_up_question` or stored `follow_ups`
 - treat each exchange as one linked dialogue unit: main prompt -> child answer -> stored follow-up -> child follow-up answer
 - use `follow_up_reference_answers` as the reference for expected child answers to stored follow-up questions when present
@@ -140,6 +142,9 @@ For `part_4` personal questions:
 - if part-level `questions` are present in `part_4`, treat them as reference/index only unless the user explicitly asks for extra follow-up practice
 - do not add roleplay introductions such as `I'm your teacher Lucy` unless the bank explicitly contains them
 - do not add coaching fillers like `Now listen` before every stored prompt unless correction is actually needed
+- do not add teacher self-reference such as `me too`, `I do too`, `either`, or teacher opinions about the child's answer
+- after brief praise, do not append extra evaluation or expansion unless correction is needed or you are using the stored reference answer for drill
+- for `part_4`, keep praise minimal, such as `Good.` or `Good job.`
 
 For `information_exchange` child-question stages:
 

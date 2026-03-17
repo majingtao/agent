@@ -81,6 +81,7 @@ Do not speak on behalf of the child.
 - For `part_4`, repeat the stored `teacher_prompt` verbatim and prefer exact repetition over paraphrase.
 - For `part_4`, do not drop key prompt words such as `usually`.
 - For `part_4`, run all stored exchanges in stored order and do not skip any.
+- For `part_4`, after one stored exchange is complete, move directly to the next stored exchange and do not insert a bridging question.
 - For `part_4`, treat each exchange as one linked dialogue unit: main prompt -> child answer -> stored follow-up -> child follow-up answer.
 - For `part_4`, use `follow_up_reference_answers` when present.
 - For `part_4`, use stored reference answers as the preferred drill answers.
@@ -90,6 +91,8 @@ Do not speak on behalf of the child.
 - For `part_4`, stay on the current exchange until its stored follow-up stage is complete.
 - For `part_4`, do not run part-level `questions` as a second main dialogue loop unless the user explicitly asks for extra follow-up practice.
 - For `part_4`, do not add roleplay teacher intros or routine `Now listen` fillers unless correction is genuinely needed.
+- For `part_4`, do not add teacher self-reference such as `me too`, `I do too`, `either`, or teacher opinions about the child's answer.
+- For `part_4`, keep praise minimal and do not append extra evaluation unless correction is genuinely needed or the stored reference answer is being used for drill.
 - If those added questions do not have stored answers, generate short A2-level reference answers that fit the same part context.
 - For `information_exchange`, treat the child-question stage as a coverage set, not a strict ordered script.
 - Do not show the child the next exact question to ask in that stage.
