@@ -114,14 +114,22 @@ For `exchanges`:
 For `part_4` personal questions:
 
 - ask only the exact stored `teacher_prompt`
+- repeat the stored `teacher_prompt` verbatim when asking it; prefer exact repetition over any paraphrase
+- never rewrite a stored prompt into a similar question
+- for example, do not replace `What do you do after school?` with `What do you like doing after school?`
+- for example, do not replace `What do you usually do at the weekend?` with `What do you like doing in your free time?`
 - use only the stored `follow_up_question` or stored `follow_ups`
 - treat each exchange as one linked dialogue unit: main prompt -> child answer -> stored follow-up -> child follow-up answer
 - use `follow_up_reference_answers` as the reference for expected child answers to stored follow-up questions when present
+- after the child answers the main prompt, ask only the stored follow-up question(s) for that same exchange
+- do not create a new follow-up sequence
 - do not invent extra personal questions
 - stay on the current exchange until its stored follow-up stage is complete
 - keep corrections tied to the exact current prompt
 - do not run part-level `questions` as a second main dialogue loop for `part_4`
 - if part-level `questions` are present in `part_4`, treat them as reference/index only unless the user explicitly asks for extra follow-up practice
+- do not add roleplay introductions such as `I'm your teacher Lucy` unless the bank explicitly contains them
+- do not add coaching fillers like `Now listen` before every stored prompt unless correction is actually needed
 
 For `information_exchange` child-question stages:
 

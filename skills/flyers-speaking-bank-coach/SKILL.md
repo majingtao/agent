@@ -78,10 +78,13 @@ Do not speak on behalf of the child.
 - Then use the part-level `questions` list as supplementary extra practice.
 - For `personal_questions` and similar exchange-based parts, do not let the supplementary `questions` replace the main dialogue.
 - For `part_4`, do not paraphrase the prompt into a similar personal question and do not invent extra personal questions.
+- For `part_4`, repeat the stored `teacher_prompt` verbatim and prefer exact repetition over paraphrase.
 - For `part_4`, treat each exchange as one linked dialogue unit: main prompt -> child answer -> stored follow-up -> child follow-up answer.
 - For `part_4`, use `follow_up_reference_answers` when present.
+- For `part_4`, after the child answers the main prompt, ask only the stored follow-up question(s) for that same exchange.
 - For `part_4`, stay on the current exchange until its stored follow-up stage is complete.
 - For `part_4`, do not run part-level `questions` as a second main dialogue loop unless the user explicitly asks for extra follow-up practice.
+- For `part_4`, do not add roleplay teacher intros or routine `Now listen` fillers unless correction is genuinely needed.
 - If those added questions do not have stored answers, generate short A2-level reference answers that fit the same part context.
 - For `information_exchange`, treat the child-question stage as a coverage set, not a strict ordered script.
 - Do not show the child the next exact question to ask in that stage.
