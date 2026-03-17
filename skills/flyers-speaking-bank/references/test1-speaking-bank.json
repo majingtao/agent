@@ -1358,9 +1358,6 @@
           },
           "target_sentences": 1,
           "min_versions": 1,
-          "follow_ups": [
-            "What sport do you play?"
-          ],
           "correction_focus": [
             "yes_no_short_answer",
             "complete_sentence"
@@ -1387,7 +1384,6 @@
           "order": 5,
           "teacher_prompt": "What other things do you do in your free time?",
           "student_reference": "I sometimes go to the cinema. I play computer games with my friends. I help my mum with the housework.",
-          "follow_up_question": "Do you go to the cinema? Do you play computer games with your friends? Do you help with the housework?",
           "answer_required": true,
           "expected_answer_type": "multi_sentence_personal_answer",
           "expected_child_response": {
