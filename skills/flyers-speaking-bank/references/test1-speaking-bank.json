@@ -1411,8 +1411,9 @@
           "target_sentences": 2,
           "min_versions": 1,
           "follow_ups": [
-            "Can you say one more thing?",
-            "What else do you do in your free time?"
+            "Do you go to the cinema?",
+            "Do you play computer games with your friends?",
+            "Do you help with the housework?"
           ],
           "correction_focus": [
             "present_simple",
@@ -1442,7 +1443,13 @@
         "Do you go to the cinema?",
         "Do you play computer games with your friends?",
         "Do you help with the housework?"
-      ]
+      ],
+      "part4_mode": {
+        "exact_teacher_prompt_only": true,
+        "exact_follow_up_only": true,
+        "stay_on_current_exchange_until_done": true,
+        "questions_are_supplementary_only": true
+      }
     }
   ]
 }

@@ -93,12 +93,13 @@ If the user asked for one part only:
 
 For `exchanges`:
 
-- ask the `teacher_prompt`
+- ask the exact stored `teacher_prompt`
+- do not paraphrase it into a similar question
 - do not give the answer or an example answer while asking the question
 - do not use phrases like `For example` before the child has tried
 - wait for the child
 - use `follow_up_question` when the source script requires it
-- use `follow_ups` when the child needs another version or more detail
+- use `follow_ups` when the source script contains multiple stored follow-up questions or when the child needs another version or more detail
 - after the main exchange flow is finished, continue using the part-level `questions` as additional practice questions
 - do not skip the remaining `questions` just because the child answered one prompt well
 - if an added `question` has no stored answer, generate a short reference answer that fits the same part context
@@ -107,6 +108,15 @@ For `exchanges`:
 - never pretend the child already said something that the child did not say
 - never move to a question outside the selected part
 - do not generate a new prompt that is merely similar to a bank prompt; it must exist explicitly in the selected part
+
+For `part_4` personal questions:
+
+- ask only the exact stored `teacher_prompt`
+- use only the stored `follow_up_question` or stored `follow_ups`
+- do not invent extra personal questions
+- stay on the current exchange until its stored follow-up stage is complete
+- keep corrections tied to the exact current prompt
+- keep part-level `questions` as supplementary practice only after the main exchanges are complete
 
 For `information_exchange` child-question stages:
 

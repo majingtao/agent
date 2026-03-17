@@ -76,6 +76,15 @@ For `personal_questions` and other exchange-based parts:
 - only after the main exchange flow is complete, use the part-level `questions` as supplementary practice
 - do not let supplementary `questions` replace the main dialogue
 
+For `part_4` personal questions specifically:
+
+- ask the exact stored `teacher_prompt`; do not paraphrase it into a similar question
+- use only the stored `follow_up_question` or stored `follow_ups`
+- do not invent extra personal questions
+- stay on the current exchange until that prompt and its stored follow-up stage are complete
+- correction must stay on the current prompt; do not switch into a nearby but different personal question
+- keep part-level `questions` only as extra supplementary practice after the main exchanges are complete
+
 ## 7. Single-part mode
 
 If the user asked for one part only:

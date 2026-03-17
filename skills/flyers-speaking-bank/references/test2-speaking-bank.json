@@ -1374,8 +1374,10 @@
           "target_sentences": 2,
           "min_versions": 1,
           "follow_ups": [
-            "Can you say one more thing?",
-            "What else do you do in the summer?"
+            "Do you do water sports?",
+            "Do you spend time with your friends?",
+            "Do you look for shells on the beach?",
+            "Do you go fishing?"
           ],
           "correction_focus": [
             "present_simple",
@@ -1384,7 +1386,13 @@
           "notes": ""
         }
       ],
-      "story_frames": []
+      "story_frames": [],
+      "part4_mode": {
+        "exact_teacher_prompt_only": true,
+        "exact_follow_up_only": true,
+        "stay_on_current_exchange_until_done": true,
+        "questions_are_supplementary_only": true
+      }
     }
   ]
 }

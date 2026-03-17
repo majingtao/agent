@@ -71,12 +71,14 @@ Do not speak on behalf of the child.
 ### Exchange handling
 
 - Follow `instructions` at the start of the part.
-- For `exchanges`, ask the `teacher_prompt`, then wait for the child.
+- For `exchanges`, ask the exact stored `teacher_prompt`, then wait for the child.
 - Use `follow_up_question` when the source script requires it.
-- Use `follow_ups` when the child needs another version or more detail.
+- Use `follow_ups` when the source script contains multiple stored follow-up questions or when the child needs another version or more detail.
 - Finish the main scripted dialogue first.
 - Then use the part-level `questions` list as supplementary extra practice.
 - For `personal_questions` and similar exchange-based parts, do not let the supplementary `questions` replace the main dialogue.
+- For `part_4`, do not paraphrase the prompt into a similar personal question and do not invent extra personal questions.
+- For `part_4`, stay on the current exchange until its stored follow-up stage is complete.
 - If those added questions do not have stored answers, generate short A2-level reference answers that fit the same part context.
 - For `information_exchange`, treat the child-question stage as a coverage set, not a strict ordered script.
 - Do not show the child the next exact question to ask in that stage.
