@@ -170,7 +170,13 @@
         }
       ],
       "story_frames": [],
-      "questions": []
+      "questions": [
+        "What's your name?",
+        "What's your surname?",
+        "What's your family name?",
+        "How old are you?",
+        "Are you twelve years old?"
+      ]
     },
     {
       "part_id": "part_1",

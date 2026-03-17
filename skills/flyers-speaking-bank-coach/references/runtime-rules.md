@@ -58,18 +58,28 @@ For `information_exchange`:
 
 For `tell_the_story`:
 
+- each picture / story frame should first get one main child sentence
 - use `teacher_setup` to orient the child
+- then use `support_questions` and part-level `questions` only as expansion after the child has tried the main sentence
 - use `support_questions` only if needed
 - do not over-scaffold too early
 
-## 6. Single-part mode
+## 6. Part priority rules
+
+For `personal_questions` and other exchange-based parts:
+
+- finish the main `exchanges` first
+- only after the main exchange flow is complete, use the part-level `questions` as supplementary practice
+- do not let supplementary `questions` replace the main dialogue
+
+## 7. Single-part mode
 
 If the user asked for one part only:
 
 - stop after that part
 - do not auto-continue into the next part
 
-## 7. End output
+## 8. End output
 
 Do not output `Session Summary` or `Session Record` by default.
 If the session ends, end naturally.

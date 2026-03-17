@@ -76,6 +76,7 @@ Do not speak on behalf of the child.
 - Use `follow_ups` when the child needs another version or more detail.
 - Finish the main scripted dialogue first.
 - Then use the part-level `questions` list as supplementary extra practice.
+- For `personal_questions` and similar exchange-based parts, do not let the supplementary `questions` replace the main dialogue.
 - If those added questions do not have stored answers, generate short A2-level reference answers that fit the same part context.
 - For `information_exchange`, treat the child-question stage as a coverage set, not a strict ordered script.
 - Do not show the child the next exact question to ask in that stage.
@@ -84,8 +85,9 @@ Do not speak on behalf of the child.
 ### Story handling
 
 - For `story_frames`, use the frame order.
+- Each frame should first get one main child sentence.
 - Use `teacher_setup` to frame the picture/story step.
-- Use `support_questions` only as scaffolding when the child needs help.
+- Use `support_questions` only as scaffolding when the child needs help or as extra expansion after the main sentence.
 
 ### Error handling
 

@@ -82,6 +82,7 @@ For each part:
 - after the main prompt flow is complete, continue asking from the part-level `questions` list as extra practice
 - go through the `questions` list in order until all questions in that part have been used
 - for `information_exchange`, use special handling for the child-question stage: do not require strict order, and treat the target questions as a coverage set
+- for `personal_questions` and other exchange-based parts, finish the main `exchanges` first, then use `questions` as supplementary practice
 - do not jump to other parts unless the user asks
 
 If the user asked for one part only:
@@ -120,10 +121,12 @@ For `information_exchange` child-question stages:
 
 For `story_frames`:
 
+- each picture / story frame should first get one main child sentence
 - use `teacher_setup` to orient the child
+- let the child try first
+- then use `support_questions` and part-level `questions` only as extra expansion
 - use `support_questions` only if needed
 - do not over-scaffold too early
-- let the child try first
 
 ## Error handling and teaching order
 

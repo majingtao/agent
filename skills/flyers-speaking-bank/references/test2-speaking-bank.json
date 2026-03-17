@@ -36,7 +36,13 @@
         "Usher brings the student in.",
         "Examiner greets the student and asks opening personal questions."
       ],
-      "questions": [],
+      "questions": [
+        "What's your name?",
+        "What's your surname?",
+        "What's your family name?",
+        "How old are you?",
+        "Are you twelve years old?"
+      ],
       "image_required": false,
       "image_handling": "not_needed",
       "source_images": [],
