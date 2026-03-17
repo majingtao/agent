@@ -1,0 +1,1457 @@
+{
+  "bank_id": "go-flyers-test1-speaking",
+  "title": "Go Flyers - Test 1 - Speaking",
+  "source": "Go Flyers Teacher's Notes - Key to tests - Test 1 - Speaking (pp. 17-19)",
+  "version": "1.0",
+  "mode": "paper-based-picture",
+  "image_handling": "parent_offline_only",
+  "level": "flyers",
+  "language": "english_first",
+  "variables": {
+    "teacher_name": {
+      "type": "model_generated",
+      "description": "Choose a short friendly English teacher name and keep it consistent for the whole session."
+    }
+  },
+  "session_rules": {
+    "finish_policy": "Continue until all parts and exchanges are completed, unless the user ends the session early.",
+    "require_min_versions_default": 1,
+    "check_grammar": true,
+    "check_completeness": true,
+    "check_goal_fit": true,
+    "explain_errors_briefly": true,
+    "do_not_move_on_until_mastered": true,
+    "early_stop_output": [
+      "session_summary",
+      "session_record"
+    ]
+  },
+  "parts": [
+    {
+      "part_id": "part_0",
+      "part_number": 0,
+      "part_name": "Opening questions",
+      "part_type": "opening_personal_info",
+      "instructions": [
+        "Usher brings the student in.",
+        "Examiner greets the student and asks opening personal questions."
+      ],
+      "image_required": false,
+      "image_handling": "not_needed",
+      "notes": "Based on p.17 speaking opening lines.",
+      "exchanges": [
+        {
+          "id": "p0_ex_001",
+          "order": 1,
+          "teacher_prompt": "Hello. My name's {{teacher_name}}.",
+          "student_reference": "Hello.",
+          "follow_up_question": "What's your name?",
+          "answer_required": true,
+          "expected_answer_type": "name",
+          "expected_child_response": {
+            "description": "The child should greet the examiner and say their first name.",
+            "target_pattern": "Hello. / My name is ... / I am ...",
+            "target_grammar": [
+              "simple_introduction"
+            ],
+            "target_vocabulary": [],
+            "acceptable_variations": true,
+            "notes": "The greeting and name may happen across two short turns."
+          },
+          "target_sentences": 1,
+          "min_versions": 1,
+          "follow_ups": [
+            "Please say your full name.",
+            "Can you answer in a full sentence?"
+          ],
+          "correction_focus": [
+            "complete_sentence",
+            "simple_introduction"
+          ],
+          "notes": "Merged greeting + name setup into one structured exchange.",
+          "answer_support": {
+            "priority_answer": {
+              "text": "Hello.",
+              "source": "source_reference"
+            },
+            "use_priority_answer_first": true,
+            "fallback_answer_rule": {
+              "enabled": true,
+              "mode": "pattern_based",
+              "instruction": "If there is no official or source reference answer, generate a short A2-level full sentence that matches the target pattern."
+            }
+          }
+        },
+        {
+          "id": "p0_ex_002",
+          "order": 2,
+          "teacher_prompt": "What's your surname?",
+          "student_reference": "(surname)",
+          "follow_up_question": "What's your family name?",
+          "answer_required": true,
+          "expected_answer_type": "surname",
+          "expected_child_response": {
+            "description": "The child should say their surname or family name.",
+            "target_pattern": "My surname is ... / My family name is ...",
+            "target_grammar": [
+              "full_sentence"
+            ],
+            "target_vocabulary": [],
+            "acceptable_variations": true,
+            "notes": "Source includes both surname and family name prompts."
+          },
+          "target_sentences": 1,
+          "min_versions": 1,
+          "follow_ups": [
+            "Please say it in a full sentence."
+          ],
+          "correction_focus": [
+            "complete_sentence"
+          ],
+          "notes": "",
+          "answer_support": {
+            "priority_answer": {
+              "text": "",
+              "source": "slot_value",
+              "slot_name": "surname",
+              "instruction": "Use the child's real surname or family name as the answer content."
+            },
+            "use_priority_answer_first": true,
+            "fallback_answer_rule": {
+              "enabled": true,
+              "mode": "slot_based",
+              "instruction": "Use the child's real surname or family name as the answer content."
+            }
+          }
+        },
+        {
+          "id": "p0_ex_003",
+          "order": 3,
+          "teacher_prompt": "How old are you?",
+          "student_reference": "(age)",
+          "follow_up_question": "Are you twelve years old?",
+          "answer_required": true,
+          "expected_answer_type": "age_or_yes_no",
+          "expected_child_response": {
+            "description": "The child should say their age, then answer the yes/no check question.",
+            "target_pattern": "I am ... years old. / Yes, I am. / No, I am not.",
+            "target_grammar": [
+              "age_expression",
+              "yes_no_short_answer"
+            ],
+            "target_vocabulary": [],
+            "acceptable_variations": true,
+            "notes": "There may be two short responses in sequence."
+          },
+          "target_sentences": 1,
+          "min_versions": 1,
+          "follow_ups": [
+            "Please answer in a full sentence."
+          ],
+          "correction_focus": [
+            "age_expression",
+            "complete_sentence"
+          ],
+          "notes": "",
+          "answer_support": {
+            "priority_answer": {
+              "text": "",
+              "source": "slot_value",
+              "slot_name": "age",
+              "instruction": "Use the child's real age as the answer content."
+            },
+            "use_priority_answer_first": true,
+            "fallback_answer_rule": {
+              "enabled": true,
+              "mode": "slot_based",
+              "instruction": "Use the child's real age as the answer content."
+            }
+          }
+        }
+      ],
+      "story_frames": [],
+      "questions": [
+        "What's your name?",
+        "What's your surname?",
+        "What's your family name?",
+        "How old are you?",
+        "Are you twelve years old?"
+      ]
+    },
+    {
+      "part_id": "part_1",
+      "part_number": 1,
+      "part_name": "Find the differences",
+      "part_type": "find_the_differences",
+      "instructions": [
+        "Show the student both Find the differences cards.",
+        "Here are two pictures. My picture is similar to yours, but there are some differences.",
+        "For example, in my picture there's a girl on a rock in the lake, but in your picture there isn't.",
+        "I will say something about my picture. Can you tell me how your picture is different?"
+      ],
+      "image_required": true,
+      "image_handling": "shown_on_paper_by_parent",
+      "notes": "Student looks at printed picture. Model does not see image.",
+      "exchanges": [
+        {
+          "id": "p1_ex_001",
+          "order": 1,
+          "teacher_prompt": "In my picture, two boys are sitting under a tree.",
+          "student_reference": "In my picture, two girls are sitting under a tree.",
+          "follow_up_question": "Who is sitting under a tree in your picture?",
+          "answer_required": true,
+          "expected_answer_type": "difference_sentence",
+          "expected_child_response": {
+            "description": "The child should describe the difference using a full sentence about the people under the tree.",
+            "target_pattern": "In my picture, ... are sitting under a tree.",
+            "target_grammar": [
+              "plural_nouns",
+              "present_continuous",
+              "full_sentence"
+            ],
+            "target_vocabulary": [
+              "boys",
+              "girls",
+              "tree"
+            ],
+            "acceptable_variations": false,
+            "notes": "Information depends on the child's card."
+          },
+          "target_sentences": 1,
+          "min_versions": 1,
+          "follow_ups": [
+            "Please say the full sentence.",
+            "Who is sitting under the tree in your picture?"
+          ],
+          "correction_focus": [
+            "plural_nouns",
+            "present_continuous",
+            "complete_sentence"
+          ],
+          "notes": "",
+          "answer_support": {
+            "priority_answer": {
+              "text": "In my picture, two girls are sitting under a tree.",
+              "source": "official"
+            },
+            "use_priority_answer_first": true,
+            "fallback_answer_rule": {
+              "enabled": false,
+              "mode": "pattern_based",
+              "instruction": "Use the fixed card-based answer. Do not freely change the core information."
+            }
+          }
+        },
+        {
+          "id": "p1_ex_002",
+          "order": 2,
+          "teacher_prompt": "In my picture, the woman is eating a sandwich.",
+          "student_reference": "In my picture, the woman is eating pizza.",
+          "follow_up_question": "What is the woman eating?",
+          "answer_required": true,
+          "expected_answer_type": "difference_sentence",
+          "expected_child_response": {
+            "description": "The child should describe what the woman is eating in their picture.",
+            "target_pattern": "In my picture, the woman is eating ...",
+            "target_grammar": [
+              "present_continuous",
+              "full_sentence"
+            ],
+            "target_vocabulary": [
+              "woman",
+              "eating",
+              "pizza",
+              "sandwich"
+            ],
+            "acceptable_variations": false,
+            "notes": "Card-based fixed difference."
+          },
+          "target_sentences": 1,
+          "min_versions": 1,
+          "follow_ups": [
+            "Say the full sentence, please.",
+            "What is the woman eating in your picture?"
+          ],
+          "correction_focus": [
+            "present_continuous",
+            "complete_sentence"
+          ],
+          "notes": "",
+          "answer_support": {
+            "priority_answer": {
+              "text": "In my picture, the woman is eating pizza.",
+              "source": "official"
+            },
+            "use_priority_answer_first": true,
+            "fallback_answer_rule": {
+              "enabled": false,
+              "mode": "pattern_based",
+              "instruction": "Use the fixed card-based answer. Do not freely change the core information."
+            }
+          }
+        },
+        {
+          "id": "p1_ex_003",
+          "order": 3,
+          "teacher_prompt": "In my picture, there isn't a pizza on the blanket.",
+          "student_reference": "In my picture there is a pizza on the blanket.",
+          "follow_up_question": "What's on the blanket?",
+          "answer_required": true,
+          "expected_answer_type": "difference_sentence",
+          "expected_child_response": {
+            "description": "The child should describe the item on the blanket in their picture.",
+            "target_pattern": "In my picture, there is ... on the blanket.",
+            "target_grammar": [
+              "there_is_are",
+              "full_sentence"
+            ],
+            "target_vocabulary": [
+              "pizza",
+              "blanket"
+            ],
+            "acceptable_variations": false,
+            "notes": "Card-based fixed difference."
+          },
+          "target_sentences": 1,
+          "min_versions": 1,
+          "follow_ups": [
+            "Please say the whole sentence.",
+            "What's on the blanket in your picture?"
+          ],
+          "correction_focus": [
+            "there_is_are",
+            "complete_sentence"
+          ],
+          "notes": "",
+          "answer_support": {
+            "priority_answer": {
+              "text": "In my picture there is a pizza on the blanket.",
+              "source": "official"
+            },
+            "use_priority_answer_first": true,
+            "fallback_answer_rule": {
+              "enabled": false,
+              "mode": "pattern_based",
+              "instruction": "Use the fixed card-based answer. Do not freely change the core information."
+            }
+          }
+        },
+        {
+          "id": "p1_ex_004",
+          "order": 4,
+          "teacher_prompt": "In my picture, two boys are riding their bikes.",
+          "student_reference": "In my picture, one boy is riding his bike.",
+          "follow_up_question": "How many boys are riding their bikes?",
+          "answer_required": true,
+          "expected_answer_type": "difference_sentence",
+          "expected_child_response": {
+            "description": "The child should describe how many boys are riding bikes in their picture.",
+            "target_pattern": "In my picture, ... boy(s) ... riding ... bike(s).",
+            "target_grammar": [
+              "singular_plural",
+              "present_continuous",
+              "full_sentence"
+            ],
+            "target_vocabulary": [
+              "boy",
+              "boys",
+              "bike",
+              "bikes"
+            ],
+            "acceptable_variations": false,
+            "notes": "Card-based fixed difference."
+          },
+          "target_sentences": 1,
+          "min_versions": 1,
+          "follow_ups": [
+            "Say the full sentence, please.",
+            "How many boys are riding bikes in your picture?"
+          ],
+          "correction_focus": [
+            "singular_plural",
+            "present_continuous",
+            "complete_sentence"
+          ],
+          "notes": "",
+          "answer_support": {
+            "priority_answer": {
+              "text": "In my picture, one boy is riding his bike.",
+              "source": "official"
+            },
+            "use_priority_answer_first": true,
+            "fallback_answer_rule": {
+              "enabled": false,
+              "mode": "pattern_based",
+              "instruction": "Use the fixed card-based answer. Do not freely change the core information."
+            }
+          }
+        },
+        {
+          "id": "p1_ex_005",
+          "order": 5,
+          "teacher_prompt": "In my picture, a man is reading a newspaper outside the tent.",
+          "student_reference": "In my picture, a man is reading a magazine outside the tent.",
+          "follow_up_question": "What is the man outside the tent reading?",
+          "answer_required": true,
+          "expected_answer_type": "difference_sentence",
+          "expected_child_response": {
+            "description": "The child should describe what the man is reading in their picture.",
+            "target_pattern": "In my picture, a man is reading ... outside the tent.",
+            "target_grammar": [
+              "present_continuous",
+              "full_sentence"
+            ],
+            "target_vocabulary": [
+              "man",
+              "newspaper",
+              "magazine",
+              "tent"
+            ],
+            "acceptable_variations": false,
+            "notes": "Card-based fixed difference."
+          },
+          "target_sentences": 1,
+          "min_versions": 1,
+          "follow_ups": [
+            "Please say the full sentence.",
+            "What is the man reading in your picture?"
+          ],
+          "correction_focus": [
+            "present_continuous",
+            "complete_sentence"
+          ],
+          "notes": "",
+          "answer_support": {
+            "priority_answer": {
+              "text": "In my picture, a man is reading a magazine outside the tent.",
+              "source": "official"
+            },
+            "use_priority_answer_first": true,
+            "fallback_answer_rule": {
+              "enabled": false,
+              "mode": "pattern_based",
+              "instruction": "Use the fixed card-based answer. Do not freely change the core information."
+            }
+          }
+        }
+      ],
+      "story_frames": [],
+      "source_images": [
+        "assets/test1/test1-part1-find-the-differences.jpg"
+      ],
+      "questions": [
+        "Point to the differences.",
+        "Repeat what the student has to do.",
+        "Ask questions to help him/her.",
+        "Who is sitting under a tree in your picture?",
+        "What is the woman eating?",
+        "What's on the blanket?",
+        "How many boys are riding their bikes?",
+        "What is the man outside the tent reading?"
+      ]
+    },
+    {
+      "part_id": "part_2",
+      "part_number": 2,
+      "part_name": "Information exchange",
+      "part_type": "information_exchange",
+      "instructions": [
+        "Show the student the Information exchange cards.",
+        "Give the student his or her card.",
+        "Richard and Harry are friends. They go to school together.",
+        "I don't know anything about Richard's programme. So I'm going to ask you some questions.",
+        "Point to the box on the right of the student's card.",
+        "Ask the questions.",
+        "Now, you don't know anything about Harry's programme, so you ask me some questions.",
+        "Point to the box on the left of the student's card.",
+        "You can point to the information on your card if necessary."
+      ],
+      "image_required": true,
+      "image_handling": "shown_on_paper_by_parent",
+      "notes": "Complete information-exchange content from p.18. First half: examiner asks about Richard. Second half: student asks about Harry.",
+      "exchanges": [
+        {
+          "id": "p2_ex_001",
+          "order": 1,
+          "teacher_prompt": "What time does he get up in the morning?",
+          "student_reference": "At 7:00.",
+          "follow_up_question": "",
+          "answer_required": true,
+          "expected_answer_type": "time_answer",
+          "expected_child_response": {
+            "description": "The child should answer with the exact time from the card.",
+            "target_pattern": "At ...",
+            "target_grammar": [
+              "time_expression"
+            ],
+            "target_vocabulary": [],
+            "acceptable_variations": false,
+            "notes": "This is card-based information retrieval, not open free speaking."
+          },
+          "target_sentences": 1,
+          "min_versions": 1,
+          "follow_ups": [
+            "Please answer with the time.",
+            "What time does he get up?"
+          ],
+          "correction_focus": [
+            "time_expression"
+          ],
+          "notes": "Richard card: get up time.",
+          "answer_support": {
+            "priority_answer": {
+              "text": "At 7:00.",
+              "source": "official"
+            },
+            "use_priority_answer_first": true,
+            "fallback_answer_rule": {
+              "enabled": false,
+              "mode": "pattern_based",
+              "instruction": "Use the fixed card-based answer. Do not freely change the core information."
+            }
+          }
+        },
+        {
+          "id": "p2_ex_002",
+          "order": 2,
+          "teacher_prompt": "What time does he go to school?",
+          "student_reference": "At 8:00.",
+          "follow_up_question": "",
+          "answer_required": true,
+          "expected_answer_type": "time_answer",
+          "expected_child_response": {
+            "description": "The child should answer with the exact school time from the card.",
+            "target_pattern": "At ...",
+            "target_grammar": [
+              "time_expression"
+            ],
+            "target_vocabulary": [
+              "school"
+            ],
+            "acceptable_variations": false,
+            "notes": ""
+          },
+          "target_sentences": 1,
+          "min_versions": 1,
+          "follow_ups": [
+            "Please answer with the time.",
+            "What time does he go to school?"
+          ],
+          "correction_focus": [
+            "time_expression"
+          ],
+          "notes": "Richard card: school time.",
+          "answer_support": {
+            "priority_answer": {
+              "text": "At 8:00.",
+              "source": "official"
+            },
+            "use_priority_answer_first": true,
+            "fallback_answer_rule": {
+              "enabled": false,
+              "mode": "pattern_based",
+              "instruction": "Use the fixed card-based answer. Do not freely change the core information."
+            }
+          }
+        },
+        {
+          "id": "p2_ex_003",
+          "order": 3,
+          "teacher_prompt": "What does he do at 4:00 p.m.?",
+          "student_reference": "He does his homework.",
+          "follow_up_question": "",
+          "answer_required": true,
+          "expected_answer_type": "routine_activity",
+          "expected_child_response": {
+            "description": "The child should state the exact activity shown on the card for 4:00 p.m.",
+            "target_pattern": "He ...",
+            "target_grammar": [
+              "third_person_singular",
+              "present_simple"
+            ],
+            "target_vocabulary": [
+              "homework"
+            ],
+            "acceptable_variations": false,
+            "notes": ""
+          },
+          "target_sentences": 1,
+          "min_versions": 1,
+          "follow_ups": [
+            "Please answer in a full sentence.",
+            "What does he do at 4:00 p.m.?"
+          ],
+          "correction_focus": [
+            "third_person_singular",
+            "complete_sentence"
+          ],
+          "notes": "Richard card: 4:00 p.m. activity.",
+          "answer_support": {
+            "priority_answer": {
+              "text": "He does his homework.",
+              "source": "official"
+            },
+            "use_priority_answer_first": true,
+            "fallback_answer_rule": {
+              "enabled": false,
+              "mode": "pattern_based",
+              "instruction": "Use the fixed card-based answer. Do not freely change the core information."
+            }
+          }
+        },
+        {
+          "id": "p2_ex_004",
+          "order": 4,
+          "teacher_prompt": "What does he do at 7:00 p.m.?",
+          "student_reference": "He has a tennis lesson.",
+          "follow_up_question": "",
+          "answer_required": true,
+          "expected_answer_type": "routine_activity",
+          "expected_child_response": {
+            "description": "The child should state the exact activity shown on the card for 7:00 p.m.",
+            "target_pattern": "He has ... / He ...",
+            "target_grammar": [
+              "third_person_singular",
+              "present_simple"
+            ],
+            "target_vocabulary": [
+              "tennis",
+              "lesson"
+            ],
+            "acceptable_variations": false,
+            "notes": ""
+          },
+          "target_sentences": 1,
+          "min_versions": 1,
+          "follow_ups": [
+            "Please answer in a full sentence.",
+            "What does he do at 7:00 p.m.?"
+          ],
+          "correction_focus": [
+            "third_person_singular",
+            "complete_sentence"
+          ],
+          "notes": "Richard card: 7:00 p.m. activity.",
+          "answer_support": {
+            "priority_answer": {
+              "text": "He has a tennis lesson.",
+              "source": "official"
+            },
+            "use_priority_answer_first": true,
+            "fallback_answer_rule": {
+              "enabled": false,
+              "mode": "pattern_based",
+              "instruction": "Use the fixed card-based answer. Do not freely change the core information."
+            }
+          }
+        },
+        {
+          "id": "p2_ex_005",
+          "order": 5,
+          "teacher_prompt": "What time does he go to bed?",
+          "student_reference": "At 10:00.",
+          "follow_up_question": "",
+          "answer_required": true,
+          "expected_answer_type": "time_answer",
+          "expected_child_response": {
+            "description": "The child should answer with the exact bedtime from the card.",
+            "target_pattern": "At ...",
+            "target_grammar": [
+              "time_expression"
+            ],
+            "target_vocabulary": [
+              "bed"
+            ],
+            "acceptable_variations": false,
+            "notes": ""
+          },
+          "target_sentences": 1,
+          "min_versions": 1,
+          "follow_ups": [
+            "Please answer with the time.",
+            "What time does he go to bed?"
+          ],
+          "correction_focus": [
+            "time_expression"
+          ],
+          "notes": "Richard card: bedtime.",
+          "answer_support": {
+            "priority_answer": {
+              "text": "At 10:00.",
+              "source": "official"
+            },
+            "use_priority_answer_first": true,
+            "fallback_answer_rule": {
+              "enabled": false,
+              "mode": "pattern_based",
+              "instruction": "Use the fixed card-based answer. Do not freely change the core information."
+            }
+          }
+        },
+        {
+          "id": "p2_ex_006",
+          "order": 6,
+          "teacher_prompt": "Now, you don't know anything about Harry's programme, so you ask me some questions.",
+          "student_reference": "What time does he get up?",
+          "follow_up_question": "",
+          "answer_required": true,
+          "expected_answer_type": "student_question",
+          "expected_child_response": {
+            "description": "The child should ask the examiner for Harry's get-up time.",
+            "target_pattern": "What time does he get up?",
+            "target_grammar": [
+              "question_form",
+              "third_person_singular"
+            ],
+            "target_vocabulary": [
+              "get up",
+              "time"
+            ],
+            "acceptable_variations": false,
+            "notes": "Examiner answer in source: At 7:30."
+          },
+          "target_sentences": 1,
+          "min_versions": 1,
+          "follow_ups": [
+            "Ask me about Harry.",
+            "What time does he get up?"
+          ],
+          "correction_focus": [
+            "question_form",
+            "third_person_singular"
+          ],
+          "notes": "Expected examiner answer: At 7:30.",
+          "answer_support": {
+            "priority_answer": {
+              "text": "What time does he get up?",
+              "source": "official"
+            },
+            "use_priority_answer_first": true,
+            "fallback_answer_rule": {
+              "enabled": false,
+              "mode": "pattern_based",
+              "instruction": "Use the fixed card-based answer. Do not freely change the core information."
+            }
+          }
+        },
+        {
+          "id": "p2_ex_007",
+          "order": 7,
+          "teacher_prompt": "At 7:30.",
+          "student_reference": "What time does he go to school?",
+          "follow_up_question": "",
+          "answer_required": true,
+          "expected_answer_type": "student_question",
+          "expected_child_response": {
+            "description": "The child should ask for Harry's school time.",
+            "target_pattern": "What time does he go to school?",
+            "target_grammar": [
+              "question_form",
+              "third_person_singular"
+            ],
+            "target_vocabulary": [
+              "go to school",
+              "time"
+            ],
+            "acceptable_variations": false,
+            "notes": "Examiner answer in source: At 8:15."
+          },
+          "target_sentences": 1,
+          "min_versions": 1,
+          "follow_ups": [
+            "Ask another question about Harry.",
+            "What time does he go to school?"
+          ],
+          "correction_focus": [
+            "question_form",
+            "third_person_singular"
+          ],
+          "notes": "Expected examiner answer: At 8:15.",
+          "answer_support": {
+            "priority_answer": {
+              "text": "What time does he go to school?",
+              "source": "official"
+            },
+            "use_priority_answer_first": true,
+            "fallback_answer_rule": {
+              "enabled": false,
+              "mode": "pattern_based",
+              "instruction": "Use the fixed card-based answer. Do not freely change the core information."
+            }
+          }
+        },
+        {
+          "id": "p2_ex_008",
+          "order": 8,
+          "teacher_prompt": "At 8:15.",
+          "student_reference": "What does he do at 2 o'clock?",
+          "follow_up_question": "",
+          "answer_required": true,
+          "expected_answer_type": "student_question",
+          "expected_child_response": {
+            "description": "The child should ask for Harry's 2 o'clock activity.",
+            "target_pattern": "What does he do at ...?",
+            "target_grammar": [
+              "question_form",
+              "third_person_singular"
+            ],
+            "target_vocabulary": [
+              "2 o'clock"
+            ],
+            "acceptable_variations": false,
+            "notes": "Examiner answer in source: He has lunch."
+          },
+          "target_sentences": 1,
+          "min_versions": 1,
+          "follow_ups": [
+            "Ask about what he does at 2 o'clock.",
+            "What does he do at 2 o'clock?"
+          ],
+          "correction_focus": [
+            "question_form",
+            "third_person_singular"
+          ],
+          "notes": "Expected examiner answer: He has lunch.",
+          "answer_support": {
+            "priority_answer": {
+              "text": "What does he do at 2 o'clock?",
+              "source": "official"
+            },
+            "use_priority_answer_first": true,
+            "fallback_answer_rule": {
+              "enabled": false,
+              "mode": "pattern_based",
+              "instruction": "Use the fixed card-based answer. Do not freely change the core information."
+            }
+          }
+        },
+        {
+          "id": "p2_ex_009",
+          "order": 9,
+          "teacher_prompt": "He has lunch.",
+          "student_reference": "What does he do at 6 p.m.?",
+          "follow_up_question": "",
+          "answer_required": true,
+          "expected_answer_type": "student_question",
+          "expected_child_response": {
+            "description": "The child should ask for Harry's 6 p.m. activity.",
+            "target_pattern": "What does he do at 6 p.m.?",
+            "target_grammar": [
+              "question_form",
+              "third_person_singular"
+            ],
+            "target_vocabulary": [
+              "6 p.m."
+            ],
+            "acceptable_variations": false,
+            "notes": "Examiner answer in source: He plays football."
+          },
+          "target_sentences": 1,
+          "min_versions": 1,
+          "follow_ups": [
+            "Ask about 6 p.m.",
+            "What does he do at 6 p.m.?"
+          ],
+          "correction_focus": [
+            "question_form",
+            "third_person_singular"
+          ],
+          "notes": "Expected examiner answer: He plays football.",
+          "answer_support": {
+            "priority_answer": {
+              "text": "What does he do at 6 p.m.?",
+              "source": "official"
+            },
+            "use_priority_answer_first": true,
+            "fallback_answer_rule": {
+              "enabled": false,
+              "mode": "pattern_based",
+              "instruction": "Use the fixed card-based answer. Do not freely change the core information."
+            }
+          }
+        },
+        {
+          "id": "p2_ex_010",
+          "order": 10,
+          "teacher_prompt": "He plays football.",
+          "student_reference": "What time does he go to bed?",
+          "follow_up_question": "",
+          "answer_required": true,
+          "expected_answer_type": "student_question",
+          "expected_child_response": {
+            "description": "The child should ask for Harry's bedtime.",
+            "target_pattern": "What time does he go to bed?",
+            "target_grammar": [
+              "question_form",
+              "third_person_singular"
+            ],
+            "target_vocabulary": [
+              "go to bed",
+              "time"
+            ],
+            "acceptable_variations": false,
+            "notes": "Examiner answer in source: At 10:30."
+          },
+          "target_sentences": 1,
+          "min_versions": 1,
+          "follow_ups": [
+            "Ask about bedtime.",
+            "What time does he go to bed?"
+          ],
+          "correction_focus": [
+            "question_form",
+            "third_person_singular"
+          ],
+          "notes": "Expected examiner answer: At 10:30.",
+          "answer_support": {
+            "priority_answer": {
+              "text": "What time does he go to bed?",
+              "source": "official"
+            },
+            "use_priority_answer_first": true,
+            "fallback_answer_rule": {
+              "enabled": false,
+              "mode": "pattern_based",
+              "instruction": "Use the fixed card-based answer. Do not freely change the core information."
+            }
+          }
+        }
+      ],
+      "story_frames": [],
+      "source_images": [
+        "assets/test1/test1-part2-information-exchange.jpg"
+      ],
+      "questions": [
+        "You can point to the information on your card if necessary.",
+        "What time does he get up in the morning?",
+        "What time does he go to school?",
+        "What does he do at 4:00 p.m.?",
+        "What does he do at 7:00 p.m.?",
+        "What time does he go to bed?",
+        "What time does he get up?",
+        "What time does he go to school?",
+        "What does he do at 2 o'clock?",
+        "What does he do at 6 p.m.?",
+        "What time does he go to bed?",
+        "You can point to the information on the student's card if necessary."
+      ]
+    },
+    {
+      "part_id": "part_3",
+      "part_number": 3,
+      "part_name": "Tell the story",
+      "part_type": "tell_the_story",
+      "instructions": [
+        "These pictures tell a story.",
+        "It's called 'Betty's visit to London'.",
+        "Look at the pictures first.",
+        "Now you tell the story."
+      ],
+      "image_required": true,
+      "image_handling": "shown_on_paper_by_parent",
+      "notes": "Story frames are based on p.19 visible prompts.",
+      "exchanges": [],
+      "story_frames": [
+        {
+          "frame_id": "p3_f_001",
+          "order": 1,
+          "teacher_setup": "Betty, her brother Fred and their parents visit London. They arrive there on Monday and they go for a walk. They see Big Ben.",
+          "support_questions": [],
+          "expected_child_response": {
+            "description": "The child should begin the story using the first picture setup.",
+            "target_pattern": "On Monday ...",
+            "target_grammar": [
+              "present_simple_story",
+              "sequencing"
+            ],
+            "target_vocabulary": [
+              "London",
+              "walk",
+              "Big Ben"
+            ],
+            "acceptable_variations": true,
+            "notes": "This is the story opening provided by the examiner."
+          },
+          "notes": "",
+          "answer_support": {
+            "priority_answer": {
+              "text": "",
+              "source": "model_generated"
+            },
+            "use_priority_answer_first": false,
+            "fallback_answer_rule": {
+              "enabled": true,
+              "mode": "story_frame_based",
+              "instruction": "Generate a short A2-level story sentence using the frame setup and support questions."
+            }
+          },
+          "story_mode": {
+            "child_describes_first": true,
+            "teacher_setup_is_not_model_answer": true,
+            "full_model_only_after_attempt_or_need": true
+          }
+        },
+        {
+          "frame_id": "p3_f_002",
+          "order": 2,
+          "teacher_setup": "On Tuesday Betty and her family go shopping. They buy many presents and souvenirs.",
+          "support_questions": [
+            "What day is it?",
+            "What does the family do?"
+          ],
+          "expected_child_response": {
+            "description": "The child should continue the story using the second picture.",
+            "target_pattern": "On Tuesday ...",
+            "target_grammar": [
+              "present_simple_story",
+              "sequencing"
+            ],
+            "target_vocabulary": [
+              "shopping",
+              "presents",
+              "souvenirs"
+            ],
+            "acceptable_variations": true,
+            "notes": ""
+          },
+          "notes": "",
+          "answer_support": {
+            "priority_answer": {
+              "text": "",
+              "source": "model_generated"
+            },
+            "use_priority_answer_first": false,
+            "fallback_answer_rule": {
+              "enabled": true,
+              "mode": "story_frame_based",
+              "instruction": "Generate a short A2-level story sentence using the frame setup and support questions."
+            }
+          },
+          "story_mode": {
+            "child_describes_first": true,
+            "teacher_setup_is_not_model_answer": true,
+            "full_model_only_after_attempt_or_need": true
+          }
+        },
+        {
+          "frame_id": "p3_f_003",
+          "order": 3,
+          "teacher_setup": "On Wednesday Betty writes a postcard to her grandmother.",
+          "support_questions": [
+            "What day is it?",
+            "What is Betty doing?"
+          ],
+          "expected_child_response": {
+            "description": "The child should describe the third story picture.",
+            "target_pattern": "On Wednesday ...",
+            "target_grammar": [
+              "present_simple_story",
+              "present_continuous"
+            ],
+            "target_vocabulary": [
+              "postcard",
+              "grandmother"
+            ],
+            "acceptable_variations": true,
+            "notes": ""
+          },
+          "notes": "",
+          "answer_support": {
+            "priority_answer": {
+              "text": "",
+              "source": "model_generated"
+            },
+            "use_priority_answer_first": false,
+            "fallback_answer_rule": {
+              "enabled": true,
+              "mode": "story_frame_based",
+              "instruction": "Generate a short A2-level story sentence using the frame setup and support questions."
+            }
+          },
+          "story_mode": {
+            "child_describes_first": true,
+            "teacher_setup_is_not_model_answer": true,
+            "full_model_only_after_attempt_or_need": true
+          }
+        },
+        {
+          "frame_id": "p3_f_004",
+          "order": 4,
+          "teacher_setup": "On Thursday the family visits the zoo. They see a lot of animals there. Betty is afraid of the snakes and her brother, Fred, laughs.",
+          "support_questions": [
+            "What day is it?",
+            "Where is the family?",
+            "What do they see?",
+            "Is Betty afraid of the snakes?",
+            "Who laughs?"
+          ],
+          "expected_child_response": {
+            "description": "The child should describe the zoo picture and key actions.",
+            "target_pattern": "On Thursday ...",
+            "target_grammar": [
+              "present_simple_story",
+              "be_afraid_of",
+              "full_sentence"
+            ],
+            "target_vocabulary": [
+              "zoo",
+              "animals",
+              "snakes",
+              "laughs"
+            ],
+            "acceptable_variations": true,
+            "notes": ""
+          },
+          "notes": "",
+          "answer_support": {
+            "priority_answer": {
+              "text": "",
+              "source": "model_generated"
+            },
+            "use_priority_answer_first": false,
+            "fallback_answer_rule": {
+              "enabled": true,
+              "mode": "story_frame_based",
+              "instruction": "Generate a short A2-level story sentence using the frame setup and support questions."
+            }
+          },
+          "story_mode": {
+            "child_describes_first": true,
+            "teacher_setup_is_not_model_answer": true,
+            "full_model_only_after_attempt_or_need": true
+          }
+        },
+        {
+          "frame_id": "p3_f_005",
+          "order": 5,
+          "teacher_setup": "On Friday they are at the airport. It is the last day in London. They have their bags with them. Betty's father takes pictures of the family.",
+          "support_questions": [
+            "What day is it?",
+            "Where is the family?",
+            "What have they got with them?",
+            "What does the father do?"
+          ],
+          "expected_child_response": {
+            "description": "The child should finish the story with the airport picture.",
+            "target_pattern": "On Friday ...",
+            "target_grammar": [
+              "present_simple_story",
+              "have_got",
+              "full_sentence"
+            ],
+            "target_vocabulary": [
+              "airport",
+              "bags",
+              "pictures",
+              "family"
+            ],
+            "acceptable_variations": true,
+            "notes": ""
+          },
+          "notes": "",
+          "answer_support": {
+            "priority_answer": {
+              "text": "",
+              "source": "model_generated"
+            },
+            "use_priority_answer_first": false,
+            "fallback_answer_rule": {
+              "enabled": true,
+              "mode": "story_frame_based",
+              "instruction": "Generate a short A2-level story sentence using the frame setup and support questions."
+            }
+          },
+          "story_mode": {
+            "child_describes_first": true,
+            "teacher_setup_is_not_model_answer": true,
+            "full_model_only_after_attempt_or_need": true
+          }
+        }
+      ],
+      "source_images": [
+        "assets/test1/test1-part3-tell-the-story.jpg"
+      ],
+      "questions": [
+        "What day is it?",
+        "What does the family do?",
+        "What day is it?",
+        "What is Betty doing?",
+        "What day is it?",
+        "Where is the family?",
+        "What do they see?",
+        "Is Betty afraid of the snakes?",
+        "Who laughs?",
+        "What day is it?",
+        "Where is the family?",
+        "What have they got with them?",
+        "What does the father do?"
+      ]
+    },
+    {
+      "part_id": "part_4",
+      "part_number": 4,
+      "part_name": "Personal questions",
+      "part_type": "personal_questions",
+      "instructions": [
+        "Put the Tell the story card away and turn to the student.",
+        "Now let's talk about what you do in your free time."
+      ],
+      "image_required": false,
+      "image_handling": "not_needed",
+      "notes": "Based on p.19 personal questions section.",
+      "exchanges": [
+        {
+          "id": "p4_ex_001",
+          "order": 1,
+          "teacher_prompt": "What do you do after school?",
+          "student_reference": "I do my homework.",
+          "follow_up_question": "Do you do your homework?",
+          "answer_required": true,
+          "expected_answer_type": "habit_sentence",
+          "expected_child_response": {
+            "description": "The child should answer with a full sentence about after-school activities.",
+            "target_pattern": "I ... after school.",
+            "target_grammar": [
+              "present_simple",
+              "full_sentence"
+            ],
+            "target_vocabulary": [
+              "homework"
+            ],
+            "acceptable_variations": true,
+            "notes": ""
+          },
+          "target_sentences": 1,
+          "min_versions": 1,
+          "correction_focus": [
+            "present_simple",
+            "complete_sentence"
+          ],
+          "notes": "",
+          "answer_support": {
+            "priority_answer": {
+              "text": "I do my homework.",
+              "source": "source_reference"
+            },
+            "use_priority_answer_first": true,
+            "fallback_answer_rule": {
+              "enabled": true,
+              "mode": "pattern_based",
+              "instruction": "If there is no official or source reference answer, generate a short A2-level full sentence that matches the target pattern."
+            }
+          },
+          "follow_up_reference_answers": [
+            "Yes, I do."
+          ]
+        },
+        {
+          "id": "p4_ex_002",
+          "order": 2,
+          "teacher_prompt": "How often do you go out with your friends?",
+          "student_reference": "Three times a week.",
+          "follow_up_question": "Do you go out every day?",
+          "answer_required": true,
+          "expected_answer_type": "frequency_answer",
+          "expected_child_response": {
+            "description": "The child should answer with a frequency expression.",
+            "target_pattern": "... times a week.",
+            "target_grammar": [
+              "frequency_expression"
+            ],
+            "target_vocabulary": [
+              "times",
+              "week",
+              "friends"
+            ],
+            "acceptable_variations": true,
+            "notes": ""
+          },
+          "target_sentences": 1,
+          "min_versions": 1,
+          "correction_focus": [
+            "frequency_expression"
+          ],
+          "notes": "",
+          "answer_support": {
+            "priority_answer": {
+              "text": "Three times a week.",
+              "source": "source_reference"
+            },
+            "use_priority_answer_first": true,
+            "fallback_answer_rule": {
+              "enabled": true,
+              "mode": "pattern_based",
+              "instruction": "If there is no official or source reference answer, generate a short A2-level full sentence that matches the target pattern."
+            }
+          },
+          "follow_up_reference_answers": [
+            "No, I don't."
+          ]
+        },
+        {
+          "id": "p4_ex_003",
+          "order": 3,
+          "teacher_prompt": "What do you usually do at the weekend?",
+          "student_reference": "I visit my grandparents.",
+          "follow_up_question": "Do you visit your grandparents?",
+          "answer_required": true,
+          "expected_answer_type": "habit_sentence",
+          "expected_child_response": {
+            "description": "The child should answer with a full sentence about weekend activities.",
+            "target_pattern": "I ... at the weekend.",
+            "target_grammar": [
+              "present_simple",
+              "full_sentence"
+            ],
+            "target_vocabulary": [
+              "weekend",
+              "grandparents"
+            ],
+            "acceptable_variations": true,
+            "notes": ""
+          },
+          "target_sentences": 1,
+          "min_versions": 1,
+          "correction_focus": [
+            "present_simple",
+            "complete_sentence"
+          ],
+          "notes": "",
+          "answer_support": {
+            "priority_answer": {
+              "text": "I visit my grandparents.",
+              "source": "source_reference"
+            },
+            "use_priority_answer_first": true,
+            "fallback_answer_rule": {
+              "enabled": true,
+              "mode": "pattern_based",
+              "instruction": "If there is no official or source reference answer, generate a short A2-level full sentence that matches the target pattern."
+            }
+          },
+          "follow_up_reference_answers": [
+            "Yes, I do."
+          ]
+        },
+        {
+          "id": "p4_ex_004",
+          "order": 4,
+          "teacher_prompt": "Do you play any sports?",
+          "student_reference": "Yes. I play football.",
+          "follow_up_question": "Do you play basketball / football?",
+          "answer_required": true,
+          "expected_answer_type": "yes_no_plus_detail",
+          "expected_child_response": {
+            "description": "The child should answer yes or no and may add the sport they play.",
+            "target_pattern": "Yes, I do. I play ... / No, I don't.",
+            "target_grammar": [
+              "yes_no_short_answer",
+              "present_simple"
+            ],
+            "target_vocabulary": [
+              "football",
+              "basketball",
+              "sports"
+            ],
+            "acceptable_variations": true,
+            "notes": ""
+          },
+          "target_sentences": 1,
+          "min_versions": 1,
+          "correction_focus": [
+            "yes_no_short_answer",
+            "complete_sentence"
+          ],
+          "notes": "",
+          "answer_support": {
+            "priority_answer": {
+              "text": "Yes. I play football.",
+              "source": "source_reference"
+            },
+            "use_priority_answer_first": true,
+            "fallback_answer_rule": {
+              "enabled": true,
+              "mode": "pattern_based",
+              "instruction": "If there is no official or source reference answer, generate a short A2-level full sentence that matches the target pattern."
+            }
+          },
+          "follow_up_reference_answers": [
+            "I play football."
+          ]
+        },
+        {
+          "id": "p4_ex_005",
+          "order": 5,
+          "teacher_prompt": "What other things do you do in your free time?",
+          "student_reference": "I sometimes go to the cinema. I play computer games with my friends. I help my mum with the housework.",
+          "answer_required": true,
+          "expected_answer_type": "multi_sentence_personal_answer",
+          "expected_child_response": {
+            "description": "The child should say one or more things they do in their free time.",
+            "target_pattern": "I ... in my free time.",
+            "target_grammar": [
+              "present_simple",
+              "adverb_of_frequency",
+              "full_sentence"
+            ],
+            "target_vocabulary": [
+              "cinema",
+              "computer games",
+              "friends",
+              "housework"
+            ],
+            "acceptable_variations": true,
+            "notes": "Source includes several possible full-mark answers and checking questions."
+          },
+          "target_sentences": 2,
+          "min_versions": 1,
+          "follow_ups": [
+            "Do you go to the cinema?",
+            "Do you play computer games with your friends?",
+            "Do you help with the housework?"
+          ],
+          "correction_focus": [
+            "present_simple",
+            "complete_sentence"
+          ],
+          "notes": "",
+          "answer_support": {
+            "priority_answer": {
+              "text": "I sometimes go to the cinema. I play computer games with my friends. I help my mum with the housework.",
+              "source": "source_reference"
+            },
+            "use_priority_answer_first": true,
+            "fallback_answer_rule": {
+              "enabled": true,
+              "mode": "pattern_based",
+              "instruction": "If there is no official or source reference answer, generate a short A2-level full sentence that matches the target pattern."
+            }
+          },
+          "follow_up_reference_answers": [
+            "Yes, I do.",
+            "Yes, I do. I play computer games with my friends.",
+            "Yes, I do. I help my mum with the housework."
+          ]
+        }
+      ],
+      "story_frames": [],
+      "questions": [],
+      "part4_mode": {
+        "exact_teacher_prompt_only": true,
+        "exact_follow_up_only": true,
+        "stay_on_current_exchange_until_done": true,
+        "questions_are_supplementary_only": false,
+        "strict_order_required": true,
+        "no_extra_question_outside_exchange": true,
+        "no_repeat_follow_up": true
+      },
+      "strict_exchange_order": [
+        "p4_ex_001",
+        "p4_ex_002",
+        "p4_ex_003",
+        "p4_ex_004",
+        "p4_ex_005"
+      ]
+    }
+  ]
+}

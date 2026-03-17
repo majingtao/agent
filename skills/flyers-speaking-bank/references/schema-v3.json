@@ -1,0 +1,94 @@
+{
+  "template_version": "3.0-draft",
+  "template_type": "flyers-speaking-script-bank",
+  "description": "Structured JSON draft for Cambridge Flyers speaking banks built from official-style speaking scripts.",
+  "top_level_key_descriptions": {
+    "bank_id": "Unique ID of the bank.",
+    "title": "Human-readable bank title.",
+    "source": "Source label or book name.",
+    "version": "Version string of the bank file.",
+    "mode": "Usage mode, such as paper-based-picture.",
+    "image_handling": "Global image handling rule.",
+    "level": "Difficulty level.",
+    "language": "Language policy.",
+    "variables": "Runtime placeholders such as teacher_name.",
+    "session_rules": "Session-level rules for how to run the bank.",
+    "parts": "Array of speaking parts.",
+    "answer_support": "Guidance for what answer to teach first when the child is wrong or cannot answer."
+  },
+  "bank_id": "",
+  "title": "",
+  "source": "",
+  "version": "",
+  "mode": "paper-based-picture",
+  "image_handling": "parent_offline_only",
+  "level": "",
+  "language": "english_first",
+  "variables": {
+    "teacher_name": {
+      "type": "model_generated",
+      "description": "Choose a short friendly English teacher name and keep it consistent for the whole session."
+    }
+  },
+  "session_rules": {
+    "finish_policy": "Continue until all parts and exchanges are completed, unless the user ends the session early.",
+    "require_min_versions_default": 2,
+    "check_grammar": true,
+    "check_completeness": true,
+    "check_goal_fit": true,
+    "explain_errors_briefly": true,
+    "do_not_move_on_until_mastered": true,
+    "early_stop_output": ["session_summary", "session_record"]
+  },
+  "parts": [
+    {
+      "part_id": "",
+      "part_number": 0,
+      "part_name": "",
+      "part_type": "",
+      "instructions": [],
+      "questions": [],
+      "image_required": false,
+      "image_handling": "shown_on_paper_by_parent",
+      "source_images": [],
+      "notes": "",
+      "exchanges": [
+        {
+          "id": "",
+          "order": 0,
+          "teacher_prompt": "",
+          "student_reference": "",
+          "follow_up_question": "",
+          "answer_required": true,
+          "expected_answer_type": "",
+          "expected_child_response": {
+            "description": "",
+            "target_pattern": "",
+            "target_grammar": [],
+            "target_vocabulary": [],
+            "acceptable_variations": true,
+            "notes": ""
+          },
+          "answer_support": {
+            "priority_answer": {
+              "text": "",
+              "source": "official"
+            },
+            "use_priority_answer_first": true,
+            "fallback_answer_rule": {
+              "enabled": true,
+              "mode": "pattern_based",
+              "instruction": "If there is no official or source reference answer, generate a short A2-level full sentence that matches the target pattern."
+            }
+          },
+          "target_sentences": 1,
+          "min_versions": 1,
+          "follow_ups": [],
+          "correction_focus": [],
+          "notes": ""
+        }
+      ],
+      "story_frames": []
+    }
+  ]
+}

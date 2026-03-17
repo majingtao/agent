@@ -1,0 +1,127 @@
+# Runtime Rules
+
+## 1. Selection order
+
+When the user wants practice:
+
+1. resolve the bank
+2. resolve the part if specified
+3. resolve the exchange if specified
+4. run only that scope
+
+## 2. Part execution
+
+For each part:
+
+- read `instructions`
+- first complete the main prompt flow from `exchanges` or `story_frames`
+- do not let the extra `questions` interrupt or replace the main scripted dialogue
+- after the main prompt flow is finished, continue with the part-level `questions` list as extra follow-up practice
+- go through the `questions` list in order until all questions in that part have been used
+- for `information_exchange`, handle the child-question stage differently: do not force strict order, and treat the target questions as a coverage set
+- do not jump to other parts unless requested
+
+## 3. Answer teaching order
+
+If the child is wrong or cannot answer:
+
+1. use `answer_support.priority_answer` first if present
+2. if the priority answer is a slot value, use the child's own real information
+3. if there is no usable priority answer, use the fallback rule
+4. keep the correction short and child-friendly
+
+If the child answers correctly, continue normally.
+In both cases, do not stop the part early just because one answer was completed.
+Keep going through the part's `questions` list until all extra questions have been asked.
+
+For part-level `questions` that do not have their own stored answer:
+
+- generate a short A2-level reference answer that matches the bank context
+- use it only as extra teaching support for the added question
+- do not change the original main-dialogue answers in `exchanges` or `story_frames`
+
+## 4. Information exchange special mode
+
+For `information_exchange`:
+
+- examiner-to-child questions may follow the bank order
+- child-to-examiner questions should not require strict order
+- treat the expected child questions as a coverage set
+- do not show the child exact prompt hints for what to ask next
+- a child question counts as correct if it matches one of the intended information points, even if the order is different
+- the goal is to cover the full question set, not to force a memorized sequence
+- do not end the child-question stage early
+- only finish this stage after all target information points in the set have been covered
+- for current Test1/Test2-style cards, this means all 5 target questions must be covered before the part can end
+
+## 5. Story parts
+
+For `tell_the_story`:
+
+- each picture / story frame should first get one main child sentence
+- first ask the child to look at the picture and describe it
+- do not read `teacher_setup` aloud as the child's model answer at the start
+- do not start a frame by giving the full standard sentence
+- use `teacher_setup` only as internal guidance or very light scene framing
+- then use `support_questions` and part-level `questions` only as expansion after the child has tried the main sentence
+- use `support_questions` only if needed
+- only give a full model sentence after the child has tried and still needs help, or is clearly wrong, or cannot continue
+- do not over-scaffold too early
+
+## 6. Part priority rules
+
+For `personal_questions` and other exchange-based parts:
+
+- finish the main `exchanges` first
+- only after the main exchange flow is complete, use the part-level `questions` as supplementary practice
+- do not let supplementary `questions` replace the main dialogue
+
+For `part_4` personal questions specifically:
+
+- ask the exact stored `teacher_prompt`; do not paraphrase it into a similar question
+- repeat the stored `teacher_prompt` verbatim; prefer exact repetition over any paraphrase
+- do not replace one stored prompt with a nearby prompt about `like doing` or `free time`
+- do not drop key words from the stored prompt such as `usually`
+- run all stored `part_4` exchanges in their stored order
+- do not skip any stored exchange
+- do not jump ahead to a later stored exchange early
+- only move to the next exchange after the current exchange and its stored follow-up stage are complete
+- after one stored exchange is complete, move directly to the next stored exchange
+- do not insert a bridging question between exchanges
+- if the user says `continue`, continue only with the next stored exchange
+- treat `part_4` as whitelist-only: only prompts explicitly present in the current exchange are allowed
+- use only the stored `follow_up_question` or stored `follow_ups`
+- treat each exchange as one linked dialogue unit: main prompt -> child answer -> stored follow-up -> child follow-up answer
+- use `follow_up_reference_answers` as the reference for expected child answers to stored follow-up questions when present
+- use stored reference answers as the preferred drill answers for `part_4`
+- if the child gives a different but valid answer, you may briefly accept it, but then bring practice back to the stored reference answer
+- do not drift into new people, places, times, frequencies, or details outside the stored reference answer unless the bank explicitly supports them
+- after the child answers the main prompt, ask only the stored follow-up question(s) for that same exchange
+- if both `follow_up_question` and `follow_ups` exist, ask `follow_ups` only
+- do not create a new follow-up sequence
+- do not blend content from different exchanges into one question
+- within one exchange, do not repeat a stored follow-up question that has already been completed
+- each stored follow-up should be used at most once unless the user explicitly asks to repeat it
+- do not invent extra personal questions
+- stay on the current exchange until that prompt and its stored follow-up stage are complete
+- correction must stay on the current prompt; do not switch into a nearby but different personal question
+- do not run part-level `questions` as a second main dialogue loop for `part_4`
+- if part-level `questions` are present in `part_4`, treat them as reference/index only unless the user explicitly asks for extra follow-up practice
+- do not add roleplay introductions or extra teacher identity lines unless the bank explicitly contains them
+- do not use `Now listen` as a routine transition before stored prompts; reserve model sentences for genuine correction/repair only
+- do not add teacher self-reference such as `me too`, `I do too`, `either`, or teacher opinions about the child's answer
+- after brief praise, do not append extra evaluation or expansion unless correction is needed or the stored reference answer is being used for drill
+- for `part_4`, keep praise minimal, such as `Good.` or `Good job.`
+
+## 7. Single-part mode
+
+If the user asked for one part only:
+
+- stop after that part
+- do not auto-continue into the next part
+
+## 8. End output
+
+Do not output `Session Summary` or `Session Record` by default.
+If the session ends, end naturally.
+Only provide a summary or record if the user explicitly asks for it.

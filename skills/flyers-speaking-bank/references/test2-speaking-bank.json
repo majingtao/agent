@@ -1,0 +1,1400 @@
+{
+  "bank_id": "go-flyers-test2-speaking",
+  "title": "Go Flyers - Test 2 - Speaking",
+  "source": "Go Flyers Teacher's Notes - Key to tests - Test 2 - Speaking (pp. 20-22)",
+  "version": "1.0",
+  "mode": "paper-based-picture",
+  "image_handling": "parent_offline_only",
+  "level": "flyers",
+  "language": "english_first",
+  "variables": {
+    "teacher_name": {
+      "type": "model_generated",
+      "description": "Choose a short friendly English teacher name and keep it consistent for the whole session."
+    }
+  },
+  "session_rules": {
+    "finish_policy": "Continue until all parts and exchanges are completed, unless the user ends the session early.",
+    "require_min_versions_default": 1,
+    "check_grammar": true,
+    "check_completeness": true,
+    "check_goal_fit": true,
+    "explain_errors_briefly": true,
+    "do_not_move_on_until_mastered": true,
+    "early_stop_output": [
+      "session_summary",
+      "session_record"
+    ]
+  },
+  "parts": [
+    {
+      "part_id": "part_0",
+      "part_number": 0,
+      "part_name": "Opening questions",
+      "part_type": "opening_personal_info",
+      "instructions": [
+        "Usher brings the student in.",
+        "Examiner greets the student and asks opening personal questions."
+      ],
+      "questions": [
+        "What's your name?",
+        "What's your surname?",
+        "What's your family name?",
+        "How old are you?",
+        "Are you twelve years old?"
+      ],
+      "image_required": false,
+      "image_handling": "not_needed",
+      "source_images": [],
+      "notes": "Based on p.20 speaking opening lines.",
+      "exchanges": [
+        {
+          "id": "p0_ex_001",
+          "order": 1,
+          "teacher_prompt": "Hello. My name's {{teacher_name}}.",
+          "student_reference": "Hello.",
+          "follow_up_question": "What's your name?",
+          "answer_required": true,
+          "expected_answer_type": "name",
+          "expected_child_response": {
+            "description": "The child should greet the examiner and say their first name.",
+            "target_pattern": "Hello. / My name is ... / I am ...",
+            "target_grammar": [
+              "simple_introduction"
+            ],
+            "target_vocabulary": [],
+            "acceptable_variations": true,
+            "notes": "The greeting and name may happen across two short turns."
+          },
+          "answer_support": {
+            "priority_answer": {
+              "text": "Hello.",
+              "source": "source_reference"
+            },
+            "use_priority_answer_first": true,
+            "fallback_answer_rule": {
+              "enabled": true,
+              "mode": "pattern_based",
+              "instruction": "If there is no official or source reference answer, generate a short A2-level full sentence that matches the target pattern."
+            }
+          },
+          "target_sentences": 1,
+          "min_versions": 1,
+          "follow_ups": [
+            "Please say your full name.",
+            "Can you answer in a full sentence?"
+          ],
+          "correction_focus": [
+            "complete_sentence",
+            "simple_introduction"
+          ],
+          "notes": "Merged greeting + name setup into one structured exchange."
+        },
+        {
+          "id": "p0_ex_002",
+          "order": 2,
+          "teacher_prompt": "What's your surname?",
+          "student_reference": "(surname)",
+          "follow_up_question": "What's your family name?",
+          "answer_required": true,
+          "expected_answer_type": "surname",
+          "expected_child_response": {
+            "description": "The child should say their surname or family name.",
+            "target_pattern": "My surname is ... / My family name is ...",
+            "target_grammar": [
+              "full_sentence"
+            ],
+            "target_vocabulary": [],
+            "acceptable_variations": true,
+            "notes": "Source includes both surname and family name prompts."
+          },
+          "answer_support": {
+            "priority_answer": {
+              "text": "",
+              "source": "slot_value",
+              "slot_name": "surname",
+              "instruction": "Use the child's real surname or family name as the answer content."
+            },
+            "use_priority_answer_first": true,
+            "fallback_answer_rule": {
+              "enabled": true,
+              "mode": "slot_based",
+              "instruction": "Use the child's real surname or family name as the answer content."
+            }
+          },
+          "target_sentences": 1,
+          "min_versions": 1,
+          "follow_ups": [
+            "Please say it in a full sentence."
+          ],
+          "correction_focus": [
+            "complete_sentence"
+          ],
+          "notes": ""
+        },
+        {
+          "id": "p0_ex_003",
+          "order": 3,
+          "teacher_prompt": "How old are you?",
+          "student_reference": "(age)",
+          "follow_up_question": "Are you twelve years old?",
+          "answer_required": true,
+          "expected_answer_type": "age_or_yes_no",
+          "expected_child_response": {
+            "description": "The child should say their age, then answer the yes/no check question.",
+            "target_pattern": "I am ... years old. / Yes, I am. / No, I am not.",
+            "target_grammar": [
+              "age_expression",
+              "yes_no_short_answer"
+            ],
+            "target_vocabulary": [],
+            "acceptable_variations": true,
+            "notes": "There may be two short responses in sequence."
+          },
+          "answer_support": {
+            "priority_answer": {
+              "text": "",
+              "source": "slot_value",
+              "slot_name": "age",
+              "instruction": "Use the child's real age as the answer content."
+            },
+            "use_priority_answer_first": true,
+            "fallback_answer_rule": {
+              "enabled": true,
+              "mode": "slot_based",
+              "instruction": "Use the child's real age as the answer content."
+            }
+          },
+          "target_sentences": 1,
+          "min_versions": 1,
+          "follow_ups": [
+            "Please answer in a full sentence."
+          ],
+          "correction_focus": [
+            "age_expression",
+            "complete_sentence"
+          ],
+          "notes": ""
+        }
+      ],
+      "story_frames": []
+    },
+    {
+      "part_id": "part_1",
+      "part_number": 1,
+      "part_name": "Find the differences",
+      "part_type": "find_the_differences",
+      "instructions": [
+        "Show the student both Find the differences cards.",
+        "Here are two pictures. My picture is similar to yours, but there are some differences.",
+        "For example, in my picture two firemen are drinking coffee, but in your picture they are eating.",
+        "I will say something about my picture. Can you tell me how your picture is different?"
+      ],
+      "questions": [
+        "Point to the differences.",
+        "Repeat what the student has to do.",
+        "Ask questions to help him/her.",
+        "Is the man wearing a white shirt?",
+        "Has the driver got a beard?",
+        "Is the man going up the stairs?",
+        "Is there a restaurant next to the fire station?",
+        "Is there a motorbike near the trees?"
+      ],
+      "image_required": true,
+      "image_handling": "shown_on_paper_by_parent",
+      "source_images": [
+        "assets/test2/test2-part1-find-the-differences.jpg"
+      ],
+      "notes": "Student looks at printed picture. Model does not see image.",
+      "exchanges": [
+        {
+          "id": "p1_ex_001",
+          "order": 1,
+          "teacher_prompt": "In my picture, the man who is going to the toilet is wearing a white shirt.",
+          "student_reference": "In my picture, the man who is going to the toilet is wearing a black shirt.",
+          "follow_up_question": "Is the man wearing a white shirt?",
+          "answer_required": true,
+          "expected_answer_type": "difference_sentence",
+          "expected_child_response": {
+            "description": "The child should describe the shirt colour difference in a full sentence.",
+            "target_pattern": "In my picture, ... is wearing ...",
+            "target_grammar": [
+              "present_continuous",
+              "full_sentence"
+            ],
+            "target_vocabulary": [
+              "white shirt",
+              "black shirt"
+            ],
+            "acceptable_variations": false,
+            "notes": "Card-based fixed difference."
+          },
+          "answer_support": {
+            "priority_answer": {
+              "text": "In my picture, the man who is going to the toilet is wearing a black shirt.",
+              "source": "official"
+            },
+            "use_priority_answer_first": true,
+            "fallback_answer_rule": {
+              "enabled": false,
+              "mode": "pattern_based",
+              "instruction": "Use the fixed card-based answer. Do not freely change the core information."
+            }
+          },
+          "target_sentences": 1,
+          "min_versions": 1,
+          "follow_ups": [
+            "Please say the full sentence.",
+            "What is he wearing in your picture?"
+          ],
+          "correction_focus": [
+            "complete_sentence",
+            "present_continuous"
+          ],
+          "notes": ""
+        },
+        {
+          "id": "p1_ex_002",
+          "order": 2,
+          "teacher_prompt": "In my picture, the driver in the fire engine has got a beard.",
+          "student_reference": "In my picture, the driver has got a moustache.",
+          "follow_up_question": "Has the driver got a beard?",
+          "answer_required": true,
+          "expected_answer_type": "difference_sentence",
+          "expected_child_response": {
+            "description": "The child should describe the driver's facial hair difference.",
+            "target_pattern": "In my picture, the driver has got ...",
+            "target_grammar": [
+              "has_got",
+              "full_sentence"
+            ],
+            "target_vocabulary": [
+              "beard",
+              "moustache",
+              "driver"
+            ],
+            "acceptable_variations": false,
+            "notes": "Card-based fixed difference."
+          },
+          "answer_support": {
+            "priority_answer": {
+              "text": "In my picture, the driver has got a moustache.",
+              "source": "official"
+            },
+            "use_priority_answer_first": true,
+            "fallback_answer_rule": {
+              "enabled": false,
+              "mode": "pattern_based",
+              "instruction": "Use the fixed card-based answer. Do not freely change the core information."
+            }
+          },
+          "target_sentences": 1,
+          "min_versions": 1,
+          "follow_ups": [
+            "Please say the full sentence.",
+            "What has the driver got in your picture?"
+          ],
+          "correction_focus": [
+            "has_got",
+            "complete_sentence"
+          ],
+          "notes": ""
+        },
+        {
+          "id": "p1_ex_003",
+          "order": 3,
+          "teacher_prompt": "In my picture, a man is going up the stairs.",
+          "student_reference": "In my picture, the man is going down the stairs.",
+          "follow_up_question": "Is the man going up the stairs?",
+          "answer_required": true,
+          "expected_answer_type": "difference_sentence",
+          "expected_child_response": {
+            "description": "The child should describe the direction difference on the stairs.",
+            "target_pattern": "In my picture, the man is going ... the stairs.",
+            "target_grammar": [
+              "present_continuous",
+              "full_sentence"
+            ],
+            "target_vocabulary": [
+              "up",
+              "down",
+              "stairs"
+            ],
+            "acceptable_variations": false,
+            "notes": "Card-based fixed difference."
+          },
+          "answer_support": {
+            "priority_answer": {
+              "text": "In my picture, the man is going down the stairs.",
+              "source": "official"
+            },
+            "use_priority_answer_first": true,
+            "fallback_answer_rule": {
+              "enabled": false,
+              "mode": "pattern_based",
+              "instruction": "Use the fixed card-based answer. Do not freely change the core information."
+            }
+          },
+          "target_sentences": 1,
+          "min_versions": 1,
+          "follow_ups": [
+            "Please say the full sentence.",
+            "Is he going up or down in your picture?"
+          ],
+          "correction_focus": [
+            "present_continuous",
+            "complete_sentence"
+          ],
+          "notes": ""
+        },
+        {
+          "id": "p1_ex_004",
+          "order": 4,
+          "teacher_prompt": "In my picture, there is a restaurant next to the fire station.",
+          "student_reference": "In my picture, there is a bookshop next to the fire station.",
+          "follow_up_question": "Is there a restaurant next to the fire station?",
+          "answer_required": true,
+          "expected_answer_type": "difference_sentence",
+          "expected_child_response": {
+            "description": "The child should describe the building difference next to the fire station.",
+            "target_pattern": "In my picture, there is a ... next to the fire station.",
+            "target_grammar": [
+              "there_is_are",
+              "full_sentence"
+            ],
+            "target_vocabulary": [
+              "restaurant",
+              "bookshop",
+              "fire station"
+            ],
+            "acceptable_variations": false,
+            "notes": "Card-based fixed difference."
+          },
+          "answer_support": {
+            "priority_answer": {
+              "text": "In my picture, there is a bookshop next to the fire station.",
+              "source": "official"
+            },
+            "use_priority_answer_first": true,
+            "fallback_answer_rule": {
+              "enabled": false,
+              "mode": "pattern_based",
+              "instruction": "Use the fixed card-based answer. Do not freely change the core information."
+            }
+          },
+          "target_sentences": 1,
+          "min_versions": 1,
+          "follow_ups": [
+            "Please say the full sentence.",
+            "What is next to the fire station in your picture?"
+          ],
+          "correction_focus": [
+            "there_is_are",
+            "complete_sentence"
+          ],
+          "notes": ""
+        },
+        {
+          "id": "p1_ex_005",
+          "order": 5,
+          "teacher_prompt": "In my picture, there is a motorbike near the trees.",
+          "student_reference": "In my picture, there is a bike near the trees.",
+          "follow_up_question": "Is there a motorbike near the trees?",
+          "answer_required": true,
+          "expected_answer_type": "difference_sentence",
+          "expected_child_response": {
+            "description": "The child should describe the vehicle difference near the trees.",
+            "target_pattern": "In my picture, there is a ... near the trees.",
+            "target_grammar": [
+              "there_is_are",
+              "full_sentence"
+            ],
+            "target_vocabulary": [
+              "motorbike",
+              "bike",
+              "trees"
+            ],
+            "acceptable_variations": false,
+            "notes": "Card-based fixed difference."
+          },
+          "answer_support": {
+            "priority_answer": {
+              "text": "In my picture, there is a bike near the trees.",
+              "source": "official"
+            },
+            "use_priority_answer_first": true,
+            "fallback_answer_rule": {
+              "enabled": false,
+              "mode": "pattern_based",
+              "instruction": "Use the fixed card-based answer. Do not freely change the core information."
+            }
+          },
+          "target_sentences": 1,
+          "min_versions": 1,
+          "follow_ups": [
+            "Please say the full sentence.",
+            "What is near the trees in your picture?"
+          ],
+          "correction_focus": [
+            "there_is_are",
+            "complete_sentence"
+          ],
+          "notes": ""
+        }
+      ],
+      "story_frames": []
+    },
+    {
+      "part_id": "part_2",
+      "part_number": 2,
+      "part_name": "Information exchange",
+      "part_type": "information_exchange",
+      "instructions": [
+        "Show the student the Information exchange cards.",
+        "Give the student his or her card.",
+        "Mr Brown and Mrs Silver are two teachers. I don't know anything about Mr Brown, but you do. So I'm going to ask you some questions.",
+        "Point to the box on the right of the student's card.",
+        "Ask the questions.",
+        "Now, you don't know anything about Mrs Silver, so you ask me some questions.",
+        "Point to the box on the left of the student's card.",
+        "You can point to the information on your card if necessary."
+      ],
+      "questions": [
+        "You can point to the information on your card if necessary.",
+        "What's his name?",
+        "How old is he?",
+        "What subject does he teach?",
+        "How many years has he been a teacher?",
+        "Is he married?",
+        "What's her name?",
+        "How old is she?",
+        "What subject does she teach?",
+        "How many years has she been a teacher?",
+        "Is she married?",
+        "You can point to the information on the student's card if necessary."
+      ],
+      "image_required": true,
+      "image_handling": "shown_on_paper_by_parent",
+      "source_images": [
+        "assets/test2/test2-part2-information-exchange.jpg"
+      ],
+      "notes": "Complete information-exchange content from p.21.",
+      "exchanges": [
+        {
+          "id": "p2_ex_001",
+          "order": 1,
+          "teacher_prompt": "What's his name?",
+          "student_reference": "Richard.",
+          "follow_up_question": "",
+          "answer_required": true,
+          "expected_answer_type": "name_answer",
+          "expected_child_response": {
+            "description": "The child should answer with the exact name from the card.",
+            "target_pattern": "Richard.",
+            "target_grammar": [
+              "name_answer"
+            ],
+            "target_vocabulary": [],
+            "acceptable_variations": false,
+            "notes": "Card-based fixed information."
+          },
+          "answer_support": {
+            "priority_answer": {
+              "text": "Richard.",
+              "source": "official"
+            },
+            "use_priority_answer_first": true,
+            "fallback_answer_rule": {
+              "enabled": false,
+              "mode": "pattern_based",
+              "instruction": "Use the fixed card-based answer. Do not freely change the core information."
+            }
+          },
+          "target_sentences": 1,
+          "min_versions": 1,
+          "follow_ups": [
+            "Please answer with the name.",
+            "What's his name?"
+          ],
+          "correction_focus": [
+            "goal_fit"
+          ],
+          "notes": ""
+        },
+        {
+          "id": "p2_ex_002",
+          "order": 2,
+          "teacher_prompt": "How old is he?",
+          "student_reference": "He's 37.",
+          "follow_up_question": "",
+          "answer_required": true,
+          "expected_answer_type": "age_answer",
+          "expected_child_response": {
+            "description": "The child should answer with the exact age from the card.",
+            "target_pattern": "He's ...",
+            "target_grammar": [
+              "age_expression"
+            ],
+            "target_vocabulary": [],
+            "acceptable_variations": false,
+            "notes": ""
+          },
+          "answer_support": {
+            "priority_answer": {
+              "text": "He's 37.",
+              "source": "official"
+            },
+            "use_priority_answer_first": true,
+            "fallback_answer_rule": {
+              "enabled": false,
+              "mode": "pattern_based",
+              "instruction": "Use the fixed card-based answer. Do not freely change the core information."
+            }
+          },
+          "target_sentences": 1,
+          "min_versions": 1,
+          "follow_ups": [
+            "Please answer with the age.",
+            "How old is he?"
+          ],
+          "correction_focus": [
+            "age_expression"
+          ],
+          "notes": ""
+        },
+        {
+          "id": "p2_ex_003",
+          "order": 3,
+          "teacher_prompt": "What subject does he teach?",
+          "student_reference": "Geography.",
+          "follow_up_question": "",
+          "answer_required": true,
+          "expected_answer_type": "subject_answer",
+          "expected_child_response": {
+            "description": "The child should answer with the exact subject from the card.",
+            "target_pattern": "Geography.",
+            "target_grammar": [
+              "goal_fit"
+            ],
+            "target_vocabulary": [
+              "Geography"
+            ],
+            "acceptable_variations": false,
+            "notes": ""
+          },
+          "answer_support": {
+            "priority_answer": {
+              "text": "Geography.",
+              "source": "official"
+            },
+            "use_priority_answer_first": true,
+            "fallback_answer_rule": {
+              "enabled": false,
+              "mode": "pattern_based",
+              "instruction": "Use the fixed card-based answer. Do not freely change the core information."
+            }
+          },
+          "target_sentences": 1,
+          "min_versions": 1,
+          "follow_ups": [
+            "Please answer with the subject.",
+            "What subject does he teach?"
+          ],
+          "correction_focus": [
+            "goal_fit"
+          ],
+          "notes": ""
+        },
+        {
+          "id": "p2_ex_004",
+          "order": 4,
+          "teacher_prompt": "How many years has he been a teacher?",
+          "student_reference": "Eight.",
+          "follow_up_question": "",
+          "answer_required": true,
+          "expected_answer_type": "number_answer",
+          "expected_child_response": {
+            "description": "The child should answer with the exact number from the card.",
+            "target_pattern": "Eight.",
+            "target_grammar": [
+              "goal_fit"
+            ],
+            "target_vocabulary": [],
+            "acceptable_variations": false,
+            "notes": ""
+          },
+          "answer_support": {
+            "priority_answer": {
+              "text": "Eight.",
+              "source": "official"
+            },
+            "use_priority_answer_first": true,
+            "fallback_answer_rule": {
+              "enabled": false,
+              "mode": "pattern_based",
+              "instruction": "Use the fixed card-based answer. Do not freely change the core information."
+            }
+          },
+          "target_sentences": 1,
+          "min_versions": 1,
+          "follow_ups": [
+            "Please answer with the number.",
+            "How many years has he been a teacher?"
+          ],
+          "correction_focus": [
+            "goal_fit"
+          ],
+          "notes": ""
+        },
+        {
+          "id": "p2_ex_005",
+          "order": 5,
+          "teacher_prompt": "Is he married?",
+          "student_reference": "Yes.",
+          "follow_up_question": "",
+          "answer_required": true,
+          "expected_answer_type": "yes_no_answer",
+          "expected_child_response": {
+            "description": "The child should answer with the exact yes/no information from the card.",
+            "target_pattern": "Yes. / No.",
+            "target_grammar": [
+              "yes_no_short_answer"
+            ],
+            "target_vocabulary": [],
+            "acceptable_variations": false,
+            "notes": ""
+          },
+          "answer_support": {
+            "priority_answer": {
+              "text": "Yes.",
+              "source": "official"
+            },
+            "use_priority_answer_first": true,
+            "fallback_answer_rule": {
+              "enabled": false,
+              "mode": "pattern_based",
+              "instruction": "Use the fixed card-based answer. Do not freely change the core information."
+            }
+          },
+          "target_sentences": 1,
+          "min_versions": 1,
+          "follow_ups": [
+            "Please answer yes or no.",
+            "Is he married?"
+          ],
+          "correction_focus": [
+            "goal_fit"
+          ],
+          "notes": ""
+        },
+        {
+          "id": "p2_ex_006",
+          "order": 6,
+          "teacher_prompt": "Now, you don't know anything about Mrs Silver, so you ask me some questions.",
+          "student_reference": "What's her name?",
+          "follow_up_question": "",
+          "answer_required": true,
+          "expected_answer_type": "student_question",
+          "expected_child_response": {
+            "description": "The child should ask for Mrs Silver's name.",
+            "target_pattern": "What's her name?",
+            "target_grammar": [
+              "question_form"
+            ],
+            "target_vocabulary": [],
+            "acceptable_variations": false,
+            "notes": "Examiner answer: Emma."
+          },
+          "answer_support": {
+            "priority_answer": {
+              "text": "What's her name?",
+              "source": "official"
+            },
+            "use_priority_answer_first": true,
+            "fallback_answer_rule": {
+              "enabled": false,
+              "mode": "pattern_based",
+              "instruction": "Use the fixed question from the card-based task."
+            }
+          },
+          "target_sentences": 1,
+          "min_versions": 1,
+          "follow_ups": [
+            "Ask me about Mrs Silver.",
+            "What's her name?"
+          ],
+          "correction_focus": [
+            "question_form"
+          ],
+          "notes": "Expected examiner answer: Emma."
+        },
+        {
+          "id": "p2_ex_007",
+          "order": 7,
+          "teacher_prompt": "Emma.",
+          "student_reference": "How old is she?",
+          "follow_up_question": "",
+          "answer_required": true,
+          "expected_answer_type": "student_question",
+          "expected_child_response": {
+            "description": "The child should ask for Mrs Silver's age.",
+            "target_pattern": "How old is she?",
+            "target_grammar": [
+              "question_form"
+            ],
+            "target_vocabulary": [],
+            "acceptable_variations": false,
+            "notes": "Examiner answer: She's 35."
+          },
+          "answer_support": {
+            "priority_answer": {
+              "text": "How old is she?",
+              "source": "official"
+            },
+            "use_priority_answer_first": true,
+            "fallback_answer_rule": {
+              "enabled": false,
+              "mode": "pattern_based",
+              "instruction": "Use the fixed question from the card-based task."
+            }
+          },
+          "target_sentences": 1,
+          "min_versions": 1,
+          "follow_ups": [
+            "Ask another question about Mrs Silver.",
+            "How old is she?"
+          ],
+          "correction_focus": [
+            "question_form"
+          ],
+          "notes": "Expected examiner answer: She's 35."
+        },
+        {
+          "id": "p2_ex_008",
+          "order": 8,
+          "teacher_prompt": "She's 35.",
+          "student_reference": "What subject does she teach?",
+          "follow_up_question": "",
+          "answer_required": true,
+          "expected_answer_type": "student_question",
+          "expected_child_response": {
+            "description": "The child should ask for Mrs Silver's subject.",
+            "target_pattern": "What subject does she teach?",
+            "target_grammar": [
+              "question_form"
+            ],
+            "target_vocabulary": [
+              "subject"
+            ],
+            "acceptable_variations": false,
+            "notes": "Examiner answer: History."
+          },
+          "answer_support": {
+            "priority_answer": {
+              "text": "What subject does she teach?",
+              "source": "official"
+            },
+            "use_priority_answer_first": true,
+            "fallback_answer_rule": {
+              "enabled": false,
+              "mode": "pattern_based",
+              "instruction": "Use the fixed question from the card-based task."
+            }
+          },
+          "target_sentences": 1,
+          "min_versions": 1,
+          "follow_ups": [
+            "Ask about her subject.",
+            "What subject does she teach?"
+          ],
+          "correction_focus": [
+            "question_form"
+          ],
+          "notes": "Expected examiner answer: History."
+        },
+        {
+          "id": "p2_ex_009",
+          "order": 9,
+          "teacher_prompt": "History.",
+          "student_reference": "How many years has she been a teacher?",
+          "follow_up_question": "",
+          "answer_required": true,
+          "expected_answer_type": "student_question",
+          "expected_child_response": {
+            "description": "The child should ask how many years Mrs Silver has been a teacher.",
+            "target_pattern": "How many years has she been a teacher?",
+            "target_grammar": [
+              "question_form"
+            ],
+            "target_vocabulary": [],
+            "acceptable_variations": false,
+            "notes": "Examiner answer: Six."
+          },
+          "answer_support": {
+            "priority_answer": {
+              "text": "How many years has she been a teacher?",
+              "source": "official"
+            },
+            "use_priority_answer_first": true,
+            "fallback_answer_rule": {
+              "enabled": false,
+              "mode": "pattern_based",
+              "instruction": "Use the fixed question from the card-based task."
+            }
+          },
+          "target_sentences": 1,
+          "min_versions": 1,
+          "follow_ups": [
+            "Ask about how many years.",
+            "How many years has she been a teacher?"
+          ],
+          "correction_focus": [
+            "question_form"
+          ],
+          "notes": "Expected examiner answer: Six."
+        },
+        {
+          "id": "p2_ex_010",
+          "order": 10,
+          "teacher_prompt": "Six.",
+          "student_reference": "Is she married?",
+          "follow_up_question": "",
+          "answer_required": true,
+          "expected_answer_type": "student_question",
+          "expected_child_response": {
+            "description": "The child should ask whether Mrs Silver is married.",
+            "target_pattern": "Is she married?",
+            "target_grammar": [
+              "question_form"
+            ],
+            "target_vocabulary": [],
+            "acceptable_variations": false,
+            "notes": "Examiner answer: Yes."
+          },
+          "answer_support": {
+            "priority_answer": {
+              "text": "Is she married?",
+              "source": "official"
+            },
+            "use_priority_answer_first": true,
+            "fallback_answer_rule": {
+              "enabled": false,
+              "mode": "pattern_based",
+              "instruction": "Use the fixed question from the card-based task."
+            }
+          },
+          "target_sentences": 1,
+          "min_versions": 1,
+          "follow_ups": [
+            "Ask if she is married.",
+            "Is she married?"
+          ],
+          "correction_focus": [
+            "question_form"
+          ],
+          "notes": "Expected examiner answer: Yes."
+        }
+      ],
+      "story_frames": []
+    },
+    {
+      "part_id": "part_3",
+      "part_number": 3,
+      "part_name": "Tell the story",
+      "part_type": "tell_the_story",
+      "instructions": [
+        "These pictures tell a story. It's called 'Michael's dream'. Look at the pictures first.",
+        "Michael is very tired. He brushes his teeth and he's getting ready to go to bed.",
+        "Now you tell the story."
+      ],
+      "questions": [
+        "Point to the pictures.",
+        "Ask questions about the pictures.",
+        "What is Michael doing?",
+        "Where is Michael now?",
+        "Where is Michael? What does he want to do?",
+        "What happens to Michael? Why?"
+      ],
+      "image_required": true,
+      "image_handling": "shown_on_paper_by_parent",
+      "source_images": [
+        "assets/test2/test2-part3-tell-the-story.jpg"
+      ],
+      "notes": "Story frames are based on p.22 visible prompts.",
+      "exchanges": [],
+      "story_frames": [
+        {
+          "frame_id": "p3_f_001",
+          "order": 1,
+          "teacher_setup": "Michael is very tired. He brushes his teeth and he's getting ready to go to bed.",
+          "support_questions": [],
+          "expected_child_response": {
+            "description": "The child should describe the first picture showing Michael getting ready for bed.",
+            "target_pattern": "Michael is ... / He is getting ready to ...",
+            "target_grammar": [
+              "present_continuous",
+              "full_sentence"
+            ],
+            "target_vocabulary": [
+              "tired",
+              "brushes his teeth",
+              "go to bed"
+            ],
+            "acceptable_variations": true,
+            "notes": ""
+          },
+          "answer_support": {
+            "priority_answer": {
+              "text": "",
+              "source": "official"
+            },
+            "use_priority_answer_first": false,
+            "fallback_answer_rule": {
+              "enabled": true,
+              "mode": "story_frame_based",
+              "instruction": "Generate a short A2-level story sentence using the frame setup and support questions."
+            }
+          },
+          "notes": "",
+          "story_mode": {
+            "child_describes_first": true,
+            "teacher_setup_is_not_model_answer": true,
+            "full_model_only_after_attempt_or_need": true
+          }
+        },
+        {
+          "frame_id": "p3_f_002",
+          "order": 2,
+          "teacher_setup": "Michael is sleeping and he is dreaming. In his dream, he is in a desert and he is riding a camel. It's very hot and Michael is very thirsty.",
+          "support_questions": [
+            "What is Michael doing?"
+          ],
+          "expected_child_response": {
+            "description": "The child should describe the dream picture in the desert.",
+            "target_pattern": "Michael is ...",
+            "target_grammar": [
+              "present_continuous",
+              "full_sentence"
+            ],
+            "target_vocabulary": [
+              "sleeping",
+              "dreaming",
+              "desert",
+              "camel",
+              "thirsty"
+            ],
+            "acceptable_variations": true,
+            "notes": ""
+          },
+          "answer_support": {
+            "priority_answer": {
+              "text": "",
+              "source": "official"
+            },
+            "use_priority_answer_first": false,
+            "fallback_answer_rule": {
+              "enabled": true,
+              "mode": "story_frame_based",
+              "instruction": "Generate a short A2-level story sentence using the frame setup and support questions."
+            }
+          },
+          "notes": "",
+          "story_mode": {
+            "child_describes_first": true,
+            "teacher_setup_is_not_model_answer": true,
+            "full_model_only_after_attempt_or_need": true
+          }
+        },
+        {
+          "frame_id": "p3_f_003",
+          "order": 3,
+          "teacher_setup": "Michael is now on a big bird. Michael is flying in the sky on the bird and he is excited.",
+          "support_questions": [
+            "Where is Michael now?"
+          ],
+          "expected_child_response": {
+            "description": "The child should describe the picture with the big bird.",
+            "target_pattern": "Michael is ...",
+            "target_grammar": [
+              "present_continuous",
+              "full_sentence"
+            ],
+            "target_vocabulary": [
+              "bird",
+              "flying",
+              "sky",
+              "excited"
+            ],
+            "acceptable_variations": true,
+            "notes": ""
+          },
+          "answer_support": {
+            "priority_answer": {
+              "text": "",
+              "source": "official"
+            },
+            "use_priority_answer_first": false,
+            "fallback_answer_rule": {
+              "enabled": true,
+              "mode": "story_frame_based",
+              "instruction": "Generate a short A2-level story sentence using the frame setup and support questions."
+            }
+          },
+          "notes": "",
+          "story_mode": {
+            "child_describes_first": true,
+            "teacher_setup_is_not_model_answer": true,
+            "full_model_only_after_attempt_or_need": true
+          }
+        },
+        {
+          "frame_id": "p3_f_004",
+          "order": 4,
+          "teacher_setup": "Michael is in space now. He is going to the moon in a rocket. He is ready to get off the rocket and walk on the moon.",
+          "support_questions": [
+            "Where is Michael? What does he want to do?"
+          ],
+          "expected_child_response": {
+            "description": "The child should describe the space picture.",
+            "target_pattern": "Michael is ... / He wants to ...",
+            "target_grammar": [
+              "present_continuous",
+              "want_to",
+              "full_sentence"
+            ],
+            "target_vocabulary": [
+              "space",
+              "moon",
+              "rocket",
+              "walk"
+            ],
+            "acceptable_variations": true,
+            "notes": ""
+          },
+          "answer_support": {
+            "priority_answer": {
+              "text": "",
+              "source": "official"
+            },
+            "use_priority_answer_first": false,
+            "fallback_answer_rule": {
+              "enabled": true,
+              "mode": "story_frame_based",
+              "instruction": "Generate a short A2-level story sentence using the frame setup and support questions."
+            }
+          },
+          "notes": "",
+          "story_mode": {
+            "child_describes_first": true,
+            "teacher_setup_is_not_model_answer": true,
+            "full_model_only_after_attempt_or_need": true
+          }
+        },
+        {
+          "frame_id": "p3_f_005",
+          "order": 5,
+          "teacher_setup": "Michael falls off the bed and wakes up. He was dreaming.",
+          "support_questions": [
+            "What happens to Michael? Why?"
+          ],
+          "expected_child_response": {
+            "description": "The child should finish the story by explaining that Michael wakes up from a dream.",
+            "target_pattern": "Michael ... because ...",
+            "target_grammar": [
+              "present_simple",
+              "because_clause",
+              "full_sentence"
+            ],
+            "target_vocabulary": [
+              "falls",
+              "wakes up",
+              "dreaming"
+            ],
+            "acceptable_variations": true,
+            "notes": ""
+          },
+          "answer_support": {
+            "priority_answer": {
+              "text": "",
+              "source": "official"
+            },
+            "use_priority_answer_first": false,
+            "fallback_answer_rule": {
+              "enabled": true,
+              "mode": "story_frame_based",
+              "instruction": "Generate a short A2-level story sentence using the frame setup and support questions."
+            }
+          },
+          "notes": "",
+          "story_mode": {
+            "child_describes_first": true,
+            "teacher_setup_is_not_model_answer": true,
+            "full_model_only_after_attempt_or_need": true
+          }
+        }
+      ]
+    },
+    {
+      "part_id": "part_4",
+      "part_number": 4,
+      "part_name": "Personal questions",
+      "part_type": "personal_questions",
+      "instructions": [
+        "Put the Tell the story card away and turn to the student.",
+        "Now, let's talk about what you do in the summer."
+      ],
+      "questions": [],
+      "image_required": false,
+      "image_handling": "not_needed",
+      "source_images": [],
+      "notes": "Based on p.22 personal questions section.",
+      "exchanges": [
+        {
+          "id": "p4_ex_001",
+          "order": 1,
+          "teacher_prompt": "Where do you like going for your holidays?",
+          "student_reference": "To an island.",
+          "follow_up_question": "Do you go to an island?",
+          "answer_required": true,
+          "expected_answer_type": "place_answer",
+          "expected_child_response": {
+            "description": "The child should answer where they like going for holidays.",
+            "target_pattern": "To ... / I like going to ...",
+            "target_grammar": [
+              "goal_fit"
+            ],
+            "target_vocabulary": [
+              "island",
+              "holidays"
+            ],
+            "acceptable_variations": true,
+            "notes": ""
+          },
+          "answer_support": {
+            "priority_answer": {
+              "text": "To an island.",
+              "source": "source_reference"
+            },
+            "use_priority_answer_first": true,
+            "fallback_answer_rule": {
+              "enabled": true,
+              "mode": "pattern_based",
+              "instruction": "If there is no official or source reference answer, generate a short A2-level full sentence that matches the target pattern."
+            }
+          },
+          "target_sentences": 1,
+          "min_versions": 1,
+          "correction_focus": [
+            "goal_fit",
+            "complete_sentence"
+          ],
+          "notes": "",
+          "follow_up_reference_answers": [
+            "Yes, I do."
+          ]
+        },
+        {
+          "id": "p4_ex_002",
+          "order": 2,
+          "teacher_prompt": "What time do you usually get up?",
+          "student_reference": "At 11 o'clock.",
+          "follow_up_question": "Do you get up at 1 o'clock?",
+          "answer_required": true,
+          "expected_answer_type": "time_answer",
+          "expected_child_response": {
+            "description": "The child should answer with a time expression.",
+            "target_pattern": "At ...",
+            "target_grammar": [
+              "time_expression"
+            ],
+            "target_vocabulary": [],
+            "acceptable_variations": true,
+            "notes": ""
+          },
+          "answer_support": {
+            "priority_answer": {
+              "text": "At 11 o'clock.",
+              "source": "source_reference"
+            },
+            "use_priority_answer_first": true,
+            "fallback_answer_rule": {
+              "enabled": true,
+              "mode": "pattern_based",
+              "instruction": "If there is no official or source reference answer, generate a short A2-level full sentence that matches the target pattern."
+            }
+          },
+          "target_sentences": 1,
+          "min_versions": 1,
+          "correction_focus": [
+            "time_expression"
+          ],
+          "notes": "",
+          "follow_up_reference_answers": [
+            "No, I don't."
+          ]
+        },
+        {
+          "id": "p4_ex_003",
+          "order": 3,
+          "teacher_prompt": "Who do you spend your summer with?",
+          "student_reference": "My family.",
+          "follow_up_question": "Do you spend time with your family?",
+          "answer_required": true,
+          "expected_answer_type": "person_answer",
+          "expected_child_response": {
+            "description": "The child should answer who they spend summer with.",
+            "target_pattern": "I spend my summer with ... / My ...",
+            "target_grammar": [
+              "goal_fit"
+            ],
+            "target_vocabulary": [
+              "family"
+            ],
+            "acceptable_variations": true,
+            "notes": ""
+          },
+          "answer_support": {
+            "priority_answer": {
+              "text": "My family.",
+              "source": "source_reference"
+            },
+            "use_priority_answer_first": true,
+            "fallback_answer_rule": {
+              "enabled": true,
+              "mode": "pattern_based",
+              "instruction": "If there is no official or source reference answer, generate a short A2-level full sentence that matches the target pattern."
+            }
+          },
+          "target_sentences": 1,
+          "min_versions": 1,
+          "correction_focus": [
+            "goal_fit",
+            "complete_sentence"
+          ],
+          "notes": "",
+          "follow_up_reference_answers": [
+            "Yes, I do."
+          ]
+        },
+        {
+          "id": "p4_ex_004",
+          "order": 4,
+          "teacher_prompt": "What do you like doing in the summer?",
+          "student_reference": "I go/like swimming.",
+          "follow_up_question": "Do you like going swimming?",
+          "answer_required": true,
+          "expected_answer_type": "activity_sentence",
+          "expected_child_response": {
+            "description": "The child should answer with a summer activity.",
+            "target_pattern": "I like ... / I go ...",
+            "target_grammar": [
+              "like_verb_ing",
+              "present_simple"
+            ],
+            "target_vocabulary": [
+              "swimming",
+              "summer"
+            ],
+            "acceptable_variations": true,
+            "notes": ""
+          },
+          "answer_support": {
+            "priority_answer": {
+              "text": "I like swimming.",
+              "source": "source_reference"
+            },
+            "use_priority_answer_first": true,
+            "fallback_answer_rule": {
+              "enabled": true,
+              "mode": "pattern_based",
+              "instruction": "If there is no official or source reference answer, generate a short A2-level full sentence that matches the target pattern."
+            }
+          },
+          "target_sentences": 1,
+          "min_versions": 1,
+          "correction_focus": [
+            "like_verb_ing",
+            "complete_sentence"
+          ],
+          "notes": "",
+          "follow_up_reference_answers": [
+            "Yes, I do. I like going swimming."
+          ]
+        },
+        {
+          "id": "p4_ex_005",
+          "order": 5,
+          "teacher_prompt": "Tell me about other things you do in the summer.",
+          "student_reference": "I do water sports. I spend more time with my friends. I look for shells on the beach. I go fishing with my dad.",
+          "answer_required": true,
+          "expected_answer_type": "multi_sentence_personal_answer",
+          "expected_child_response": {
+            "description": "The child should say one or more other things they do in the summer.",
+            "target_pattern": "I ... in the summer.",
+            "target_grammar": [
+              "present_simple",
+              "full_sentence"
+            ],
+            "target_vocabulary": [
+              "water sports",
+              "friends",
+              "shells",
+              "beach",
+              "fishing"
+            ],
+            "acceptable_variations": true,
+            "notes": ""
+          },
+          "answer_support": {
+            "priority_answer": {
+              "text": "I do water sports. I spend more time with my friends. I look for shells on the beach. I go fishing with my dad.",
+              "source": "source_reference"
+            },
+            "use_priority_answer_first": true,
+            "fallback_answer_rule": {
+              "enabled": true,
+              "mode": "pattern_based",
+              "instruction": "If there is no official or source reference answer, generate a short A2-level full sentence that matches the target pattern."
+            }
+          },
+          "target_sentences": 2,
+          "min_versions": 1,
+          "follow_ups": [
+            "Do you do water sports?",
+            "Do you spend time with your friends?",
+            "Do you look for shells on the beach?",
+            "Do you go fishing?"
+          ],
+          "correction_focus": [
+            "present_simple",
+            "complete_sentence"
+          ],
+          "notes": "",
+          "follow_up_reference_answers": [
+            "Yes, I do.",
+            "Yes, I do.",
+            "Yes, I do.",
+            "Yes, I do. I go fishing with my dad."
+          ]
+        }
+      ],
+      "story_frames": [],
+      "part4_mode": {
+        "exact_teacher_prompt_only": true,
+        "exact_follow_up_only": true,
+        "stay_on_current_exchange_until_done": true,
+        "questions_are_supplementary_only": false,
+        "strict_order_required": true,
+        "no_extra_question_outside_exchange": true,
+        "no_repeat_follow_up": true
+      },
+      "strict_exchange_order": [
+        "p4_ex_001",
+        "p4_ex_002",
+        "p4_ex_003",
+        "p4_ex_004",
+        "p4_ex_005"
+      ]
+    }
+  ]
+}
