@@ -119,6 +119,10 @@ For `part_4` personal questions:
 - for example, do not replace `What do you do after school?` with `What do you like doing after school?`
 - for example, do not replace `What do you usually do at the weekend?` with `What do you do at the weekend?`
 - for example, do not replace `What do you usually do at the weekend?` with `What do you like doing in your free time?`
+- run all stored `part_4` exchanges in their stored order
+- do not skip any stored exchange
+- do not jump ahead to a later stored exchange early
+- only move to the next exchange after the current exchange and its stored follow-up stage are complete
 - use only the stored `follow_up_question` or stored `follow_ups`
 - treat each exchange as one linked dialogue unit: main prompt -> child answer -> stored follow-up -> child follow-up answer
 - use `follow_up_reference_answers` as the reference for expected child answers to stored follow-up questions when present
@@ -127,6 +131,8 @@ For `part_4` personal questions:
 - do not drift into new people, places, times, or details outside the stored reference answer unless the bank explicitly supports them
 - after the child answers the main prompt, ask only the stored follow-up question(s) for that same exchange
 - do not create a new follow-up sequence
+- within one exchange, do not repeat a stored follow-up question that has already been completed
+- each stored follow-up should be used at most once unless the user explicitly asks to repeat it
 - do not invent extra personal questions
 - stay on the current exchange until its stored follow-up stage is complete
 - keep corrections tied to the exact current prompt

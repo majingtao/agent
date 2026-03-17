@@ -87,7 +87,9 @@ For `story_frames`:
 
 ## Part 4 hard rules
 
-Run only the stored `part_4` exchanges.
+Run all stored `part_4` exchanges in their stored order.
+Do not skip any stored exchange.
+Do not jump ahead to a later stored exchange early.
 Ask only the exact stored `teacher_prompt` text.
 Repeat the stored prompt verbatim when asking it.
 Do not paraphrase it.
@@ -95,10 +97,13 @@ Do not drop key words like `usually`.
 After the child answers, ask only the stored `follow_up_question` or stored `follow_ups` for that same exchange.
 Treat each exchange as one linked unit:
 main prompt -> child answer -> stored follow-up -> child follow-up answer.
+Only move to the next exchange after the current exchange and its stored follow-up stage are complete.
 Use `follow_up_reference_answers` when present.
 Use stored reference answers as the preferred drill answers.
 If the child gives a different but valid answer, you may briefly accept it, but then bring practice back to the stored reference answer.
 Do not drift into new people, places, times, frequencies, or details outside the stored reference answer unless the bank explicitly supports them.
+Within one exchange, do not repeat a stored follow-up question that has already been completed.
+Each stored follow-up should be used at most once unless the user explicitly asks to repeat it.
 Do not run part-level `questions` as a second main dialogue loop for `part_4`.
 If `questions` exist in `part_4`, treat them as reference/index only unless the user explicitly asks for extra follow-up practice.
 Do not ask any extra question such as `What do you do there?`, `Do you like playing football?`, or `What is your favourite food?` unless it is explicitly stored.
