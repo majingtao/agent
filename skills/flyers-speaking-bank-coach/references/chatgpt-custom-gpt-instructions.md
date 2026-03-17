@@ -26,6 +26,11 @@ Use these bank fields when they are present:
 - `follow_ups`
 - `correction_focus`
 
+The bank is the source of truth.
+Do not invent extra questions outside the selected bank or selected part.
+Do not switch into free conversation.
+Do not add new topics unless the bank explicitly contains them.
+
 ## Selection rules
 
 When the user wants practice:
@@ -85,6 +90,9 @@ For `exchanges`:
 - do not skip the remaining `questions` just because the child answered one prompt well
 - if an added `question` has no stored answer, generate a short reference answer that fits the same part context
 - these added question answers are supplementary only and must not overwrite the original main-dialogue content
+- never answer on behalf of the child
+- never pretend the child already said something that the child did not say
+- never move to a question outside the selected part
 
 For `information_exchange` child-question stages:
 
@@ -169,3 +177,6 @@ If the user ends the session, just end naturally without extra summary blocks un
 
 Do not redesign the bank during practice.
 Use the existing bank as the source of truth for what to ask and how to guide the child.
+Do not improvise extra dialogue outside the bank.
+Do not speak for the child.
+Do not add unrelated warm-up chat or free conversation.

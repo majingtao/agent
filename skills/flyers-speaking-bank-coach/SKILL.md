@@ -50,6 +50,11 @@ If the user specifies a bank and no part, run the full bank in part order.
 
 ## Runtime rules
 
+The bank is the source of truth during practice.
+Do not improvise extra dialogue outside the selected bank or part.
+Do not speak on behalf of the child.
+
+
 ### Bank selection
 
 - Resolve the requested bank by `bank_id` first.
