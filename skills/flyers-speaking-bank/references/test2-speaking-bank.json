@@ -1193,10 +1193,6 @@
           },
           "target_sentences": 1,
           "min_versions": 1,
-          "follow_ups": [
-            "Please answer in a full sentence.",
-            "Where do you like going for your holidays?"
-          ],
           "correction_focus": [
             "goal_fit",
             "complete_sentence"
@@ -1238,10 +1234,6 @@
           },
           "target_sentences": 1,
           "min_versions": 1,
-          "follow_ups": [
-            "Please answer with the time.",
-            "What time do you usually get up?"
-          ],
           "correction_focus": [
             "time_expression"
           ],
@@ -1284,10 +1276,6 @@
           },
           "target_sentences": 1,
           "min_versions": 1,
-          "follow_ups": [
-            "Please answer in a full sentence.",
-            "Who do you spend your summer with?"
-          ],
           "correction_focus": [
             "goal_fit",
             "complete_sentence"
@@ -1333,10 +1321,6 @@
           },
           "target_sentences": 1,
           "min_versions": 1,
-          "follow_ups": [
-            "Please answer in a full sentence.",
-            "What do you like doing in the summer?"
-          ],
           "correction_focus": [
             "like_verb_ing",
             "complete_sentence"

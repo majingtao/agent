@@ -1223,10 +1223,6 @@
           },
           "target_sentences": 1,
           "min_versions": 1,
-          "follow_ups": [
-            "Please answer in a full sentence.",
-            "What do you do after school?"
-          ],
           "correction_focus": [
             "present_simple",
             "complete_sentence"
@@ -1272,10 +1268,6 @@
           },
           "target_sentences": 1,
           "min_versions": 1,
-          "follow_ups": [
-            "How often?",
-            "Please answer with the frequency."
-          ],
           "correction_focus": [
             "frequency_expression"
           ],
@@ -1320,10 +1312,6 @@
           },
           "target_sentences": 1,
           "min_versions": 1,
-          "follow_ups": [
-            "Please use a full sentence.",
-            "What do you usually do at the weekend?"
-          ],
           "correction_focus": [
             "present_simple",
             "complete_sentence"
@@ -1371,7 +1359,6 @@
           "target_sentences": 1,
           "min_versions": 1,
           "follow_ups": [
-            "Please answer with a full sentence.",
             "What sport do you play?"
           ],
           "correction_focus": [
