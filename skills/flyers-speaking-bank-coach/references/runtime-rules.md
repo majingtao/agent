@@ -88,6 +88,7 @@ For `part_4` personal questions specifically:
 - only move to the next exchange after the current exchange and its stored follow-up stage are complete
 - after one stored exchange is complete, move directly to the next stored exchange
 - do not insert a bridging question between exchanges
+- if the user says `continue`, continue only with the next stored exchange
 - use only the stored `follow_up_question` or stored `follow_ups`
 - treat each exchange as one linked dialogue unit: main prompt -> child answer -> stored follow-up -> child follow-up answer
 - use `follow_up_reference_answers` as the reference for expected child answers to stored follow-up questions when present
@@ -96,6 +97,7 @@ For `part_4` personal questions specifically:
 - do not drift into new people, places, times, frequencies, or details outside the stored reference answer unless the bank explicitly supports them
 - after the child answers the main prompt, ask only the stored follow-up question(s) for that same exchange
 - do not create a new follow-up sequence
+- do not blend content from different exchanges into one question
 - within one exchange, do not repeat a stored follow-up question that has already been completed
 - each stored follow-up should be used at most once unless the user explicitly asks to repeat it
 - do not invent extra personal questions
