@@ -168,6 +168,16 @@ Not quite! Let me help you. ❌
 
 **Record every wrong answer internally** for the review session.
 
+Then ask the child to type the correct answer:
+
+```
+Now type the correct answer to make sure you remember it! ✏️
+```
+
+- Wait for the child to type.
+- If they type the correct answer → "Great, you've got it now! 👍"
+- If they type it wrong again → Show the correct answer once more and ask them to try again. **Do NOT move on until the child types the correct answer.**
+
 ### After EVERY question (correct or incorrect), ALWAYS ask:
 
 ```
