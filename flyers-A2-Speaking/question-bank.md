@@ -109,14 +109,25 @@ At the start of every session, run **Part 0** (warm-up + test selection), then p
 >
 > *"Now you tell the story."*
 
-**Student continues (Pictures 2–5):**
+**Student continues (Pictures 2–5), one sentence at a time:**
 
-| Pic | Expected response | Prompt questions |
-|---|---|---|
-| 2 | On Tuesday Betty and her family go shopping. They buy many presents and souvenirs. | *"What day is it? What does the family do?"* |
-| 3 | On Wednesday Betty writes a postcard to her grandmother. | *"What day is it? What is Betty doing?"* |
-| 4 | On Thursday the family visits the zoo. They see a lot of animals there. Betty is afraid of the snakes and her brother Fred laughs. | *"What day is it? Where is the family? What do they see? Is Betty afraid of the snakes? Who laughs?"* |
-| 5 | On Friday they are at the airport. It is the last day in London. They have their bags with them. Betty's father takes pictures of the family. | *"What day is it? Where is the family? What have they got with them? What does the father do?"* |
+**Picture 2** (Prompt: *"What day is it? What does the family do?"*)
+1. "On Tuesday Betty and her family go shopping."
+2. "They buy many presents and souvenirs."
+
+**Picture 3** (Prompt: *"What day is it? What is Betty doing?"*)
+1. "On Wednesday Betty writes a postcard to her grandmother."
+
+**Picture 4** (Prompt: *"What day is it? Where is the family? What do they see? Is Betty afraid of the snakes? Who laughs?"*)
+1. "On Thursday the family visits the zoo."
+2. "They see a lot of animals there."
+3. "Betty is afraid of the snakes and her brother Fred laughs."
+
+**Picture 5** (Prompt: *"What day is it? Where is the family? What have they got with them? What does the father do?"*)
+1. "On Friday they are at the airport."
+2. "It is the last day in London."
+3. "They have their bags with them."
+4. "Betty's father takes pictures of the family."
 
 ---
 
@@ -216,14 +227,25 @@ At the start of every session, run **Part 0** (warm-up + test selection), then p
 >
 > *"Now you tell the story."*
 
-**Student continues (Pictures 2–5):**
+**Student continues (Pictures 2–5), one sentence at a time:**
 
-| Pic | Expected response | Prompt questions |
-|---|---|---|
-| 2 | Michael is sleeping and he is dreaming. In his dream, he is in a desert and he is riding a camel. It's very hot and Michael is very thirsty. | *"What is Michael doing?"* |
-| 3 | Michael is now on a big bird. Michael is flying in the sky on the bird and he is excited. | *"Where is Michael now?"* |
-| 4 | Michael is in space now. He is going to the moon in a rocket. He is ready to get off the rocket and walk on the moon. | *"Where is Michael? What does he want to do?"* |
-| 5 | Michael falls off the bed and wakes up. He was dreaming. | *"What happens to Michael? Why?"* |
+**Picture 2** (Prompt: *"What is Michael doing?"*)
+1. "Michael is sleeping and he is dreaming."
+2. "In his dream, he is in a desert and he is riding a camel."
+3. "It's very hot and Michael is very thirsty."
+
+**Picture 3** (Prompt: *"Where is Michael now?"*)
+1. "Michael is now on a big bird."
+2. "Michael is flying in the sky on the bird and he is excited."
+
+**Picture 4** (Prompt: *"Where is Michael? What does he want to do?"*)
+1. "Michael is in space now."
+2. "He is going to the moon in a rocket."
+3. "He is ready to get off the rocket and walk on the moon."
+
+**Picture 5** (Prompt: *"What happens to Michael? Why?"*)
+1. "Michael falls off the bed and wakes up."
+2. "He was dreaming."
 
 ---
 
@@ -323,15 +345,32 @@ At the start of every session, run **Part 0** (warm-up + test selection), then p
 >
 > *"Now you tell the story."*
 
-**Student continues (Pictures 2–6):**
+**Student continues (Pictures 2–6), one sentence at a time:**
 
-| Pic | Expected response | Prompt questions |
-|---|---|---|
-| 2 | Betty and her mum are in the kitchen. Betty's mum is putting some flour in a bowl and Betty is taking the eggs out of the fridge. Their pet parrot is in a cage. | *"What is Betty doing? What is her mother doing? Where is the parrot?"* |
-| 3 | Betty is holding the bowl. Her mother is looking for something in a cupboard. A boy is in the kitchen and is giving some water to the parrot. | *"Who is in the kitchen? What is Betty doing now?"* |
-| 4 | The boy leaves the room but he has left the door of the cage open. The parrot has come out of the cage. Betty and her mother don't see that. The parrot is eating the butter. | *"Where is the parrot now? Where is the butter?"* |
-| 5 | The parrot has taken the chocolate to its cage. Betty and her mother can't find anything on the table. | *"Where is the chocolate? Is the parrot in the cage?"* |
-| 6 | Betty is trying to see where the parrot is and she sees it in the cage. It's just eaten all the chocolate. Betty and her mother are both angry. | *"Where is the parrot? What has it eaten? Are Betty and her mother happy?"* |
+**Picture 2** (Prompt: *"What is Betty doing? What is her mother doing? Where is the parrot?"*)
+1. "Betty and her mum are in the kitchen."
+2. "Betty's mum is putting some flour in a bowl and Betty is taking the eggs out of the fridge."
+3. "Their pet parrot is in a cage."
+
+**Picture 3** (Prompt: *"Who is in the kitchen? What is Betty doing now?"*)
+1. "Betty is holding the bowl."
+2. "Her mother is looking for something in a cupboard."
+3. "A boy is in the kitchen and is giving some water to the parrot."
+
+**Picture 4** (Prompt: *"Where is the parrot now? Where is the butter?"*)
+1. "The boy leaves the room but he has left the door of the cage open."
+2. "The parrot has come out of the cage."
+3. "Betty and her mother don't see that."
+4. "The parrot is eating the butter."
+
+**Picture 5** (Prompt: *"Where is the chocolate? Is the parrot in the cage?"*)
+1. "The parrot has taken the chocolate to its cage."
+2. "Betty and her mother can't find anything on the table."
+
+**Picture 6** (Prompt: *"Where is the parrot? What has it eaten? Are Betty and her mother happy?"*)
+1. "Betty is trying to see where the parrot is and she sees it in the cage."
+2. "It's just eaten all the chocolate."
+3. "Betty and her mother are both angry."
 
 ---
 
@@ -430,15 +469,29 @@ At the start of every session, run **Part 0** (warm-up + test selection), then p
 >
 > *"Now you tell the story."*
 
-**Student continues (Pictures 2–6):**
+**Student continues (Pictures 2–6), one sentence at a time:**
 
-| Pic | Expected response | Prompt questions |
-|---|---|---|
-| 2 | Harry's teacher is holding a castle and tells the students to make a castle, too. | *"What is the teacher doing?"* |
-| 3 | Harry goes back home. He is in the garage and he is thinking how to make the castle. He is sad. His dad comes in the garage carrying a box. | *"Where is Harry now? How does he feel? What is his dad carrying?"* |
-| 4 | Harry has an idea. He is going to ask his father to help him. They are going to use the box, some glue and some coloured pencils to make the castle. | *"Is Harry sad now? What is he thinking about?"* |
-| 5 | His dad is helping him. The castle is ready and Harry is very happy now. Harry's dad is putting a flag on the castle. | *"Is the castle ready? Does Harry like it? What is Harry's dad putting on the castle?"* |
-| 6 | Harry takes the castle to school and everyone likes it. | *"Do Harry's friends like the castle?"* |
+**Picture 2** (Prompt: *"What is the teacher doing?"*)
+1. "Harry's teacher is holding a castle and tells the students to make a castle, too."
+
+**Picture 3** (Prompt: *"Where is Harry now? How does he feel? What is his dad carrying?"*)
+1. "Harry goes back home."
+2. "He is in the garage and he is thinking how to make the castle."
+3. "He is sad."
+4. "His dad comes in the garage carrying a box."
+
+**Picture 4** (Prompt: *"Is Harry sad now? What is he thinking about?"*)
+1. "Harry has an idea."
+2. "He is going to ask his father to help him."
+3. "They are going to use the box, some glue and some coloured pencils to make the castle."
+
+**Picture 5** (Prompt: *"Is the castle ready? Does Harry like it? What is Harry's dad putting on the castle?"*)
+1. "His dad is helping him."
+2. "The castle is ready and Harry is very happy now."
+3. "Harry's dad is putting a flag on the castle."
+
+**Picture 6** (Prompt: *"Do Harry's friends like the castle?"*)
+1. "Harry takes the castle to school and everyone likes it."
 
 ---
 
@@ -531,14 +584,23 @@ At the start of every session, run **Part 0** (warm-up + test selection), then p
 >
 > *"Now you tell the story."*
 
-**Student continues (Pictures 2–5):**
+**Student continues (Pictures 2–5), one sentence at a time:**
 
-| Pic | Expected response | Prompt questions |
-|---|---|---|
-| 2 | Richard's mum is looking at some silver spoons, forks and knives and she likes them. I think she wants to buy them. | *"What is Richard's mum looking at? How does she feel about them? What do you think she wants to do?"* |
-| 3 | Now the family is in a room with things made of paper. For example, there are lots of boxes, envelopes and books. | *"Where are the people now? What are these things made of?"* |
-| 4 | Now the family is looking at some things made of glass, like vases. Richard drops one. He looks very unhappy. | *"What happens then? What are these made of? What does Richard do? How does he feel?"* |
-| 5 | In the end, the glass breaks. | *"What happens in the end?"* |
+**Picture 2** (Prompt: *"What is Richard's mum looking at? How does she feel about them? What do you think she wants to do?"*)
+1. "Richard's mum is looking at some silver spoons, forks and knives and she likes them."
+2. "I think she wants to buy them."
+
+**Picture 3** (Prompt: *"Where are the people now? What are these things made of?"*)
+1. "Now the family is in a room with things made of paper."
+2. "For example, there are lots of boxes, envelopes and books."
+
+**Picture 4** (Prompt: *"What happens then? What are these made of? What does Richard do? How does he feel?"*)
+1. "Now the family is looking at some things made of glass, like vases."
+2. "Richard drops one."
+3. "He looks very unhappy."
+
+**Picture 5** (Prompt: *"What happens in the end?"*)
+1. "In the end, the glass breaks."
 
 ---
 

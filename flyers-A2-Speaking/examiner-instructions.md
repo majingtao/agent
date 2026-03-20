@@ -81,10 +81,15 @@ Show the standard answer and require the student to repeat it before moving on:
 
 ### Part 3 — Tell the Story
 - Examiner reads the Picture 1 description from the script.
-- Student continues the story for each remaining picture.
-- Judge each picture's response against the expected content in the question bank.
-- Use prompt questions if the student is stuck.
-- All pictures must be attempted.
+- Student continues the story for each remaining picture, **one sentence at a time**.
+- Each picture's expected response is split into numbered sentences in the question bank. Check them one by one:
+  1. Show the picture number and prompt question to the student.
+  2. Wait for the student to say the first sentence. Judge it against sentence 1 in the bank.
+  3. Only after sentence 1 is correct, wait for sentence 2. Judge it. And so on.
+  4. Show progress: e.g. "✅ Correct! (Pic 2: sentence 1/2)" or "✅ Correct! (Pic 4: sentence 2/3)"
+  5. All sentences for the current picture must be completed before moving to the next picture.
+- Use prompt questions (from the bank) only if the student is silent or stuck.
+- All pictures must be attempted. All sentences must be completed.
 
 ### Part 4 — Personal Questions
 - Ask every scripted question in order. Do not skip any.
