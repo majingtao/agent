@@ -89,13 +89,13 @@ At the start of every session, run **Part 0** (warm-up + test selection), then p
 
 **Student asks about Harry (examiner answers):**
 
-| Student should ask | Examiner answers |
-|---|---|
-| *"What time does he get up?"* | At 7:30. |
-| *"What time does he go to school?"* | At 8:15. |
-| *"What does he do at 2 o'clock?"* | He has lunch. |
-| *"What does he do at 6 p.m.?"* | He plays football. |
-| *"What time does he go to bed?"* | At 10:30. |
+| Hint (shown to student) | Student should ask | Examiner answers |
+|---|---|---|
+| get up — time? | *"What time does he get up?"* | At 7:30. |
+| go to school — time? | *"What time does he go to school?"* | At 8:15. |
+| 2 o'clock — do? | *"What does he do at 2 o'clock?"* | He has lunch. |
+| 6 p.m. — do? | *"What does he do at 6 p.m.?"* | He plays football. |
+| go to bed — time? | *"What time does he go to bed?"* | At 10:30. |
 
 ---
 
@@ -207,13 +207,13 @@ At the start of every session, run **Part 0** (warm-up + test selection), then p
 
 **Student asks about Mrs Silver (examiner answers):**
 
-| Student should ask | Examiner answers |
-|---|---|
-| *"What's her name?"* | Emma. |
-| *"How old is she?"* | She's 35. |
-| *"What subject does she teach?"* | History. |
-| *"How many years has she been a teacher?"* | Six. |
-| *"Is she married?"* | Yes. |
+| Hint (shown to student) | Student should ask | Examiner answers |
+|---|---|---|
+| name — ? | *"What's her name?"* | Emma. |
+| age — ? | *"How old is she?"* | She's 35. |
+| subject — teach? | *"What subject does she teach?"* | History. |
+| teacher — how many years? | *"How many years has she been a teacher?"* | Six. |
+| married — ? | *"Is she married?"* | Yes. |
 
 ---
 
@@ -325,13 +325,13 @@ At the start of every session, run **Part 0** (warm-up + test selection), then p
 
 **Student asks about William's pet (examiner answers):**
 
-| Student should ask | Examiner answers |
-|---|---|
-| *"What pet has he got?"* | A snake. |
-| *"What's its name?"* | Ice. |
-| *"What colour is it?"* | It's black and white. |
-| *"What's its favourite food?"* | Spiders. |
-| *"Where does it live?"* | It lives in a cage. |
+| Hint (shown to student) | Student should ask | Examiner answers |
+|---|---|---|
+| pet — what? | *"What pet has he got?"* | A snake. |
+| name — ? | *"What's its name?"* | Ice. |
+| colour — ? | *"What colour is it?"* | It's black and white. |
+| favourite food — ? | *"What's its favourite food?"* | Spiders. |
+| live — where? | *"Where does it live?"* | It lives in a cage. |
 
 ---
 
@@ -449,13 +449,13 @@ At the start of every session, run **Part 0** (warm-up + test selection), then p
 
 **Student asks about Katy's toy (examiner answers):**
 
-| Student should ask | Examiner answers |
-|---|---|
-| *"What is Katy's favourite toy?"* | A rabbit. |
-| *"What colour is it?"* | It's brown. |
-| *"What is it made of?"* | Wood. |
-| *"Why does she like it?"* | She's always wanted to have a pet. |
-| *"How long has she had it?"* | 6 months. |
+| Hint (shown to student) | Student should ask | Examiner answers |
+|---|---|---|
+| favourite toy — what? | *"What is Katy's favourite toy?"* | A rabbit. |
+| colour — ? | *"What colour is it?"* | It's brown. |
+| made of — ? | *"What is it made of?"* | Wood. |
+| like — why? | *"Why does she like it?"* | She's always wanted to have a pet. |
+| had it — how long? | *"How long has she had it?"* | 6 months. |
 
 ---
 
@@ -564,13 +564,13 @@ At the start of every session, run **Part 0** (warm-up + test selection), then p
 
 **Student asks about Helen's holiday (examiner answers):**
 
-| Student should ask | Examiner answers |
-|---|---|
-| *"Where did she go?"* | In the mountains. |
-| *"Where did she stay?"* | At a hotel. |
-| *"Who did she go with?"* | With her grandparents. |
-| *"When did she go?"* | In June. |
-| *"What did she do there?"* | She went for walks in the forest. |
+| Hint (shown to student) | Student should ask | Examiner answers |
+|---|---|---|
+| go — where? | *"Where did she go?"* | In the mountains. |
+| stay — where? | *"Where did she stay?"* | At a hotel. |
+| go with — who? | *"Who did she go with?"* | With her grandparents. |
+| go — when? | *"When did she go?"* | In June. |
+| do there — what? | *"What did she do there?"* | She went for walks in the forest. |
 
 ---
 

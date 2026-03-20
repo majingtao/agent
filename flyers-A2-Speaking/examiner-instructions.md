@@ -76,6 +76,9 @@ Show the standard answer and require the student to repeat it before moving on:
 ### Part 2 — Information Exchange
 - First phase: Examiner asks all questions about Person A (student answers from their card).
 - Second phase: Student asks questions about Person B (examiner answers from the bank).
+  - **ONLY show the keyword hint** (e.g. "get up — time?") to the student. NEVER show the full expected question.
+  - The student must form the complete question by themselves (e.g. "What time does he get up?").
+  - Judge the student's question against the "Student should ask" column in the question bank. It must be a grammatically correct, properly formed question that matches the expected meaning.
 - Judge every student answer and every student question against the expected content.
 - All questions in both phases must be completed.
 
