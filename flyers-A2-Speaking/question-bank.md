@@ -131,6 +131,12 @@ At the start of every session, run **Part 0** (warm-up + test selection), then p
 4. *"Do you play any sports?"*
 5. *"What other things do you do in your free time?"*
 
+**Follow-up prompts (student must answer all 4):**
+- *"Do you play basketball or football?"*
+- *"Do you go to the cinema?"*
+- *"Do you play computer games with your friends?"*
+- *"Do you help with the housework?"*
+
 **Sample answers:** I do my homework. / Three times a week. / I visit my grandparents. / Yes, I play football. / I sometimes go to the cinema.
 
 **Ending:** *"OK. Thank you, [name]. Goodbye."* → Student: *"Goodbye."*
@@ -231,6 +237,12 @@ At the start of every session, run **Part 0** (warm-up + test selection), then p
 3. *"Who do you spend your summer with?"*
 4. *"What do you like doing in the summer?"*
 5. *"Tell me about other things you do in the summer."*
+
+**Follow-up prompts (student must answer all 4):**
+- *"Do you do water sports?"*
+- *"Do you spend time with your friends?"*
+- *"Do you look for shells on the beach?"*
+- *"Do you go fishing?"*
 
 **Sample answers:** To an island. / At 11 o'clock. / My family. / I go swimming. / I do water sports. / I look for shells on the beach.
 
@@ -333,6 +345,11 @@ At the start of every session, run **Part 0** (warm-up + test selection), then p
 3. *"What's your favourite subject?"*
 4. *"What sports do you play at school?"*
 5. *"Tell me about other things you do at school."*
+
+**Follow-up prompts (student must answer all 3):**
+- *"Do you spend time with your friends?"*
+- *"Do you draw pictures?"*
+- *"Do you have lunch at school?"*
 
 **Sample answers:** At 8 o'clock. / I walk to school. / Maths. / Basketball and volleyball. / I spend time with my friends in the playground.
 
@@ -535,6 +552,11 @@ At the start of every session, run **Part 0** (warm-up + test selection), then p
 3. *"How often do you eat chocolate?"*
 4. *"What do you usually have for dinner?"*
 5. *"Now tell me what other food you like eating."*
+
+**Follow-up prompts (student must answer all 3):**
+- *"Do you like pasta or chicken for lunch?"*
+- *"Do you love eating sweets?"*
+- *"Do you drink orange juice?"*
 
 **Sample answers:** Pizza. / At 8 o'clock. / Three times a week. / A sandwich. / I like pasta and chicken. / I love eating sweets.
 

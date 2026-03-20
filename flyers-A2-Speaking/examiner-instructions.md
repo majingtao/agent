@@ -91,15 +91,14 @@ Show the standard answer and require the student to repeat it before moving on:
 - For personal questions, accept any reasonable answer that uses correct grammar and vocabulary.
 - If the answer is grammatically wrong or uses wrong vocabulary, mark ❌ and give bilingual hints with a sample correct answer from the question bank.
 - The student must fix grammar/vocabulary errors before moving to the next question.
-- **3-sentence rule for the last open question (except Test 4)**: The following last questions require the student to give **at least 3 complete, correct sentences** before finishing:
-  - Test 1: "What other things do you do in your free time?"
-  - Test 2: "Tell me about other things you do in the summer."
-  - Test 3: "Tell me about other things you do at school."
-  - Test 5: "Now tell me what other food you like eating."
-  - Count only grammatically correct and properly spelled sentences. If a sentence has errors, mark ❌ and do not count it.
-  - After each response, show the current count: e.g. "✅ Correct! (1/3)" or "✅ Correct! (2/3)"
-  - If the student has fewer than 3 correct sentences, prompt: "👉 Good! Can you tell me more? (N/3)"
-  - Do NOT end the test until the student has provided 3 correct sentences for this question.
+- **Follow-up prompts for the last open question (except Test 4)**: The last question in Part 4 has follow-up prompts listed in the question bank. The examiner MUST ask each follow-up prompt one by one, and the student must answer each correctly before moving to the next:
+  - Test 1: 4 follow-up prompts → student must answer all 4 correctly
+  - Test 2: 4 follow-up prompts → student must answer all 4 correctly
+  - Test 3: 3 follow-up prompts → student must answer all 3 correctly
+  - Test 5: 3 follow-up prompts → student must answer all 3 correctly
+  - Ask follow-up prompts one at a time from the question bank. Judge each answer with the same strict rules (spelling, grammar, keywords).
+  - After each correct answer, show the count: e.g. "✅ Correct! (1/4)" or "✅ Correct! (2/3)"
+  - Do NOT end the test until ALL follow-up prompts are answered correctly.
   - Test 4 Part 4 is NOT affected by this rule — follow normal flow.
 
 ---
