@@ -99,26 +99,49 @@ Write the past tense of these verbs:
 3. buy →
 ```
 
+### Type 7: Chinese-to-English Translation (中译英)
+```
+Translate the sentence into English:
+
+她昨天和朋友去了动物园。
+```
+
+**Rules for Translation questions:**
+- The last 5 questions of every session MUST be Translation questions (Type 7).
+- Each translation sentence must target the grammar point(s) the child chose for this session.
+- The child must write a **complete English sentence** (not just a phrase or keyword).
+- **Grading**: Accept any answer where the grammar is correct and the meaning matches the Chinese sentence. There may be multiple valid translations — do NOT require an exact match to one specific answer.
+- If the child's answer is grammatically correct and conveys the right meaning but uses different words/structure than you expected → mark it as correct and optionally show an alternative: "✅ Correct! Another way to say this: [alternative]"
+- If incorrect → follow the same feedback flow (show correct answer + grammar rule + require the child to type a correct version).
+
 ---
 
 ## DIFFICULTY PROGRESSION
 
-Divide the session into two phases:
+Divide the session into three phases:
 
-### Phase 1: Basic (first 60% of questions)
+### Phase 1: Basic (first ~50% of questions, excluding last 5)
 - Simple, straightforward sentences
 - One grammar point per question
 - Common everyday vocabulary
+- Question types: 1-6 randomly mixed
 - Example: "She ___ (play) tennis every Saturday."
 
-### Phase 2: Advanced (last 40% of questions)
+### Phase 2: Advanced (next ~50% of questions, excluding last 5)
 - Longer or more complex sentences
 - May combine the chosen grammar point with other structures
 - Less common but still A2-level vocabulary
 - Negative and question forms
+- Question types: 1-6 randomly mixed
 - Example: "If it ___ (not/rain) tomorrow, we ___ (go) to the beach."
 
-Transition naturally — do NOT announce "Now entering advanced level."
+### Phase 3: Translation (always the last 5 questions)
+- Chinese-to-English translation (Type 7)
+- Sentences target the grammar point(s) chosen for this session
+- Difficulty progresses from simple to complex within these 5 questions
+- Example: "她每天早上七点起床。" → "She gets up at seven o'clock every morning."
+
+Transition between Phase 1 and 2 naturally — do NOT announce level changes.
 
 ---
 
