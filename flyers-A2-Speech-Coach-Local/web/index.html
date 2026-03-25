@@ -21,7 +21,7 @@
     .status.error { color: #f44336; }
     #configSummary { font-size: 0.8em; color: #888; margin-bottom: 6px; padding: 0 2px; }
     #settingsPanel { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
-    #settingsPanel.open { max-height: 300px; }
+    #settingsPanel.open { max-height: 400px; }
     .settings-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 10px; }
     .settings-row label { font-size: 0.9em; white-space: nowrap; }
     .settings-row select { padding: 5px 6px; border: 1px solid #ccc; border-radius: 6px; font-size: 0.85em; max-width: 260px; }
@@ -42,60 +42,128 @@
     #sendBtn { background: #4caf50; color: #fff; }
     #discardBtn { background: #9e9e9e; color: #fff; }
     #replayBtn { background: #2196f3; color: #fff; font-size: 0.78em; padding: 4px 12px; border-radius: 6px; display: none; }
+    /* Mode tabs */
+    .mode-tabs { display: flex; gap: 0; margin-bottom: 12px; }
+    .mode-tab { padding: 10px 24px; border: 1px solid #ccc; background: #e8e8e8; color: #555; cursor: pointer; font-size: 0.95em; font-weight: 600; }
+    .mode-tab:first-child { border-radius: 8px 0 0 8px; }
+    .mode-tab:last-child { border-radius: 0 8px 8px 0; }
+    .mode-tab.active { background: #1976d2; color: #fff; border-color: #1976d2; }
+    /* Exam panel */
+    .exam-settings { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 10px; }
+    .exam-settings select { padding: 5px 6px; border: 1px solid #ccc; border-radius: 6px; font-size: 0.85em; }
+    #examStartBtn { background: #1976d2; color: #fff; padding: 10px 20px; }
+    #examStartBtn:disabled { background: #aaa; }
+    /* Chat area for exam */
+    #examChat { min-height: 200px; max-height: 60vh; overflow-y: auto; }
+    .chat-msg { margin-bottom: 10px; padding: 8px 12px; border-radius: 8px; max-width: 85%; }
+    .chat-examiner { background: #e3f2fd; color: #1565c0; margin-right: auto; }
+    .chat-student { background: #e8f5e9; color: #2e7d32; margin-left: auto; text-align: right; }
+    .chat-system { background: #fff3e0; color: #e65100; margin: 0 auto; text-align: center; font-size: 0.85em; }
+    #examInput { display: none; margin-top: 8px; gap: 8px; align-items: stretch; }
+    #examInput input { flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 8px; font-size: 1em; }
+    #examSendBtn { background: #4caf50; color: #fff; padding: 10px 18px; white-space: nowrap; }
+    #examRecordBtn { background: #ff5722; color: #fff; padding: 10px 14px; font-size: 0.85em; white-space: nowrap; }
+    #examRecordBtn.recording { background: #b71c1c; }
+    /* Section visibility */
+    .section-freetalk, .section-exam { display: none; }
+    .section-freetalk.visible, .section-exam.visible { display: block; }
+    #examInput.visible { display: flex; }
     @media (max-width: 600px) {
       body { padding: 10px; }
       h2 { font-size: 1.15em; }
       button { padding: 14px 20px; font-size: 1.05em; border-radius: 10px; }
       .settings-row select { max-width: 180px; }
       .box { padding: 10px; font-size: 1em; line-height: 1.7; border-radius: 10px; }
+      .mode-tab { padding: 12px 16px; font-size: 1em; }
     }
   </style>
 </head>
 <body>
   <h2>English Speech Coach</h2>
 
-  <div class="controls">
-    <button id="startBtn">Start</button>
-    <button id="stopBtn" disabled>Stop</button>
-    <button id="ttsStopBtn">Stop speaking</button>
-    <button id="settingsBtn">&#9881; Settings</button>
-    <span id="statusText" class="status"></span>
+  <!-- Mode tabs -->
+  <div class="mode-tabs">
+    <div class="mode-tab active" data-mode="freetalk">Free Talk</div>
+    <div class="mode-tab" data-mode="exam">Exam Practice</div>
   </div>
 
-  <div id="configSummary"></div>
-
-  <div id="settingsPanel">
-    <div class="settings-row">
-      <label>ASR: <select id="asrModelSelect"><option>Loading...</option></select></label>
-      <span id="asrModelInfo" class="model-info"></span>
+  <!-- ===== FREE TALK SECTION ===== -->
+  <div id="freetalkSection" class="section-freetalk visible">
+    <div class="controls">
+      <button id="startBtn">Start</button>
+      <button id="stopBtn" disabled>Stop</button>
+      <button id="ttsStopBtn">Stop speaking</button>
+      <button id="settingsBtn">&#9881; Settings</button>
+      <span id="statusText" class="status"></span>
     </div>
-    <div class="settings-row">
-      <label class="toggle"><input type="checkbox" id="ttsToggle" checked /> &#128264; Voice reply</label>
-      <label>Engine: <select id="ttsEngine">
-        <option value="edge">Edge-TTS</option>
-        <option value="piper" selected>Piper (Local)</option>
-        <option value="system">System</option>
+
+    <div id="configSummary"></div>
+
+    <div id="settingsPanel">
+      <div class="settings-row">
+        <label>ASR: <select id="asrModelSelect"><option>Loading...</option></select></label>
+        <span id="asrModelInfo" class="model-info"></span>
+      </div>
+      <div class="settings-row">
+        <label class="toggle"><input type="checkbox" id="ttsToggle" checked /> &#128264; Voice reply</label>
+        <label>Engine: <select id="ttsEngine">
+          <option value="edge">Edge-TTS</option>
+          <option value="piper" selected>Piper (Local)</option>
+          <option value="system">System</option>
+        </select></label>
+        <label>Voice: <select id="voiceSelect"><option value="">Loading...</option></select></label>
+      </div>
+    </div>
+
+    <div class="label-row"><span class="label" id="partialLabel">Realtime</span></div>
+    <div id="partial" class="box"></div>
+
+    <div class="label-row"><span class="label">Recognized sentences</span></div>
+    <div id="history" class="box"></div>
+    <div class="edit-hint" id="editHint">You can edit the text above before sending</div>
+    <div id="offlineActions">
+      <button id="sendBtn">Send to Coach</button>
+      <button id="discardBtn">Discard</button>
+    </div>
+
+    <div class="label-row">
+      <span class="label">Coach feedback</span>
+      <button id="replayBtn">&#128257; Replay</button>
+    </div>
+    <div id="assistant" class="box"></div>
+  </div>
+
+  <!-- ===== EXAM PRACTICE SECTION ===== -->
+  <div id="examSection" class="section-exam">
+    <div class="exam-settings">
+      <label>Test: <select id="examTestSelect">
+        <option value="1">Test 1</option>
+        <option value="2">Test 2</option>
+        <option value="3">Test 3</option>
+        <option value="4">Test 4</option>
+        <option value="5">Test 5</option>
       </select></label>
-      <label>Voice: <select id="voiceSelect"><option value="">Loading...</option></select></label>
+      <label>Start from: <select id="examPartSelect">
+        <option value="">Beginning (Warm-up)</option>
+        <option value="1">Part 1</option>
+        <option value="2">Part 2</option>
+        <option value="3">Part 3</option>
+        <option value="4">Part 4</option>
+      </select></label>
+      <button id="examStartBtn">Start Exam</button>
+      <button id="ttsStopBtn2" style="background:#ff9800;color:#fff;font-size:0.85em;padding:8px 14px;display:none;">Stop speaking</button>
+      <span id="examStatus" class="status"></span>
+    </div>
+
+    <div class="label-row"><span class="label">Exam Conversation</span></div>
+    <div id="examChat" class="box"></div>
+
+    <div id="examInput">
+      <input type="text" id="examTextField" placeholder="Type your answer or use mic..." />
+      <button id="examRecordBtn">&#127908; Mic</button>
+      <button id="examSendBtn">Send</button>
     </div>
   </div>
-
-  <div class="label-row"><span class="label" id="partialLabel">Realtime</span></div>
-  <div id="partial" class="box"></div>
-
-  <div class="label-row"><span class="label">Recognized sentences</span></div>
-  <div id="history" class="box"></div>
-  <div class="edit-hint" id="editHint">You can edit the text above before sending</div>
-  <div id="offlineActions">
-    <button id="sendBtn">Send to Coach</button>
-    <button id="discardBtn">Discard</button>
-  </div>
-
-  <div class="label-row">
-    <span class="label">Coach feedback</span>
-    <button id="replayBtn">&#128257; Replay</button>
-  </div>
-  <div id="assistant" class="box"></div>
 
 <script>
 // ===== Config =====
@@ -109,9 +177,29 @@ const TTS_URL = _base + "/tts";
 const TTS_VOICES_URL = _base + "/tts/voices";
 const ASR_MODELS_URL = _base + "/asr/models";
 const ASR_OFFLINE_URL = _base + "/asr";
-const OLLAMA_MODEL = "qwen2.5:3b";
+const OLLAMA_MODEL = "qwen2.5:7b";
 const TARGET_SAMPLE_RATE = 16000;
 
+// ===== Mode switching =====
+let currentMode = "freetalk";
+const modeTabs = document.querySelectorAll(".mode-tab");
+const freetalkSection = document.getElementById("freetalkSection");
+const examSection = document.getElementById("examSection");
+
+modeTabs.forEach(tab => {
+  tab.onclick = () => {
+    const mode = tab.dataset.mode;
+    if (mode === currentMode) return;
+    currentMode = mode;
+    modeTabs.forEach(t => t.classList.toggle("active", t.dataset.mode === mode));
+    freetalkSection.classList.toggle("visible", mode === "freetalk");
+    examSection.classList.toggle("visible", mode === "exam");
+  };
+});
+
+// =======================================
+// FREE TALK (all existing code)
+// =======================================
 let ws = null;
 let audioCtx = null;
 let sourceNode = null;
@@ -151,7 +239,7 @@ function setHistoryEditable(on) {
   editHint.style.display = on ? "block" : "none";
 }
 
-// ===== Settings Panel =====
+// Settings Panel
 settingsBtn.onclick = () => {
   settingsPanel.classList.toggle("open");
   settingsBtn.textContent = settingsPanel.classList.contains("open") ? "\u2715 Close" : "\u2699 Settings";
@@ -167,7 +255,7 @@ function updateConfigSummary() {
   configSummary.textContent = "ASR: " + asrName + " (" + asrType + ") | TTS: " + engine + " / " + voice + " | Voice reply: " + voiceReply;
 }
 
-// ===== ASR Models =====
+// ASR Models
 let asrModels = [];
 
 async function loadAsrModels() {
@@ -214,7 +302,7 @@ function updateAsrMode() {
 asrModelSelect.onchange = updateAsrMode;
 loadAsrModels();
 
-// ===== TTS =====
+// ===== TTS (shared by both modes) =====
 const synth = window.speechSynthesis;
 let systemVoices = [];
 let edgeVoices = [];
@@ -292,7 +380,6 @@ function unlockAudio() {
   }
 }
 
-// --- System TTS ---
 function speakWithSystem(text) {
   synth.cancel();
   const toSpeak = extractEnglishText(text);
@@ -305,32 +392,32 @@ function speakWithSystem(text) {
   for (let i = 0; i < chunks.length; i++) {
     const u = new SpeechSynthesisUtterance(chunks[i]); u.lang = "en-US"; u.rate = 0.9;
     if (voice) u.voice = voice;
-    if (i === 0) u.onstart = () => { ttsStopBtn.style.display = "inline-block"; };
-    if (i === chunks.length - 1) u.onend = () => { ttsStopBtn.style.display = "none"; };
+    if (i === 0) u.onstart = () => { ttsStopBtn.style.display = "inline-block"; ttsStopBtn2.style.display = "inline-block"; };
+    if (i === chunks.length - 1) u.onend = () => { ttsStopBtn.style.display = "none"; ttsStopBtn2.style.display = "none"; };
     synth.speak(u);
   }
 }
 
-// --- Edge / Piper TTS (both use /tts endpoint) ---
 async function speakWithServer(text, engine) {
   stopTts();
   const toSpeak = extractEnglishText(text);
   if (!toSpeak) return;
   ttsStopBtn.style.display = "inline-block";
+  ttsStopBtn2.style.display = "inline-block";
   const body = engine === "piper"
     ? { engine: "piper", text: toSpeak, speed: 1.0 }
     : { engine: "edge", text: toSpeak, voice: voiceSelect.value || "en-US-AnaNeural", rate: "-10%" };
   try {
     const res = await fetch(TTS_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
-    if (!res.ok) { ttsStopBtn.style.display = "none"; return; }
+    if (!res.ok) { ttsStopBtn.style.display = "none"; ttsStopBtn2.style.display = "none"; return; }
     const blob = await res.blob();
     if (_lastBlobUrl) URL.revokeObjectURL(_lastBlobUrl);
     _lastBlobUrl = URL.createObjectURL(blob);
     ttsAudio.src = _lastBlobUrl;
-    ttsAudio.onended = () => { ttsStopBtn.style.display = "none"; };
-    ttsAudio.onerror = () => { ttsStopBtn.style.display = "none"; };
-    ttsAudio.play().catch(() => { ttsStopBtn.style.display = "none"; });
-  } catch (e) { console.error("TTS error:", e); ttsStopBtn.style.display = "none"; }
+    ttsAudio.onended = () => { ttsStopBtn.style.display = "none"; ttsStopBtn2.style.display = "none"; };
+    ttsAudio.onerror = () => { ttsStopBtn.style.display = "none"; ttsStopBtn2.style.display = "none"; };
+    ttsAudio.play().catch(() => { ttsStopBtn.style.display = "none"; ttsStopBtn2.style.display = "none"; });
+  } catch (e) { console.error("TTS error:", e); ttsStopBtn.style.display = "none"; ttsStopBtn2.style.display = "none"; }
 }
 
 function speakText(text) {
@@ -348,24 +435,27 @@ function stopTts() {
   synth.cancel();
   if (!ttsAudio.paused) { ttsAudio.pause(); ttsAudio.currentTime = 0; }
   ttsStopBtn.style.display = "none";
+  ttsStopBtn2.style.display = "none";
 }
 
+const ttsStopBtn2 = document.getElementById("ttsStopBtn2");
 ttsStopBtn.onclick = stopTts;
+ttsStopBtn2.onclick = stopTts;
 
-// ===== Replay =====
+// Replay
 replayBtn.onclick = () => {
   if (!lastFeedbackText) return;
   unlockAudio();
   doSpeak(lastFeedbackText);
 };
 
-// ===== Status =====
+// Status
 function setStatus(text, cls) {
   statusText.textContent = text;
   statusText.className = "status" + (cls ? " " + cls : "");
 }
 
-// ===== Audio =====
+// Audio
 function downsample(buffer, inputRate) {
   if (inputRate === TARGET_SAMPLE_RATE) return new Float32Array(buffer);
   const ratio = inputRate / TARGET_SAMPLE_RATE;
@@ -378,7 +468,7 @@ function downsample(buffer, inputRate) {
   return result;
 }
 
-// ===== Ollama =====
+// Ollama (free talk)
 async function askOllama(text) {
   assistantEl.textContent = "Thinking...";
   replayBtn.style.display = "none";
@@ -414,7 +504,7 @@ async function askOllama(text) {
   } catch (err) { assistantEl.textContent = "Ollama error: " + err.message; }
 }
 
-// ===== ASR: Streaming mode =====
+// ASR: Streaming
 function onAsrMessage(event) {
   if (typeof event.data !== "string") return;
   try {
@@ -437,11 +527,9 @@ async function startStreaming() {
   const wsUrl = IS_PROXIED
     ? (location.protocol === "https:" ? "wss://" : "ws://") + location.host + "/ws?model=" + model.id
     : "ws://" + location.hostname + ":" + model.port;
-
   setStatus("Connecting...");
   ws = new WebSocket(wsUrl);
   ws.binaryType = "arraybuffer";
-
   ws.onopen = async () => {
     setStatus("Listening...", "connected");
     try {
@@ -459,7 +547,6 @@ async function startStreaming() {
     sourceNode.connect(processorNode);
     processorNode.connect(audioCtx.destination);
   };
-
   ws.onmessage = onAsrMessage;
   ws.onerror = () => setStatus("WebSocket error", "error");
   ws.onclose = () => { setStatus("Disconnected"); startBtn.disabled = false; stopBtn.disabled = true; asrModelSelect.disabled = false; };
@@ -476,21 +563,18 @@ function stopStreaming() {
   if (last && last.trim()) askOllama(last.trim());
 }
 
-// ===== ASR: Offline mode =====
+// ASR: Offline
 async function startOffline() {
   partialEl.textContent = "Recording... Click Stop when done.";
   setStatus("Recording...", "connected");
   offlineActions.style.display = "none";
-
   try {
     mediaStream = await navigator.mediaDevices.getUserMedia({ audio: { channelCount: 1 } });
   } catch (err) { setStatus("Microphone denied", "error"); startBtn.disabled = false; stopBtn.disabled = true; asrModelSelect.disabled = false; return; }
-
   audioCtx = new (window.AudioContext || window.webkitAudioContext)();
   sourceNode = audioCtx.createMediaStreamSource(mediaStream);
   processorNode = audioCtx.createScriptProcessor(4096, 1, 1);
   offlineChunks = [];
-
   processorNode.onaudioprocess = (e) => {
     const raw = e.inputBuffer.getChannelData(0);
     offlineChunks.push(downsample(raw, audioCtx.sampleRate));
@@ -504,28 +588,18 @@ async function stopOffline() {
   if (sourceNode) { sourceNode.disconnect(); sourceNode = null; }
   if (audioCtx) { audioCtx.close(); audioCtx = null; }
   if (mediaStream) { mediaStream.getTracks().forEach((t) => t.stop()); mediaStream = null; }
-
-  if (offlineChunks.length === 0) {
-    partialEl.textContent = "No audio recorded.";
-    setStatus("Stopped");
-    return;
-  }
-
+  if (offlineChunks.length === 0) { partialEl.textContent = "No audio recorded."; setStatus("Stopped"); return; }
   partialEl.textContent = "Recognizing...";
   setStatus("Processing...");
-
   const totalLen = offlineChunks.reduce((sum, c) => sum + c.length, 0);
   const allSamples = new Float32Array(totalLen);
   let offset = 0;
   for (const c of offlineChunks) { allSamples.set(c, offset); offset += c.length; }
   offlineChunks = [];
-
   const model = getSelectedAsrModel();
   try {
     const res = await fetch(ASR_OFFLINE_URL + "?model=" + model.id, {
-      method: "POST",
-      headers: { "Content-Type": "application/octet-stream" },
-      body: allSamples.buffer,
+      method: "POST", headers: { "Content-Type": "application/octet-stream" }, body: allSamples.buffer,
     });
     const data = await res.json();
     const text = (data.text || "").trim();
@@ -537,24 +611,15 @@ async function stopOffline() {
       offlineActions.style.display = "flex";
       setHistoryEditable(true);
       setStatus("Edit if needed, then Send or Discard");
-    } else {
-      partialEl.textContent = "No speech detected.";
-      setStatus("Stopped");
-    }
-  } catch (e) {
-    partialEl.textContent = "Recognition error: " + e.message;
-    setStatus("Stopped");
-  }
+    } else { partialEl.textContent = "No speech detected."; setStatus("Stopped"); }
+  } catch (e) { partialEl.textContent = "Recognition error: " + e.message; setStatus("Stopped"); }
 }
 
-// ===== Offline actions: Send / Discard =====
 sendBtn.onclick = () => {
   offlineActions.style.display = "none";
   setHistoryEditable(false);
-  // Read possibly edited text from the history box
   const editedText = (historyEl.innerText || "").replace(/^\d+\.\s*/gm, "").trim();
   if (editedText) {
-    // Update sentences array with edited version
     if (sentences.length > 0) sentences[sentences.length - 1] = editedText;
     historyEl.textContent = sentences.filter((s) => s.trim()).map((s, i) => (i + 1) + ". " + s).join("\n");
     askOllama(editedText);
@@ -572,7 +637,6 @@ discardBtn.onclick = () => {
   setStatus("Discarded. Ready.");
 };
 
-// ===== Start / Stop =====
 async function start() {
   unlockAudio();
   sentences = [];
@@ -588,7 +652,6 @@ async function start() {
   startBtn.disabled = true;
   stopBtn.disabled = false;
   asrModelSelect.disabled = true;
-
   if (isOfflineMode()) await startOffline();
   else await startStreaming();
 }
@@ -604,9 +667,280 @@ function stop() {
 
 startBtn.onclick = start;
 stopBtn.onclick = stop;
-
-// Init summary
 setTimeout(updateConfigSummary, 500);
+
+// =======================================
+// EXAM PRACTICE
+// =======================================
+const examTestSelect = document.getElementById("examTestSelect");
+const examPartSelect = document.getElementById("examPartSelect");
+const examStartBtn = document.getElementById("examStartBtn");
+const examStatus = document.getElementById("examStatus");
+const examChat = document.getElementById("examChat");
+const examInput = document.getElementById("examInput");
+const examTextField = document.getElementById("examTextField");
+const examSendBtn = document.getElementById("examSendBtn");
+const examRecordBtn = document.getElementById("examRecordBtn");
+
+let examMessages = []; // {role, content} history for LLM
+let examInstructions = "";
+let examQuestionBank = "";
+let examActive = false;
+let examRecording = false;
+let examAudioCtx = null;
+let examSourceNode = null;
+let examProcessorNode = null;
+let examMediaStream = null;
+let examOfflineChunks = [];
+
+// Load prompt files
+async function loadExamPrompts() {
+  try {
+    const [r1, r2] = await Promise.all([
+      fetch(_base + "/prompts/examiner-instructions.md"),
+      fetch(_base + "/prompts/question-bank.md"),
+    ]);
+    if (r1.ok) examInstructions = await r1.text();
+    if (r2.ok) examQuestionBank = await r2.text();
+  } catch (e) {
+    console.warn("Failed to load exam prompts:", e);
+  }
+  if (!examInstructions) {
+    // Fallback: try relative path (for localhost:8000 mode)
+    try {
+      const [r1, r2] = await Promise.all([
+        fetch("prompts/examiner-instructions.md"),
+        fetch("prompts/question-bank.md"),
+      ]);
+      if (r1.ok) examInstructions = await r1.text();
+      if (r2.ok) examQuestionBank = await r2.text();
+    } catch (e) {}
+  }
+}
+loadExamPrompts();
+
+function extractTestSection(testNum) {
+  // Extract the specific test section from the full question bank
+  const marker = "## TEST " + testNum;
+  const nextMarker = "## TEST " + (parseInt(testNum) + 1);
+  let start = examQuestionBank.indexOf(marker);
+  if (start < 0) return examQuestionBank; // fallback: send all
+  // Include Part 0 (warm-up) always
+  const part0End = examQuestionBank.indexOf("## TEST 1");
+  const part0 = part0End > 0 ? examQuestionBank.substring(0, part0End) : "";
+  let end = examQuestionBank.indexOf(nextMarker, start);
+  if (end < 0) end = examQuestionBank.length;
+  return part0 + "\n" + examQuestionBank.substring(start, end);
+}
+
+function addChatMessage(role, text) {
+  const div = document.createElement("div");
+  div.className = "chat-msg " + (role === "examiner" ? "chat-examiner" : role === "student" ? "chat-student" : "chat-system");
+  div.textContent = text;
+  examChat.appendChild(div);
+  examChat.scrollTop = examChat.scrollHeight;
+}
+
+function setExamStatus(text, cls) {
+  examStatus.textContent = text;
+  examStatus.className = "status" + (cls ? " " + cls : "");
+}
+
+async function streamExamResponse(userText) {
+  if (userText) {
+    examMessages.push({ role: "user", content: userText });
+    addChatMessage("student", userText);
+  }
+
+  setExamStatus("Examiner thinking...");
+  examSendBtn.disabled = true;
+  examRecordBtn.disabled = true;
+
+  try {
+    const res = await fetch(OLLAMA_URL, {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ model: OLLAMA_MODEL, messages: examMessages, stream: true })
+    });
+
+    const reader = res.body.getReader();
+    const decoder = new TextDecoder("utf-8");
+    let buf = "";
+    let fullResponse = "";
+
+    // Create a placeholder message
+    const div = document.createElement("div");
+    div.className = "chat-msg chat-examiner";
+    div.textContent = "";
+    examChat.appendChild(div);
+
+    while (true) {
+      const { value, done } = await reader.read();
+      if (done) break;
+      buf += decoder.decode(value, { stream: true });
+      const lines = buf.split("\n"); buf = lines.pop() || "";
+      for (const line of lines) {
+        if (!line.trim()) continue;
+        try {
+          const obj = JSON.parse(line);
+          if (obj.message && obj.message.content) {
+            fullResponse += obj.message.content;
+            div.textContent = fullResponse;
+            examChat.scrollTop = examChat.scrollHeight;
+          }
+        } catch (e) {}
+      }
+    }
+
+    examMessages.push({ role: "assistant", content: fullResponse });
+
+    // TTS: speak the examiner's response
+    if (ttsToggle.checked && fullResponse) {
+      doSpeak(fullResponse);
+    }
+
+    setExamStatus("Your turn", "connected");
+  } catch (err) {
+    addChatMessage("system", "Error: " + err.message);
+    setExamStatus("Error", "error");
+  }
+
+  examSendBtn.disabled = false;
+  examRecordBtn.disabled = false;
+  examTextField.focus();
+}
+
+// Start exam
+examStartBtn.onclick = async () => {
+  if (!examInstructions || !examQuestionBank) {
+    await loadExamPrompts();
+    if (!examInstructions) {
+      setExamStatus("Failed to load exam prompts", "error");
+      return;
+    }
+  }
+
+  unlockAudio();
+  examActive = true;
+  examChat.innerHTML = "";
+  examMessages = [];
+  examInput.classList.add("visible");
+  examStartBtn.disabled = true;
+  examTestSelect.disabled = true;
+  examPartSelect.disabled = true;
+
+  const testNum = examTestSelect.value;
+  const partNum = examPartSelect.value;
+  const testSection = extractTestSection(testNum);
+
+  // Build system prompt
+  const systemPrompt = examInstructions + "\n\n---\n\n# Question Bank (Use ONLY this test)\n\n" + testSection;
+  examMessages.push({ role: "system", content: systemPrompt });
+
+  // First user message to kick off the exam
+  let kickoff;
+  if (partNum) {
+    kickoff = "Test " + testNum + " Part " + partNum;
+    addChatMessage("system", "Starting Test " + testNum + ", Part " + partNum + "...");
+  } else {
+    kickoff = "Let's start. Begin with the warm-up.";
+    addChatMessage("system", "Starting Test " + testNum + " from warm-up...");
+  }
+
+  await streamExamResponse(kickoff);
+};
+
+// Send text answer
+function sendExamAnswer() {
+  const text = examTextField.value.trim();
+  if (!text || !examActive) return;
+  examTextField.value = "";
+  streamExamResponse(text);
+}
+
+examSendBtn.onclick = sendExamAnswer;
+examTextField.onkeydown = (e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendExamAnswer(); } };
+
+// Mic recording for exam
+examRecordBtn.onclick = async () => {
+  if (examRecording) {
+    // Stop recording
+    examRecording = false;
+    examRecordBtn.textContent = "\u{1F3A4} Mic";
+    examRecordBtn.classList.remove("recording");
+
+    if (examProcessorNode) { examProcessorNode.disconnect(); examProcessorNode = null; }
+    if (examSourceNode) { examSourceNode.disconnect(); examSourceNode = null; }
+    if (examAudioCtx) { examAudioCtx.close(); examAudioCtx = null; }
+    if (examMediaStream) { examMediaStream.getTracks().forEach((t) => t.stop()); examMediaStream = null; }
+
+    if (examOfflineChunks.length === 0) { setExamStatus("No audio", "error"); return; }
+
+    setExamStatus("Recognizing...");
+    const totalLen = examOfflineChunks.reduce((sum, c) => sum + c.length, 0);
+    const allSamples = new Float32Array(totalLen);
+    let offset = 0;
+    for (const c of examOfflineChunks) { allSamples.set(c, offset); offset += c.length; }
+    examOfflineChunks = [];
+
+    // Use whisper-medium-en for exam by default
+    const asrModel = "whisper-medium-en";
+    try {
+      const res = await fetch(ASR_OFFLINE_URL + "?model=" + asrModel, {
+        method: "POST", headers: { "Content-Type": "application/octet-stream" }, body: allSamples.buffer,
+      });
+      const data = await res.json();
+      const text = (data.text || "").trim();
+      if (text) {
+        examTextField.value = text;
+        setExamStatus("Recognized. Edit if needed, then Send.", "connected");
+        examTextField.focus();
+      } else {
+        setExamStatus("No speech detected", "error");
+      }
+    } catch (e) {
+      setExamStatus("ASR error: " + e.message, "error");
+    }
+  } else {
+    // Start recording
+    unlockAudio();
+    try {
+      examMediaStream = await navigator.mediaDevices.getUserMedia({ audio: { channelCount: 1 } });
+    } catch (err) { setExamStatus("Microphone denied", "error"); return; }
+
+    examRecording = true;
+    examRecordBtn.textContent = "\u23F9 Stop Mic";
+    examRecordBtn.classList.add("recording");
+    setExamStatus("Recording...", "connected");
+
+    examAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    examSourceNode = examAudioCtx.createMediaStreamSource(examMediaStream);
+    examProcessorNode = examAudioCtx.createScriptProcessor(4096, 1, 1);
+    examOfflineChunks = [];
+
+    examProcessorNode.onaudioprocess = (e) => {
+      const raw = e.inputBuffer.getChannelData(0);
+      examOfflineChunks.push(downsample(raw, examAudioCtx.sampleRate));
+    };
+    examSourceNode.connect(examProcessorNode);
+    examProcessorNode.connect(examAudioCtx.destination);
+  }
+};
+
+// Reset exam when switching tests
+function resetExam() {
+  examActive = false;
+  examChat.innerHTML = "";
+  examMessages = [];
+  examInput.classList.remove("visible");
+  examStartBtn.disabled = false;
+  examTestSelect.disabled = false;
+  examPartSelect.disabled = false;
+  setExamStatus("");
+  stopTts();
+}
+
+examTestSelect.onchange = resetExam;
+examPartSelect.onchange = resetExam;
 </script>
 </body>
 </html>
