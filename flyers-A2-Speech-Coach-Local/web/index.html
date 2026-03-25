@@ -8,27 +8,40 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: "Segoe UI", Arial, sans-serif; max-width: 960px; margin: 0 auto; padding: 16px; background: #f7f8fa; font-size: 16px; }
     h2 { margin-bottom: 12px; font-size: 1.3em; }
-    .controls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 10px; }
+    .controls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 6px; }
     button { padding: 12px 22px; border: none; border-radius: 8px; cursor: pointer; font-size: 1em; touch-action: manipulation; }
     #startBtn { background: #4caf50; color: #fff; }
     #startBtn:disabled { background: #aaa; }
     #stopBtn { background: #f44336; color: #fff; }
     #stopBtn:disabled { background: #aaa; }
     #ttsStopBtn { background: #ff9800; color: #fff; font-size: 0.85em; padding: 8px 14px; display: none; }
+    #settingsBtn { background: #607d8b; color: #fff; font-size: 0.85em; padding: 8px 14px; }
     .status { font-size: 0.85em; color: #666; }
     .status.connected { color: #4caf50; }
     .status.error { color: #f44336; }
+    #configSummary { font-size: 0.8em; color: #888; margin-bottom: 6px; padding: 0 2px; }
+    #settingsPanel { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+    #settingsPanel.open { max-height: 300px; }
     .settings-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 10px; }
     .settings-row label { font-size: 0.9em; white-space: nowrap; }
     .settings-row select { padding: 5px 6px; border: 1px solid #ccc; border-radius: 6px; font-size: 0.85em; max-width: 260px; }
     .toggle { display: inline-flex; align-items: center; font-size: 0.9em; cursor: pointer; user-select: none; white-space: nowrap; }
     .toggle input { margin-right: 5px; width: 18px; height: 18px; cursor: pointer; }
     .model-info { font-size: 0.8em; color: #888; }
-    .label { font-weight: bold; margin-top: 14px; margin-bottom: 4px; font-size: 0.85em; color: #555; }
+    .label-row { display: flex; align-items: center; gap: 8px; margin-top: 14px; margin-bottom: 4px; }
+    .label { font-weight: bold; font-size: 0.85em; color: #555; }
     .box { border: 1px solid #ddd; border-radius: 8px; padding: 12px; min-height: 50px; background: #fff; white-space: pre-wrap; word-wrap: break-word; font-size: 0.95em; line-height: 1.6; }
     #partial { color: #888; font-style: italic; }
     #history { min-height: 80px; }
+    #history.editable { border-color: #2196f3; outline: none; background: #f0f7ff; }
+    #history.editable:focus { border-color: #1976d2; box-shadow: 0 0 0 2px rgba(33,150,243,0.2); }
+    .edit-hint { font-size: 0.75em; color: #2196f3; margin-top: 2px; display: none; }
     #assistant { min-height: 100px; }
+    #offlineActions { display: none; margin-top: 8px; gap: 8px; }
+    #offlineActions button { padding: 10px 20px; font-size: 0.95em; }
+    #sendBtn { background: #4caf50; color: #fff; }
+    #discardBtn { background: #9e9e9e; color: #fff; }
+    #replayBtn { background: #2196f3; color: #fff; font-size: 0.78em; padding: 4px 12px; border-radius: 6px; display: none; }
     @media (max-width: 600px) {
       body { padding: 10px; }
       h2 { font-size: 1.15em; }
@@ -45,31 +58,43 @@
     <button id="startBtn">Start</button>
     <button id="stopBtn" disabled>Stop</button>
     <button id="ttsStopBtn">Stop speaking</button>
+    <button id="settingsBtn">&#9881; Settings</button>
     <span id="statusText" class="status"></span>
   </div>
 
-  <div class="settings-row">
-    <label>ASR: <select id="asrModelSelect"><option>Loading...</option></select></label>
-    <span id="asrModelInfo" class="model-info"></span>
+  <div id="configSummary"></div>
+
+  <div id="settingsPanel">
+    <div class="settings-row">
+      <label>ASR: <select id="asrModelSelect"><option>Loading...</option></select></label>
+      <span id="asrModelInfo" class="model-info"></span>
+    </div>
+    <div class="settings-row">
+      <label class="toggle"><input type="checkbox" id="ttsToggle" checked /> &#128264; Voice reply</label>
+      <label>Engine: <select id="ttsEngine">
+        <option value="edge">Edge-TTS</option>
+        <option value="piper" selected>Piper (Local)</option>
+        <option value="system">System</option>
+      </select></label>
+      <label>Voice: <select id="voiceSelect"><option value="">Loading...</option></select></label>
+    </div>
   </div>
 
-  <div class="settings-row">
-    <label class="toggle"><input type="checkbox" id="ttsToggle" /> &#128264; Voice reply</label>
-    <label>Engine: <select id="ttsEngine">
-      <option value="edge">Edge-TTS</option>
-      <option value="piper">Piper (Local)</option>
-      <option value="system">System</option>
-    </select></label>
-    <label>Voice: <select id="voiceSelect"><option value="">Loading...</option></select></label>
-  </div>
-
-  <div class="label" id="partialLabel">Realtime</div>
+  <div class="label-row"><span class="label" id="partialLabel">Realtime</span></div>
   <div id="partial" class="box"></div>
 
-  <div class="label">Recognized sentences</div>
+  <div class="label-row"><span class="label">Recognized sentences</span></div>
   <div id="history" class="box"></div>
+  <div class="edit-hint" id="editHint">You can edit the text above before sending</div>
+  <div id="offlineActions">
+    <button id="sendBtn">Send to Coach</button>
+    <button id="discardBtn">Discard</button>
+  </div>
 
-  <div class="label">Coach feedback</div>
+  <div class="label-row">
+    <span class="label">Coach feedback</span>
+    <button id="replayBtn">&#128257; Replay</button>
+  </div>
   <div id="assistant" class="box"></div>
 
 <script>
@@ -95,6 +120,8 @@ let mediaStream = null;
 let lastSegment = -1;
 let sentences = [];
 let offlineChunks = [];
+let lastFeedbackText = "";
+let pendingOfflineText = "";
 
 const partialEl = document.getElementById("partial");
 const partialLabel = document.getElementById("partialLabel");
@@ -109,6 +136,36 @@ const ttsEngineSelect = document.getElementById("ttsEngine");
 const voiceSelect = document.getElementById("voiceSelect");
 const asrModelSelect = document.getElementById("asrModelSelect");
 const asrModelInfo = document.getElementById("asrModelInfo");
+const settingsBtn = document.getElementById("settingsBtn");
+const settingsPanel = document.getElementById("settingsPanel");
+const configSummary = document.getElementById("configSummary");
+const offlineActions = document.getElementById("offlineActions");
+const sendBtn = document.getElementById("sendBtn");
+const discardBtn = document.getElementById("discardBtn");
+const replayBtn = document.getElementById("replayBtn");
+const editHint = document.getElementById("editHint");
+
+function setHistoryEditable(on) {
+  historyEl.contentEditable = on ? "true" : "false";
+  historyEl.classList.toggle("editable", on);
+  editHint.style.display = on ? "block" : "none";
+}
+
+// ===== Settings Panel =====
+settingsBtn.onclick = () => {
+  settingsPanel.classList.toggle("open");
+  settingsBtn.textContent = settingsPanel.classList.contains("open") ? "\u2715 Close" : "\u2699 Settings";
+};
+
+function updateConfigSummary() {
+  const m = getSelectedAsrModel();
+  const asrName = m ? m.label.split("(")[0].trim() : "?";
+  const asrType = m ? m.type : "?";
+  const engine = ttsEngineSelect.value;
+  const voice = voiceSelect.value || "-";
+  const voiceReply = ttsToggle.checked ? "ON" : "OFF";
+  configSummary.textContent = "ASR: " + asrName + " (" + asrType + ") | TTS: " + engine + " / " + voice + " | Voice reply: " + voiceReply;
+}
 
 // ===== ASR Models =====
 let asrModels = [];
@@ -128,6 +185,7 @@ async function loadAsrModels() {
     const opt = document.createElement("option");
     opt.value = m.id;
     opt.textContent = m.label;
+    if (m.id === "whisper-medium-en") opt.selected = true;
     asrModelSelect.appendChild(opt);
   }
   updateAsrMode();
@@ -144,12 +202,13 @@ function isOfflineMode() {
 function updateAsrMode() {
   const m = getSelectedAsrModel();
   if (m.type === "offline") {
-    asrModelInfo.textContent = "Record → Stop → Recognize";
+    asrModelInfo.textContent = "Record \u2192 Stop \u2192 Confirm \u2192 Coach";
     partialLabel.textContent = "Status";
   } else {
-    asrModelInfo.textContent = "Real-time streaming";
+    asrModelInfo.textContent = "Real-time streaming (auto-send)";
     partialLabel.textContent = "Realtime";
   }
+  updateConfigSummary();
 }
 
 asrModelSelect.onchange = updateAsrMode;
@@ -202,8 +261,11 @@ function updateVoiceDropdown() {
       voiceSelect.appendChild(opt);
     }
   }
+  updateConfigSummary();
 }
-ttsEngineSelect.onchange = updateVoiceDropdown;
+ttsEngineSelect.onchange = () => { updateVoiceDropdown(); updateConfigSummary(); };
+ttsToggle.onchange = () => { if (ttsToggle.checked) unlockAudio(); updateConfigSummary(); };
+voiceSelect.onchange = updateConfigSummary;
 updateVoiceDropdown();
 
 function extractEnglishText(text) {
@@ -273,6 +335,10 @@ async function speakWithServer(text, engine) {
 
 function speakText(text) {
   if (!ttsToggle.checked) return;
+  doSpeak(text);
+}
+
+function doSpeak(text) {
   const engine = ttsEngineSelect.value;
   if (engine === "system") speakWithSystem(text);
   else speakWithServer(text, engine);
@@ -284,8 +350,14 @@ function stopTts() {
   ttsStopBtn.style.display = "none";
 }
 
-ttsToggle.onchange = () => { if (ttsToggle.checked) unlockAudio(); };
 ttsStopBtn.onclick = stopTts;
+
+// ===== Replay =====
+replayBtn.onclick = () => {
+  if (!lastFeedbackText) return;
+  unlockAudio();
+  doSpeak(lastFeedbackText);
+};
 
 // ===== Status =====
 function setStatus(text, cls) {
@@ -309,6 +381,7 @@ function downsample(buffer, inputRate) {
 // ===== Ollama =====
 async function askOllama(text) {
   assistantEl.textContent = "Thinking...";
+  replayBtn.style.display = "none";
   try {
     const res = await fetch(OLLAMA_URL, {
       method: "POST", headers: { "Content-Type": "application/json" },
@@ -335,6 +408,8 @@ async function askOllama(text) {
         try { const obj = JSON.parse(line); if (obj.message && obj.message.content) assistantEl.textContent += obj.message.content; } catch (e) {}
       }
     }
+    lastFeedbackText = assistantEl.textContent;
+    if (lastFeedbackText) replayBtn.style.display = "inline-block";
     speakText(assistantEl.textContent);
   } catch (err) { assistantEl.textContent = "Ollama error: " + err.message; }
 }
@@ -405,6 +480,7 @@ function stopStreaming() {
 async function startOffline() {
   partialEl.textContent = "Recording... Click Stop when done.";
   setStatus("Recording...", "connected");
+  offlineActions.style.display = "none";
 
   try {
     mediaStream = await navigator.mediaDevices.getUserMedia({ audio: { channelCount: 1 } });
@@ -424,7 +500,6 @@ async function startOffline() {
 }
 
 async function stopOffline() {
-  // Stop capture
   if (processorNode) { processorNode.disconnect(); processorNode = null; }
   if (sourceNode) { sourceNode.disconnect(); sourceNode = null; }
   if (audioCtx) { audioCtx.close(); audioCtx = null; }
@@ -439,7 +514,6 @@ async function stopOffline() {
   partialEl.textContent = "Recognizing...";
   setStatus("Processing...");
 
-  // Concatenate chunks
   const totalLen = offlineChunks.reduce((sum, c) => sum + c.length, 0);
   const allSamples = new Float32Array(totalLen);
   let offset = 0;
@@ -459,15 +533,44 @@ async function stopOffline() {
     if (text) {
       sentences.push(text);
       historyEl.textContent = sentences.filter((s) => s.trim()).map((s, i) => (i + 1) + ". " + s).join("\n");
-      askOllama(text);
+      pendingOfflineText = text;
+      offlineActions.style.display = "flex";
+      setHistoryEditable(true);
+      setStatus("Edit if needed, then Send or Discard");
     } else {
       partialEl.textContent = "No speech detected.";
+      setStatus("Stopped");
     }
   } catch (e) {
     partialEl.textContent = "Recognition error: " + e.message;
+    setStatus("Stopped");
   }
-  setStatus("Stopped");
 }
+
+// ===== Offline actions: Send / Discard =====
+sendBtn.onclick = () => {
+  offlineActions.style.display = "none";
+  setHistoryEditable(false);
+  // Read possibly edited text from the history box
+  const editedText = (historyEl.innerText || "").replace(/^\d+\.\s*/gm, "").trim();
+  if (editedText) {
+    // Update sentences array with edited version
+    if (sentences.length > 0) sentences[sentences.length - 1] = editedText;
+    historyEl.textContent = sentences.filter((s) => s.trim()).map((s, i) => (i + 1) + ". " + s).join("\n");
+    askOllama(editedText);
+  }
+  pendingOfflineText = "";
+  setStatus("Stopped");
+};
+
+discardBtn.onclick = () => {
+  offlineActions.style.display = "none";
+  setHistoryEditable(false);
+  if (sentences.length > 0) sentences.pop();
+  historyEl.textContent = sentences.filter((s) => s.trim()).map((s, i) => (i + 1) + ". " + s).join("\n");
+  pendingOfflineText = "";
+  setStatus("Discarded. Ready.");
+};
 
 // ===== Start / Stop =====
 async function start() {
@@ -477,6 +580,11 @@ async function start() {
   partialEl.textContent = "";
   historyEl.textContent = "";
   assistantEl.textContent = "";
+  offlineActions.style.display = "none";
+  setHistoryEditable(false);
+  replayBtn.style.display = "none";
+  lastFeedbackText = "";
+  pendingOfflineText = "";
   startBtn.disabled = true;
   stopBtn.disabled = false;
   asrModelSelect.disabled = true;
@@ -488,7 +596,7 @@ async function start() {
 function stop() {
   if (isOfflineMode()) stopOffline();
   else stopStreaming();
-  setStatus("Stopped");
+  if (!isOfflineMode()) setStatus("Stopped");
   startBtn.disabled = false;
   stopBtn.disabled = true;
   asrModelSelect.disabled = false;
@@ -496,6 +604,9 @@ function stop() {
 
 startBtn.onclick = start;
 stopBtn.onclick = stop;
+
+// Init summary
+setTimeout(updateConfigSummary, 500);
 </script>
 </body>
 </html>
