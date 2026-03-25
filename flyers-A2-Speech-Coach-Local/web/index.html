@@ -1,0 +1,501 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>Realtime English Speech Coach</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: "Segoe UI", Arial, sans-serif; max-width: 960px; margin: 0 auto; padding: 16px; background: #f7f8fa; font-size: 16px; }
+    h2 { margin-bottom: 12px; font-size: 1.3em; }
+    .controls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 10px; }
+    button { padding: 12px 22px; border: none; border-radius: 8px; cursor: pointer; font-size: 1em; touch-action: manipulation; }
+    #startBtn { background: #4caf50; color: #fff; }
+    #startBtn:disabled { background: #aaa; }
+    #stopBtn { background: #f44336; color: #fff; }
+    #stopBtn:disabled { background: #aaa; }
+    #ttsStopBtn { background: #ff9800; color: #fff; font-size: 0.85em; padding: 8px 14px; display: none; }
+    .status { font-size: 0.85em; color: #666; }
+    .status.connected { color: #4caf50; }
+    .status.error { color: #f44336; }
+    .settings-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 10px; }
+    .settings-row label { font-size: 0.9em; white-space: nowrap; }
+    .settings-row select { padding: 5px 6px; border: 1px solid #ccc; border-radius: 6px; font-size: 0.85em; max-width: 260px; }
+    .toggle { display: inline-flex; align-items: center; font-size: 0.9em; cursor: pointer; user-select: none; white-space: nowrap; }
+    .toggle input { margin-right: 5px; width: 18px; height: 18px; cursor: pointer; }
+    .model-info { font-size: 0.8em; color: #888; }
+    .label { font-weight: bold; margin-top: 14px; margin-bottom: 4px; font-size: 0.85em; color: #555; }
+    .box { border: 1px solid #ddd; border-radius: 8px; padding: 12px; min-height: 50px; background: #fff; white-space: pre-wrap; word-wrap: break-word; font-size: 0.95em; line-height: 1.6; }
+    #partial { color: #888; font-style: italic; }
+    #history { min-height: 80px; }
+    #assistant { min-height: 100px; }
+    @media (max-width: 600px) {
+      body { padding: 10px; }
+      h2 { font-size: 1.15em; }
+      button { padding: 14px 20px; font-size: 1.05em; border-radius: 10px; }
+      .settings-row select { max-width: 180px; }
+      .box { padding: 10px; font-size: 1em; line-height: 1.7; border-radius: 10px; }
+    }
+  </style>
+</head>
+<body>
+  <h2>English Speech Coach</h2>
+
+  <div class="controls">
+    <button id="startBtn">Start</button>
+    <button id="stopBtn" disabled>Stop</button>
+    <button id="ttsStopBtn">Stop speaking</button>
+    <span id="statusText" class="status"></span>
+  </div>
+
+  <div class="settings-row">
+    <label>ASR: <select id="asrModelSelect"><option>Loading...</option></select></label>
+    <span id="asrModelInfo" class="model-info"></span>
+  </div>
+
+  <div class="settings-row">
+    <label class="toggle"><input type="checkbox" id="ttsToggle" /> &#128264; Voice reply</label>
+    <label>Engine: <select id="ttsEngine">
+      <option value="edge">Edge-TTS</option>
+      <option value="piper">Piper (Local)</option>
+      <option value="system">System</option>
+    </select></label>
+    <label>Voice: <select id="voiceSelect"><option value="">Loading...</option></select></label>
+  </div>
+
+  <div class="label" id="partialLabel">Realtime</div>
+  <div id="partial" class="box"></div>
+
+  <div class="label">Recognized sentences</div>
+  <div id="history" class="box"></div>
+
+  <div class="label">Coach feedback</div>
+  <div id="assistant" class="box"></div>
+
+<script>
+// ===== Config =====
+const IS_PROXIED = location.port === "8443";
+const _origin = location.protocol + "//" + location.host;
+const _base = IS_PROXIED ? _origin : "http://" + location.hostname + ":8443";
+const OLLAMA_URL = IS_PROXIED
+  ? _origin + "/api/chat"
+  : "http://" + location.hostname + ":11434/api/chat";
+const TTS_URL = _base + "/tts";
+const TTS_VOICES_URL = _base + "/tts/voices";
+const ASR_MODELS_URL = _base + "/asr/models";
+const ASR_OFFLINE_URL = _base + "/asr";
+const OLLAMA_MODEL = "qwen2.5:3b";
+const TARGET_SAMPLE_RATE = 16000;
+
+let ws = null;
+let audioCtx = null;
+let sourceNode = null;
+let processorNode = null;
+let mediaStream = null;
+let lastSegment = -1;
+let sentences = [];
+let offlineChunks = [];
+
+const partialEl = document.getElementById("partial");
+const partialLabel = document.getElementById("partialLabel");
+const historyEl = document.getElementById("history");
+const assistantEl = document.getElementById("assistant");
+const startBtn = document.getElementById("startBtn");
+const stopBtn = document.getElementById("stopBtn");
+const statusText = document.getElementById("statusText");
+const ttsToggle = document.getElementById("ttsToggle");
+const ttsStopBtn = document.getElementById("ttsStopBtn");
+const ttsEngineSelect = document.getElementById("ttsEngine");
+const voiceSelect = document.getElementById("voiceSelect");
+const asrModelSelect = document.getElementById("asrModelSelect");
+const asrModelInfo = document.getElementById("asrModelInfo");
+
+// ===== ASR Models =====
+let asrModels = [];
+
+async function loadAsrModels() {
+  try {
+    const res = await fetch(ASR_MODELS_URL);
+    if (res.ok) asrModels = await res.json();
+  } catch (e) {
+    console.warn("Failed to load ASR models:", e);
+  }
+  if (asrModels.length === 0) {
+    asrModels = [{ id: "zipformer-en-2023-06-26", port: 6006, type: "streaming", label: "Default (streaming)" }];
+  }
+  asrModelSelect.innerHTML = "";
+  for (const m of asrModels) {
+    const opt = document.createElement("option");
+    opt.value = m.id;
+    opt.textContent = m.label;
+    asrModelSelect.appendChild(opt);
+  }
+  updateAsrMode();
+}
+
+function getSelectedAsrModel() {
+  return asrModels.find((m) => m.id === asrModelSelect.value) || asrModels[0];
+}
+
+function isOfflineMode() {
+  return getSelectedAsrModel().type === "offline";
+}
+
+function updateAsrMode() {
+  const m = getSelectedAsrModel();
+  if (m.type === "offline") {
+    asrModelInfo.textContent = "Record → Stop → Recognize";
+    partialLabel.textContent = "Status";
+  } else {
+    asrModelInfo.textContent = "Real-time streaming";
+    partialLabel.textContent = "Realtime";
+  }
+}
+
+asrModelSelect.onchange = updateAsrMode;
+loadAsrModels();
+
+// ===== TTS =====
+const synth = window.speechSynthesis;
+let systemVoices = [];
+let edgeVoices = [];
+let ttsUnlocked = false;
+const ttsAudio = new Audio();
+let ttsAudioUnlocked = false;
+let _lastBlobUrl = null;
+
+function loadSystemVoices() {
+  systemVoices = synth.getVoices().filter((v) => v.lang.startsWith("en"));
+}
+synth.onvoiceschanged = () => { loadSystemVoices(); if (ttsEngineSelect.value === "system") updateVoiceDropdown(); };
+loadSystemVoices();
+
+async function loadEdgeVoices() {
+  try {
+    const res = await fetch(TTS_VOICES_URL + "?engine=edge");
+    if (res.ok) edgeVoices = await res.json();
+  } catch (e) { console.warn("Edge voices load failed:", e); }
+  if (ttsEngineSelect.value === "edge") updateVoiceDropdown();
+}
+loadEdgeVoices();
+
+function updateVoiceDropdown() {
+  const engine = ttsEngineSelect.value;
+  voiceSelect.innerHTML = "";
+  if (engine === "edge") {
+    if (edgeVoices.length === 0) { voiceSelect.innerHTML = '<option value="">Loading...</option>'; return; }
+    for (const v of edgeVoices) {
+      const opt = document.createElement("option");
+      opt.value = v.name;
+      opt.textContent = v.name + (v.gender === "Female" ? " \u2640" : " \u2642");
+      if (v.name === "en-US-AnaNeural") opt.selected = true;
+      voiceSelect.appendChild(opt);
+    }
+  } else if (engine === "piper") {
+    voiceSelect.innerHTML = '<option value="amy">amy (en-US)</option>';
+  } else {
+    if (systemVoices.length === 0) { voiceSelect.innerHTML = '<option value="">No English voices</option>'; return; }
+    for (const v of systemVoices) {
+      const opt = document.createElement("option");
+      opt.value = v.name;
+      opt.textContent = v.name + " (" + v.lang + ")";
+      voiceSelect.appendChild(opt);
+    }
+  }
+}
+ttsEngineSelect.onchange = updateVoiceDropdown;
+updateVoiceDropdown();
+
+function extractEnglishText(text) {
+  return text.split("\n").filter((l) => {
+    const t = l.trim();
+    if (!t) return false;
+    return ((t.match(/[\u4e00-\u9fff]/g) || []).length / t.length) < 0.3;
+  }).join(". ")
+    .replace(/#{1,6}\s*/g, "").replace(/\*{1,3}([^*]+)\*{1,3}/g, "$1")
+    .replace(/`([^`]+)`/g, "$1").replace(/[_~>|]/g, "")
+    .replace(/^\d+\.\s*/gm, "").replace(/^[-*]\s*/gm, "")
+    .replace(/\s{2,}/g, " ").trim();
+}
+
+function unlockAudio() {
+  if (!ttsUnlocked) {
+    const s = new SpeechSynthesisUtterance(""); s.volume = 0; s.lang = "en-US"; synth.speak(s);
+    ttsUnlocked = true;
+  }
+  if (!ttsAudioUnlocked) {
+    ttsAudio.src = "data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4Ljc2LjEwMAAAAAAAAAAAAAAA//tQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAABhgC7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7//////////////////////////////////////////////////////////////////8AAAAATGF2YzU4LjEzAAAAAAAAAAAAAAAAJAAAAAAAAAAABIYGAAAAAAAAAAAAAAAAAAAA//tQZAAP8AAAaQAAAAgAAA0gAAABAAABpAAAACAAADSAAAAETEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//tQZB4P8AAAaQAAAAgAAA0gAAABAAABpAAAACAAADSAAAAEVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVQ==";
+    ttsAudio.volume = 0;
+    ttsAudio.play().then(() => { ttsAudio.pause(); ttsAudio.volume = 1; ttsAudioUnlocked = true; }).catch(() => {});
+  }
+}
+
+// --- System TTS ---
+function speakWithSystem(text) {
+  synth.cancel();
+  const toSpeak = extractEnglishText(text);
+  if (!toSpeak) return;
+  const voice = systemVoices.find((v) => v.name === voiceSelect.value) || systemVoices[0];
+  const chunks = []; const parts = toSpeak.match(/[^.!?]+[.!?]+|[^.!?]+$/g) || [toSpeak];
+  let cur = "";
+  for (const s of parts) { if ((cur + s).length > 200) { if (cur.trim()) chunks.push(cur.trim()); cur = s; } else cur += s; }
+  if (cur.trim()) chunks.push(cur.trim());
+  for (let i = 0; i < chunks.length; i++) {
+    const u = new SpeechSynthesisUtterance(chunks[i]); u.lang = "en-US"; u.rate = 0.9;
+    if (voice) u.voice = voice;
+    if (i === 0) u.onstart = () => { ttsStopBtn.style.display = "inline-block"; };
+    if (i === chunks.length - 1) u.onend = () => { ttsStopBtn.style.display = "none"; };
+    synth.speak(u);
+  }
+}
+
+// --- Edge / Piper TTS (both use /tts endpoint) ---
+async function speakWithServer(text, engine) {
+  stopTts();
+  const toSpeak = extractEnglishText(text);
+  if (!toSpeak) return;
+  ttsStopBtn.style.display = "inline-block";
+  const body = engine === "piper"
+    ? { engine: "piper", text: toSpeak, speed: 1.0 }
+    : { engine: "edge", text: toSpeak, voice: voiceSelect.value || "en-US-AnaNeural", rate: "-10%" };
+  try {
+    const res = await fetch(TTS_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+    if (!res.ok) { ttsStopBtn.style.display = "none"; return; }
+    const blob = await res.blob();
+    if (_lastBlobUrl) URL.revokeObjectURL(_lastBlobUrl);
+    _lastBlobUrl = URL.createObjectURL(blob);
+    ttsAudio.src = _lastBlobUrl;
+    ttsAudio.onended = () => { ttsStopBtn.style.display = "none"; };
+    ttsAudio.onerror = () => { ttsStopBtn.style.display = "none"; };
+    ttsAudio.play().catch(() => { ttsStopBtn.style.display = "none"; });
+  } catch (e) { console.error("TTS error:", e); ttsStopBtn.style.display = "none"; }
+}
+
+function speakText(text) {
+  if (!ttsToggle.checked) return;
+  const engine = ttsEngineSelect.value;
+  if (engine === "system") speakWithSystem(text);
+  else speakWithServer(text, engine);
+}
+
+function stopTts() {
+  synth.cancel();
+  if (!ttsAudio.paused) { ttsAudio.pause(); ttsAudio.currentTime = 0; }
+  ttsStopBtn.style.display = "none";
+}
+
+ttsToggle.onchange = () => { if (ttsToggle.checked) unlockAudio(); };
+ttsStopBtn.onclick = stopTts;
+
+// ===== Status =====
+function setStatus(text, cls) {
+  statusText.textContent = text;
+  statusText.className = "status" + (cls ? " " + cls : "");
+}
+
+// ===== Audio =====
+function downsample(buffer, inputRate) {
+  if (inputRate === TARGET_SAMPLE_RATE) return new Float32Array(buffer);
+  const ratio = inputRate / TARGET_SAMPLE_RATE;
+  const newLen = Math.round(buffer.length / ratio);
+  const result = new Float32Array(newLen);
+  for (let i = 0; i < newLen; i++) {
+    const idx = Math.round(i * ratio);
+    result[i] = Math.max(-1, Math.min(1, buffer[idx] || 0));
+  }
+  return result;
+}
+
+// ===== Ollama =====
+async function askOllama(text) {
+  assistantEl.textContent = "Thinking...";
+  try {
+    const res = await fetch(OLLAMA_URL, {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: OLLAMA_MODEL,
+        messages: [
+          { role: "system", content: "You are an English speaking coach for a child learner (Cambridge Flyers / KET level). Give short, friendly feedback. Always include a Chinese explanation." },
+          { role: "user", content: "Please help correct this spoken English:\n" + text + "\n\nRespond in this format:\n1. Corrected sentence\n2. More natural version\n3. Key mistakes\n4. Chinese explanation\n5. One practice sentence" }
+        ],
+        stream: true
+      })
+    });
+    assistantEl.textContent = "";
+    const reader = res.body.getReader();
+    const decoder = new TextDecoder("utf-8");
+    let buf = "";
+    while (true) {
+      const { value, done } = await reader.read();
+      if (done) break;
+      buf += decoder.decode(value, { stream: true });
+      const lines = buf.split("\n"); buf = lines.pop() || "";
+      for (const line of lines) {
+        if (!line.trim()) continue;
+        try { const obj = JSON.parse(line); if (obj.message && obj.message.content) assistantEl.textContent += obj.message.content; } catch (e) {}
+      }
+    }
+    speakText(assistantEl.textContent);
+  } catch (err) { assistantEl.textContent = "Ollama error: " + err.message; }
+}
+
+// ===== ASR: Streaming mode =====
+function onAsrMessage(event) {
+  if (typeof event.data !== "string") return;
+  try {
+    const msg = JSON.parse(event.data);
+    const text = (msg.text || "").trim();
+    const segment = msg.segment;
+    partialEl.textContent = text;
+    if (segment !== lastSegment && lastSegment >= 0) {
+      const completed = sentences[sentences.length - 1];
+      if (completed && completed.trim()) askOllama(completed.trim());
+    }
+    if (segment !== lastSegment) { sentences.push(text); lastSegment = segment; }
+    else sentences[sentences.length - 1] = text;
+    historyEl.textContent = sentences.filter((s) => s.trim()).map((s, i) => (i + 1) + ". " + s).join("\n");
+  } catch (e) {}
+}
+
+async function startStreaming() {
+  const model = getSelectedAsrModel();
+  const wsUrl = IS_PROXIED
+    ? (location.protocol === "https:" ? "wss://" : "ws://") + location.host + "/ws?model=" + model.id
+    : "ws://" + location.hostname + ":" + model.port;
+
+  setStatus("Connecting...");
+  ws = new WebSocket(wsUrl);
+  ws.binaryType = "arraybuffer";
+
+  ws.onopen = async () => {
+    setStatus("Listening...", "connected");
+    try {
+      mediaStream = await navigator.mediaDevices.getUserMedia({ audio: { channelCount: 1, sampleRate: TARGET_SAMPLE_RATE } });
+    } catch (err) { setStatus("Microphone denied", "error"); ws.close(); return; }
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    sourceNode = audioCtx.createMediaStreamSource(mediaStream);
+    processorNode = audioCtx.createScriptProcessor(4096, 1, 1);
+    processorNode.onaudioprocess = (e) => {
+      if (!ws || ws.readyState !== WebSocket.OPEN) return;
+      const raw = e.inputBuffer.getChannelData(0);
+      const resampled = downsample(raw, audioCtx.sampleRate);
+      ws.send(resampled.buffer);
+    };
+    sourceNode.connect(processorNode);
+    processorNode.connect(audioCtx.destination);
+  };
+
+  ws.onmessage = onAsrMessage;
+  ws.onerror = () => setStatus("WebSocket error", "error");
+  ws.onclose = () => { setStatus("Disconnected"); startBtn.disabled = false; stopBtn.disabled = true; asrModelSelect.disabled = false; };
+}
+
+function stopStreaming() {
+  if (processorNode) { processorNode.disconnect(); processorNode = null; }
+  if (sourceNode) { sourceNode.disconnect(); sourceNode = null; }
+  if (audioCtx) { audioCtx.close(); audioCtx = null; }
+  if (mediaStream) { mediaStream.getTracks().forEach((t) => t.stop()); mediaStream = null; }
+  if (ws && ws.readyState === WebSocket.OPEN) { ws.send("Done"); ws.close(); }
+  ws = null;
+  const last = sentences.length > 0 ? sentences[sentences.length - 1] : "";
+  if (last && last.trim()) askOllama(last.trim());
+}
+
+// ===== ASR: Offline mode =====
+async function startOffline() {
+  partialEl.textContent = "Recording... Click Stop when done.";
+  setStatus("Recording...", "connected");
+
+  try {
+    mediaStream = await navigator.mediaDevices.getUserMedia({ audio: { channelCount: 1 } });
+  } catch (err) { setStatus("Microphone denied", "error"); startBtn.disabled = false; stopBtn.disabled = true; asrModelSelect.disabled = false; return; }
+
+  audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  sourceNode = audioCtx.createMediaStreamSource(mediaStream);
+  processorNode = audioCtx.createScriptProcessor(4096, 1, 1);
+  offlineChunks = [];
+
+  processorNode.onaudioprocess = (e) => {
+    const raw = e.inputBuffer.getChannelData(0);
+    offlineChunks.push(downsample(raw, audioCtx.sampleRate));
+  };
+  sourceNode.connect(processorNode);
+  processorNode.connect(audioCtx.destination);
+}
+
+async function stopOffline() {
+  // Stop capture
+  if (processorNode) { processorNode.disconnect(); processorNode = null; }
+  if (sourceNode) { sourceNode.disconnect(); sourceNode = null; }
+  if (audioCtx) { audioCtx.close(); audioCtx = null; }
+  if (mediaStream) { mediaStream.getTracks().forEach((t) => t.stop()); mediaStream = null; }
+
+  if (offlineChunks.length === 0) {
+    partialEl.textContent = "No audio recorded.";
+    setStatus("Stopped");
+    return;
+  }
+
+  partialEl.textContent = "Recognizing...";
+  setStatus("Processing...");
+
+  // Concatenate chunks
+  const totalLen = offlineChunks.reduce((sum, c) => sum + c.length, 0);
+  const allSamples = new Float32Array(totalLen);
+  let offset = 0;
+  for (const c of offlineChunks) { allSamples.set(c, offset); offset += c.length; }
+  offlineChunks = [];
+
+  const model = getSelectedAsrModel();
+  try {
+    const res = await fetch(ASR_OFFLINE_URL + "?model=" + model.id, {
+      method: "POST",
+      headers: { "Content-Type": "application/octet-stream" },
+      body: allSamples.buffer,
+    });
+    const data = await res.json();
+    const text = (data.text || "").trim();
+    partialEl.textContent = "";
+    if (text) {
+      sentences.push(text);
+      historyEl.textContent = sentences.filter((s) => s.trim()).map((s, i) => (i + 1) + ". " + s).join("\n");
+      askOllama(text);
+    } else {
+      partialEl.textContent = "No speech detected.";
+    }
+  } catch (e) {
+    partialEl.textContent = "Recognition error: " + e.message;
+  }
+  setStatus("Stopped");
+}
+
+// ===== Start / Stop =====
+async function start() {
+  unlockAudio();
+  sentences = [];
+  lastSegment = -1;
+  partialEl.textContent = "";
+  historyEl.textContent = "";
+  assistantEl.textContent = "";
+  startBtn.disabled = true;
+  stopBtn.disabled = false;
+  asrModelSelect.disabled = true;
+
+  if (isOfflineMode()) await startOffline();
+  else await startStreaming();
+}
+
+function stop() {
+  if (isOfflineMode()) stopOffline();
+  else stopStreaming();
+  setStatus("Stopped");
+  startBtn.disabled = false;
+  stopBtn.disabled = true;
+  asrModelSelect.disabled = false;
+}
+
+startBtn.onclick = start;
+stopBtn.onclick = stop;
+</script>
+</body>
+</html>

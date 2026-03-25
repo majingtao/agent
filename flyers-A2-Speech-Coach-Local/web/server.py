@@ -1,0 +1,497 @@
+"""
+HTTPS reverse proxy + static file server + multi-model ASR + TTS.
+
+All traffic goes through one HTTPS port (8443):
+  - /ws?model=xxx  → WebSocket proxy to streaming ASR (port per model)
+  - /asr?model=xxx → POST audio for offline ASR recognition
+  - /asr/models    → List available ASR models
+  - /api/*         → HTTP proxy to Ollama (localhost:11434)
+  - /tts           → Edge-TTS or Piper TTS
+  - /tts/voices    → Voice list (Edge or Piper)
+  - /*             → Static files
+
+Usage:
+    pip install aiohttp edge-tts websockets sherpa-onnx numpy
+    python server.py
+"""
+
+import asyncio
+import io
+import logging
+import os
+import ssl
+import struct
+import subprocess
+import sys
+import wave
+
+import numpy as np
+
+try:
+    import aiohttp
+    from aiohttp import web
+except ImportError:
+    print("Missing: pip install aiohttp")
+    sys.exit(1)
+
+try:
+    import edge_tts
+except ImportError:
+    print("Missing: pip install edge-tts")
+    sys.exit(1)
+
+try:
+    import websockets as ws_lib
+except ImportError:
+    print("Missing: pip install websockets")
+    sys.exit(1)
+
+try:
+    import sherpa_onnx
+except ImportError:
+    sherpa_onnx = None
+    print("[warn] sherpa-onnx not installed, Piper TTS disabled. Run: pip install sherpa-onnx")
+
+HOST = "0.0.0.0"
+PORT = 8443
+CERT_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "cert.pem")
+KEY_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "key.pem")
+STATIC_DIR = os.path.dirname(os.path.abspath(__file__))
+MODELS_DIR = os.path.join(os.path.dirname(STATIC_DIR), "models")
+
+OLLAMA_BASE = "http://localhost:11434"
+
+# ---------- ASR model registry ----------
+
+ASR_MODELS = [
+    {
+        "id": "zipformer-en-2023-06-26",
+        "port": 6006,
+        "type": "streaming",
+        "label": "Zipformer EN (130MB, streaming)",
+    },
+    {
+        "id": "zipformer-en-2023-06-21",
+        "port": 6007,
+        "type": "streaming",
+        "label": "Zipformer EN Large (300MB, streaming)",
+    },
+    {
+        "id": "whisper-medium-en",
+        "port": 6008,
+        "type": "offline",
+        "label": "Whisper Medium EN (1.5GB, offline)",
+    },
+    {
+        "id": "sensevoice-small",
+        "port": 6009,
+        "type": "offline",
+        "label": "SenseVoice Small (230MB, bilingual, offline)",
+    },
+]
+
+ASR_MODEL_MAP = {m["id"]: m for m in ASR_MODELS}
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s %(levelname)s %(message)s",
+    datefmt="%H:%M:%S",
+)
+log = logging.getLogger("proxy")
+
+
+def generate_cert():
+    if os.path.exists(CERT_FILE) and os.path.exists(KEY_FILE):
+        return
+    log.info("Generating self-signed certificate...")
+    subprocess.run([
+        "openssl", "req", "-x509", "-newkey", "rsa:2048",
+        "-keyout", KEY_FILE, "-out", CERT_FILE,
+        "-days", "365", "-nodes",
+        "-subj", "/CN=EnglishAI Speech Coach"
+    ], check=True)
+    log.info("Certificate generated.")
+
+
+# ---------- Shared session lifecycle ----------
+
+async def create_shared_session(app):
+    timeout = aiohttp.ClientTimeout(total=600, connect=10)
+    connector = aiohttp.TCPConnector(limit=50, keepalive_timeout=60)
+    app["session"] = aiohttp.ClientSession(timeout=timeout, connector=connector)
+    log.info("Shared HTTP session created")
+
+
+async def close_shared_session(app):
+    await app["session"].close()
+    log.info("Shared HTTP session closed")
+
+
+# ---------- ASR model list ----------
+
+async def asr_models_handler(request):
+    return web.json_response(ASR_MODELS)
+
+
+# ---------- WebSocket proxy: /ws?model=xxx → streaming ASR ----------
+
+async def ws_proxy(request):
+    model_id = request.query.get("model", "zipformer-en-2023-06-26")
+    model = ASR_MODEL_MAP.get(model_id)
+    if not model or model["type"] != "streaming":
+        log.warning("[ws] Invalid streaming model: %s", model_id)
+        ws_err = web.WebSocketResponse()
+        await ws_err.prepare(request)
+        await ws_err.close(message=b"Invalid streaming model")
+        return ws_err
+
+    asr_url = f"ws://localhost:{model['port']}"
+    session = request.app["session"]
+    ws_client = web.WebSocketResponse(
+        max_msg_size=4 * 1024 * 1024,
+        heartbeat=20,
+    )
+    await ws_client.prepare(request)
+    log.info("[ws] Client %s → %s (%s)", request.remote, model_id, asr_url)
+
+    try:
+        ws_server = await session.ws_connect(
+            asr_url, max_msg_size=4 * 1024 * 1024, heartbeat=20,
+        )
+    except Exception as e:
+        log.error("[ws] Cannot connect to ASR %s: %s", asr_url, e)
+        await ws_client.close(message=b"ASR unavailable")
+        return ws_client
+
+    done = asyncio.Event()
+
+    async def client_to_server():
+        try:
+            async for msg in ws_client:
+                if ws_server.closed:
+                    break
+                if msg.type == aiohttp.WSMsgType.TEXT:
+                    await ws_server.send_str(msg.data)
+                elif msg.type == aiohttp.WSMsgType.BINARY:
+                    await ws_server.send_bytes(msg.data)
+                elif msg.type == aiohttp.WSMsgType.ERROR:
+                    break
+        except (ConnectionResetError, asyncio.CancelledError):
+            pass
+        except Exception as e:
+            log.warning("[ws] c2s error: %s", e)
+        finally:
+            done.set()
+
+    async def server_to_client():
+        try:
+            async for msg in ws_server:
+                if ws_client.closed:
+                    break
+                if msg.type == aiohttp.WSMsgType.TEXT:
+                    await ws_client.send_str(msg.data)
+                elif msg.type == aiohttp.WSMsgType.BINARY:
+                    await ws_client.send_bytes(msg.data)
+                elif msg.type == aiohttp.WSMsgType.ERROR:
+                    break
+        except (ConnectionResetError, asyncio.CancelledError):
+            pass
+        except Exception as e:
+            log.warning("[ws] s2c error: %s", e)
+        finally:
+            done.set()
+
+    t1 = asyncio.create_task(client_to_server())
+    t2 = asyncio.create_task(server_to_client())
+    await done.wait()
+    t1.cancel()
+    t2.cancel()
+    await asyncio.gather(t1, t2, return_exceptions=True)
+
+    if not ws_server.closed:
+        await ws_server.close()
+    if not ws_client.closed:
+        await ws_client.close()
+
+    log.info("[ws] Closed %s for %s", model_id, request.remote)
+    return ws_client
+
+
+# ---------- Offline ASR: POST /asr?model=xxx ----------
+
+async def asr_offline(request):
+    model_id = request.query.get("model", "whisper-medium-en")
+    model = ASR_MODEL_MAP.get(model_id)
+    if not model or model["type"] != "offline":
+        return web.json_response({"error": "Invalid offline model"}, status=400)
+
+    audio_bytes = await request.read()
+    if not audio_bytes:
+        return web.json_response({"error": "No audio data"}, status=400)
+
+    # Assume raw float32 PCM at 16kHz from frontend
+    sample_rate = 16000
+    pcm_data = audio_bytes
+
+    # If WAV header detected, parse it
+    if audio_bytes[:4] == b"RIFF":
+        sample_rate = int.from_bytes(audio_bytes[24:28], "little")
+        bits_per_sample = int.from_bytes(audio_bytes[34:36], "little")
+        # Find 'data' chunk
+        data_offset = audio_bytes.find(b"data")
+        if data_offset < 0:
+            return web.json_response({"error": "Invalid WAV"}, status=400)
+        data_size = int.from_bytes(audio_bytes[data_offset + 4:data_offset + 8], "little")
+        raw_pcm = audio_bytes[data_offset + 8:data_offset + 8 + data_size]
+        if bits_per_sample == 16:
+            samples = np.frombuffer(raw_pcm, dtype=np.int16).astype(np.float32) / 32768.0
+        else:
+            samples = np.frombuffer(raw_pcm, dtype=np.float32)
+        pcm_data = samples.astype(np.float32).tobytes()
+
+    # non_streaming_server.py protocol:
+    # Message 1: 8-byte header (sample_rate:int32LE + num_bytes:int32LE) + audio bytes
+    # Message 2: "Done"
+    # Response: text string
+    port = model["port"]
+    header = struct.pack("<ii", sample_rate, len(pcm_data))
+
+    log.info("[asr] %s audio=%d bytes → port %d", model_id, len(pcm_data), port)
+
+    try:
+        async with ws_lib.connect(
+            f"ws://localhost:{port}",
+            max_size=50 * 1024 * 1024,  # 50MB for large audio
+        ) as ws:
+            await ws.send(header + pcm_data)
+            await ws.send("Done")
+            result = await asyncio.wait_for(ws.recv(), timeout=120)
+    except asyncio.TimeoutError:
+        log.error("[asr] Recognition timed out for %s", model_id)
+        return web.json_response({"error": "Recognition timed out"}, status=504)
+    except Exception as e:
+        log.error("[asr] Error connecting to %s: %s", model_id, e)
+        return web.json_response({"error": f"ASR error: {e}"}, status=502)
+
+    text = result if result and result != "<EMPTY>" else ""
+    log.info("[asr] %s result: %s", model_id, text[:100])
+    return web.json_response({"text": text.strip()})
+
+
+# ---------- HTTP proxy: /api/* → Ollama ----------
+
+async def ollama_proxy(request):
+    session = request.app["session"]
+    target_url = OLLAMA_BASE + request.path_qs
+    body = await request.read()
+    headers = {}
+    if request.content_type:
+        headers["Content-Type"] = request.content_type
+
+    log.info("[api] %s %s", request.method, request.path_qs)
+
+    try:
+        resp = await session.request(
+            request.method, target_url, headers=headers, data=body,
+        )
+    except Exception as e:
+        log.error("[api] Ollama connection failed: %s", e)
+        return web.Response(text=f"Ollama proxy error: {e}", status=502)
+
+    try:
+        response = web.StreamResponse(
+            status=resp.status,
+            headers={"Content-Type": resp.headers.get("Content-Type", "application/json")},
+        )
+        await response.prepare(request)
+        async for chunk in resp.content.iter_any():
+            await response.write(chunk)
+        await response.write_eof()
+    except (ConnectionResetError, asyncio.CancelledError):
+        log.warning("[api] Client disconnected")
+    except Exception as e:
+        log.warning("[api] Streaming error: %s", e)
+    finally:
+        resp.release()
+
+    return response
+
+
+# ---------- TTS: Edge-TTS + Piper ----------
+
+_edge_voice_cache = None
+
+
+async def tts_voices(request):
+    engine = request.query.get("engine", "edge")
+
+    if engine == "piper":
+        piper_voices = [{"name": "amy (en-US)", "gender": "Female", "locale": "en-US"}]
+        return web.json_response(piper_voices)
+
+    global _edge_voice_cache
+    if _edge_voice_cache is None:
+        all_voices = await edge_tts.list_voices()
+        _edge_voice_cache = [
+            {"name": v["ShortName"], "gender": v["Gender"], "locale": v["Locale"]}
+            for v in all_voices
+            if v["Locale"].startswith("en-")
+        ]
+        _edge_voice_cache.sort(key=lambda v: (v["locale"], v["gender"], v["name"]))
+        log.info("[tts] Loaded %d English Edge voices", len(_edge_voice_cache))
+    return web.json_response(_edge_voice_cache)
+
+
+async def tts_speak(request):
+    try:
+        body = await request.json()
+    except Exception:
+        return web.Response(text="Invalid JSON", status=400)
+
+    text = body.get("text", "").strip()
+    engine = body.get("engine", "edge")
+
+    if not text:
+        return web.Response(text="No text provided", status=400)
+
+    # --- Piper TTS ---
+    if engine == "piper":
+        piper_tts = request.app.get("piper_tts")
+        if not piper_tts:
+            return web.Response(text="Piper TTS not available", status=503)
+
+        speed = float(body.get("speed", 1.0))
+        log.info("[tts/piper] len=%d speed=%.1f", len(text), speed)
+
+        try:
+            audio = await asyncio.get_event_loop().run_in_executor(
+                None, lambda: piper_tts.generate(text, sid=0, speed=speed)
+            )
+            if not audio.samples or len(audio.samples) == 0:
+                return web.Response(text="TTS generation empty", status=500)
+
+            buf = io.BytesIO()
+            with wave.open(buf, "wb") as wf:
+                wf.setnchannels(1)
+                wf.setsampwidth(2)
+                wf.setframerate(audio.sample_rate)
+                pcm = (np.array(audio.samples) * 32767).astype(np.int16)
+                wf.writeframes(pcm.tobytes())
+            buf.seek(0)
+            return web.Response(
+                body=buf.read(),
+                content_type="audio/wav",
+                headers={"Cache-Control": "no-cache"},
+            )
+        except Exception as e:
+            log.error("[tts/piper] Error: %s", e)
+            return web.Response(text=f"Piper TTS error: {e}", status=500)
+
+    # --- Edge-TTS ---
+    voice = body.get("voice", "en-US-AnaNeural")
+    rate = body.get("rate", "-10%")
+    log.info("[tts/edge] voice=%s len=%d", voice, len(text))
+
+    try:
+        communicate = edge_tts.Communicate(text, voice, rate=rate)
+        response = web.StreamResponse(
+            status=200,
+            headers={"Content-Type": "audio/mpeg", "Cache-Control": "no-cache"},
+        )
+        await response.prepare(request)
+        async for chunk in communicate.stream():
+            if chunk["type"] == "audio":
+                await response.write(chunk["data"])
+        await response.write_eof()
+    except (ConnectionResetError, asyncio.CancelledError):
+        log.warning("[tts/edge] Client disconnected")
+    except Exception as e:
+        log.error("[tts/edge] Error: %s", e)
+        return web.Response(text=f"TTS error: {e}", status=500)
+
+    return response
+
+
+# ---------- Piper TTS init ----------
+
+async def init_piper_tts(app):
+    if sherpa_onnx is None:
+        log.warning("sherpa-onnx not installed, Piper TTS disabled")
+        return
+
+    piper_dir = os.path.join(MODELS_DIR, "vits-piper-en_US-amy-low")
+    model_path = os.path.join(piper_dir, "en_US-amy-low.onnx")
+    tokens_path = os.path.join(piper_dir, "tokens.txt")
+    data_dir = os.path.join(piper_dir, "espeak-ng-data")
+
+    if not os.path.exists(model_path):
+        log.warning("Piper model not found at %s, TTS disabled", model_path)
+        return
+
+    try:
+        tts_config = sherpa_onnx.OfflineTtsConfig(
+            model=sherpa_onnx.OfflineTtsModelConfig(
+                vits=sherpa_onnx.OfflineTtsVitsModelConfig(
+                    model=model_path,
+                    tokens=tokens_path,
+                    data_dir=data_dir,
+                ),
+                provider="cpu",
+                num_threads=2,
+            ),
+            max_num_sentences=2,
+        )
+        app["piper_tts"] = sherpa_onnx.OfflineTts(tts_config)
+        log.info("Piper TTS initialized: %s", model_path)
+    except Exception as e:
+        log.error("Failed to init Piper TTS: %s", e)
+
+
+# ---------- App setup ----------
+
+def create_app():
+    app = web.Application()
+    app.on_startup.append(create_shared_session)
+    app.on_startup.append(init_piper_tts)
+    app.on_cleanup.append(close_shared_session)
+
+    app.router.add_route("GET", "/ws", ws_proxy)
+    app.router.add_route("GET", "/asr/models", asr_models_handler)
+    app.router.add_route("POST", "/asr", asr_offline)
+    app.router.add_route("*", "/api/{path:.*}", ollama_proxy)
+    app.router.add_route("GET", "/tts/voices", tts_voices)
+    app.router.add_route("POST", "/tts", tts_speak)
+    app.router.add_static("/", STATIC_DIR, show_index=True)
+    return app
+
+
+def main():
+    generate_cert()
+
+    ssl_ctx = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+    ssl_ctx.load_cert_chain(CERT_FILE, KEY_FILE)
+
+    app = create_app()
+
+    print(f"\n{'='*55}")
+    print(f"  HTTPS server: https://0.0.0.0:{PORT}")
+    print(f"  Open https://<your-lan-ip>:{PORT} on any device")
+    print(f"{'='*55}")
+    print(f"  /ws?model=xxx  → streaming ASR (WebSocket)")
+    print(f"  /asr?model=xxx → offline ASR (POST audio)")
+    print(f"  /asr/models    → ASR model list")
+    print(f"  /api/*         → {OLLAMA_BASE}/api/* (Ollama)")
+    print(f"  /tts           → Edge-TTS / Piper TTS")
+    print(f"  /tts/voices    → TTS voice list")
+    print(f"  /*             → {STATIC_DIR} (static files)")
+    print(f"{'='*55}")
+    print(f"  ASR models:")
+    for m in ASR_MODELS:
+        print(f"    [{m['port']}] {m['label']}")
+    print(f"{'='*55}\n")
+
+    web.run_app(app, host=HOST, port=PORT, ssl_context=ssl_ctx)
+
+
+if __name__ == "__main__":
+    main()

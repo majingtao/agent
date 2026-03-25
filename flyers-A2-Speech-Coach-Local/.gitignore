@@ -1,0 +1,10 @@
+# Model files (too large for git)
+models/
+repo/
+
+# SSL certs
+*.pem
+
+# Python
+__pycache__/
+*.pyc
