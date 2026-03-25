@@ -1,10 +1,12 @@
 """
-HTTPS reverse proxy + static file server + multi-model ASR + TTS.
+HTTPS reverse proxy + static file server + multi-model ASR + TTS + LLM proxy.
 
 All traffic goes through one HTTPS port (8443):
   - /ws?model=xxx  → WebSocket proxy to streaming ASR (port per model)
   - /asr?model=xxx → POST audio for offline ASR recognition
   - /asr/models    → List available ASR models
+  - /llm/chat      → Unified LLM proxy (Ollama / OpenAI / Claude)
+  - /llm/models    → Available LLM models
   - /api/*         → HTTP proxy to Ollama (localhost:11434)
   - /tts           → Edge-TTS or Piper TTS
   - /tts/voices    → Voice list (Edge or Piper)
@@ -17,6 +19,7 @@ Usage:
 
 import asyncio
 import io
+import json
 import logging
 import os
 import ssl
@@ -42,6 +45,7 @@ except ImportError:
 
 try:
     import websockets as ws_lib
+    from websockets.legacy.client import connect as ws_legacy_connect
 except ImportError:
     print("Missing: pip install websockets")
     sys.exit(1)
@@ -60,6 +64,60 @@ STATIC_DIR = os.path.dirname(os.path.abspath(__file__))
 MODELS_DIR = os.path.join(os.path.dirname(STATIC_DIR), "models")
 
 OLLAMA_BASE = "http://localhost:11434"
+
+# ---------- Load .env ----------
+
+def load_dotenv():
+    env_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".env")
+    if not os.path.exists(env_path):
+        return
+    with open(env_path, encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if not line or line.startswith("#") or "=" not in line:
+                continue
+            key, _, val = line.partition("=")
+            key, val = key.strip(), val.strip().strip('"').strip("'")
+            if key and val:
+                os.environ.setdefault(key, val)
+
+load_dotenv()
+
+OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "")
+ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
+MOONSHOT_API_KEY = os.environ.get("MOONSHOT_API_KEY", "")
+OPENAI_BASE_URL = os.environ.get("OPENAI_BASE_URL", "https://api.openai.com/v1")
+ANTHROPIC_BASE_URL = os.environ.get("ANTHROPIC_BASE_URL", "https://api.anthropic.com")
+MOONSHOT_BASE_URL = os.environ.get("MOONSHOT_BASE_URL", "https://api.moonshot.cn/v1")
+HTTP_PROXY = os.environ.get("HTTP_PROXY", "") or os.environ.get("http_proxy", "")
+
+# ---------- LLM model registry ----------
+
+LLM_MODELS = [
+    {"provider": "ollama", "model": "qwen2.5:7b", "label": "Qwen 2.5 7B (Local)", "use_proxy": False},
+    {"provider": "ollama", "model": "qwen2.5:3b", "label": "Qwen 2.5 3B (Local)", "use_proxy": False},
+]
+
+if OPENAI_API_KEY:
+    LLM_MODELS.extend([
+        {"provider": "openai", "model": "gpt-4o-mini", "label": "GPT-4o Mini", "use_proxy": True},
+        {"provider": "openai", "model": "gpt-4o", "label": "GPT-4o", "use_proxy": True},
+        {"provider": "openai", "model": "gpt-4.1-mini", "label": "GPT-4.1 Mini", "use_proxy": True},
+        {"provider": "openai", "model": "gpt-4.1", "label": "GPT-4.1", "use_proxy": True},
+    ])
+
+if ANTHROPIC_API_KEY:
+    LLM_MODELS.extend([
+        {"provider": "claude", "model": "claude-sonnet-4-20250514", "label": "Claude Sonnet 4", "use_proxy": True},
+        {"provider": "claude", "model": "claude-haiku-4-5-20251001", "label": "Claude Haiku 4.5", "use_proxy": True},
+    ])
+
+if MOONSHOT_API_KEY:
+    LLM_MODELS.extend([
+        {"provider": "moonshot", "model": "kimi-k2.5", "label": "Kimi K2.5", "use_proxy": False},
+        {"provider": "moonshot", "model": "kimi-k2-thinking", "label": "Kimi K2 Thinking", "use_proxy": False},
+    ])
+
 
 # ---------- ASR model registry ----------
 
@@ -256,12 +314,18 @@ async def asr_offline(request):
     port = model["port"]
     header = struct.pack("<ii", sample_rate, len(pcm_data))
 
-    log.info("[asr] %s audio=%d bytes → port %d", model_id, len(pcm_data), port)
+    # Debug: check audio content
+    samples = np.frombuffer(pcm_data, dtype=np.float32)
+    duration = len(samples) / sample_rate
+    max_val = float(np.max(np.abs(samples))) if len(samples) > 0 else 0
+    log.info("[asr] %s audio=%d bytes (%.1fs, max=%.4f, sr=%d) → port %d",
+             model_id, len(pcm_data), duration, max_val, sample_rate, port)
 
     try:
-        async with ws_lib.connect(
+        async with ws_legacy_connect(
             f"ws://localhost:{port}",
             max_size=50 * 1024 * 1024,  # 50MB for large audio
+            ping_interval=None,
         ) as ws:
             await ws.send(header + pcm_data)
             await ws.send("Done")
@@ -315,6 +379,218 @@ async def ollama_proxy(request):
         resp.release()
 
     return response
+
+
+# ---------- LLM proxy: /llm/chat + /llm/models ----------
+
+async def llm_models_handler(request):
+    return web.json_response(LLM_MODELS)
+
+
+async def llm_chat(request):
+    """Unified LLM streaming proxy. Accepts provider/model/messages, returns unified SSE."""
+    try:
+        body = await request.json()
+    except Exception:
+        return web.Response(text="Invalid JSON", status=400)
+
+    provider = body.get("provider", "ollama")
+    model = body.get("model", "qwen2.5:7b")
+    messages = body.get("messages", [])
+    use_proxy = body.get("use_proxy", False)
+    proxy = HTTP_PROXY if (use_proxy and HTTP_PROXY) else None
+
+    if not messages:
+        return web.Response(text="No messages", status=400)
+
+    session = request.app["session"]
+    log.info("[llm] provider=%s model=%s msgs=%d proxy=%s", provider, model, len(messages), bool(proxy))
+
+    response = web.StreamResponse(
+        status=200,
+        headers={"Content-Type": "text/plain", "Cache-Control": "no-cache"},
+    )
+    await response.prepare(request)
+
+    try:
+        if provider == "ollama":
+            await _stream_ollama(session, response, model, messages)
+        elif provider == "openai":
+            await _stream_openai(session, response, model, messages, proxy)
+        elif provider == "claude":
+            await _stream_claude(session, response, model, messages, proxy)
+        elif provider == "moonshot":
+            await _stream_openai_compat(session, response, model, messages,
+                                        MOONSHOT_BASE_URL, MOONSHOT_API_KEY, "Moonshot", proxy)
+        else:
+            await response.write(json.dumps({"content": "Unknown provider: " + provider, "done": True}).encode() + b"\n")
+    except (ConnectionResetError, asyncio.CancelledError):
+        log.warning("[llm] Client disconnected")
+    except Exception as e:
+        log.error("[llm] Error: %s", e)
+        try:
+            await response.write(json.dumps({"content": f"\n[Error: {e}]", "done": True}).encode() + b"\n")
+        except Exception:
+            pass
+
+    try:
+        await response.write_eof()
+    except Exception:
+        pass
+    return response
+
+
+async def _stream_ollama(session, response, model, messages):
+    """Forward to Ollama /api/chat and convert to unified format."""
+    payload = json.dumps({"model": model, "messages": messages, "stream": True})
+    async with session.post(
+        OLLAMA_BASE + "/api/chat",
+        data=payload,
+        headers={"Content-Type": "application/json"},
+    ) as resp:
+        async for raw_line in resp.content:
+            line = raw_line.decode("utf-8").strip()
+            if not line:
+                continue
+            try:
+                obj = json.loads(line)
+                content = ""
+                if obj.get("message") and obj["message"].get("content"):
+                    content = obj["message"]["content"]
+                done = obj.get("done", False)
+                await response.write(json.dumps({"content": content, "done": done}).encode() + b"\n")
+            except json.JSONDecodeError:
+                pass
+
+
+async def _stream_openai(session, response, model, messages, proxy=None):
+    """Call OpenAI chat completions API and convert to unified format."""
+    payload = json.dumps({"model": model, "messages": messages, "stream": True})
+    url = OPENAI_BASE_URL.rstrip("/") + "/chat/completions"
+    kwargs = {
+        "data": payload,
+        "headers": {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + OPENAI_API_KEY,
+        },
+    }
+    if proxy:
+        kwargs["proxy"] = proxy
+    async with session.post(url, **kwargs) as resp:
+        if resp.status != 200:
+            err = await resp.text()
+            await response.write(json.dumps({"content": f"[OpenAI error {resp.status}: {err[:200]}]", "done": True}).encode() + b"\n")
+            return
+        async for raw_line in resp.content:
+            line = raw_line.decode("utf-8").strip()
+            if not line or not line.startswith("data:"):
+                continue
+            data = line[5:].strip()
+            if data == "[DONE]":
+                await response.write(json.dumps({"content": "", "done": True}).encode() + b"\n")
+                return
+            try:
+                obj = json.loads(data)
+                delta = obj.get("choices", [{}])[0].get("delta", {})
+                content = delta.get("content", "")
+                if content:
+                    await response.write(json.dumps({"content": content, "done": False}).encode() + b"\n")
+            except json.JSONDecodeError:
+                pass
+    await response.write(json.dumps({"content": "", "done": True}).encode() + b"\n")
+
+
+async def _stream_openai_compat(session, response, model, messages, base_url, api_key, name="API", proxy=None):
+    """Call any OpenAI-compatible API (Moonshot, etc.) and convert to unified format."""
+    payload = json.dumps({"model": model, "messages": messages, "stream": True})
+    url = base_url.rstrip("/") + "/chat/completions"
+    kwargs = {
+        "data": payload,
+        "headers": {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + api_key,
+        },
+    }
+    if proxy:
+        kwargs["proxy"] = proxy
+    async with session.post(url, **kwargs) as resp:
+        if resp.status != 200:
+            err = await resp.text()
+            await response.write(json.dumps({"content": f"[{name} error {resp.status}: {err[:200]}]", "done": True}).encode() + b"\n")
+            return
+        async for raw_line in resp.content:
+            line = raw_line.decode("utf-8").strip()
+            if not line or not line.startswith("data:"):
+                continue
+            data = line[5:].strip()
+            if data == "[DONE]":
+                await response.write(json.dumps({"content": "", "done": True}).encode() + b"\n")
+                return
+            try:
+                obj = json.loads(data)
+                delta = obj.get("choices", [{}])[0].get("delta", {})
+                content = delta.get("content", "")
+                if content:
+                    await response.write(json.dumps({"content": content, "done": False}).encode() + b"\n")
+            except json.JSONDecodeError:
+                pass
+    await response.write(json.dumps({"content": "", "done": True}).encode() + b"\n")
+
+
+async def _stream_claude(session, response, model, messages, proxy=None):
+    """Call Claude messages API and convert to unified format."""
+    # Extract system message
+    system_text = ""
+    chat_msgs = []
+    for m in messages:
+        if m["role"] == "system":
+            system_text += m["content"] + "\n"
+        else:
+            chat_msgs.append({"role": m["role"], "content": m["content"]})
+
+    payload = {
+        "model": model,
+        "max_tokens": 4096,
+        "stream": True,
+        "messages": chat_msgs,
+    }
+    if system_text.strip():
+        payload["system"] = system_text.strip()
+
+    url = ANTHROPIC_BASE_URL.rstrip("/") + "/v1/messages"
+    kwargs = {
+        "data": json.dumps(payload),
+        "headers": {
+            "Content-Type": "application/json",
+            "x-api-key": ANTHROPIC_API_KEY,
+            "anthropic-version": "2023-06-01",
+        },
+    }
+    if proxy:
+        kwargs["proxy"] = proxy
+    async with session.post(url, **kwargs) as resp:
+        if resp.status != 200:
+            err = await resp.text()
+            await response.write(json.dumps({"content": f"[Claude error {resp.status}: {err[:200]}]", "done": True}).encode() + b"\n")
+            return
+        async for raw_line in resp.content:
+            line = raw_line.decode("utf-8").strip()
+            if not line or not line.startswith("data:"):
+                continue
+            data = line[5:].strip()
+            try:
+                obj = json.loads(data)
+                evt_type = obj.get("type", "")
+                if evt_type == "content_block_delta":
+                    text = obj.get("delta", {}).get("text", "")
+                    if text:
+                        await response.write(json.dumps({"content": text, "done": False}).encode() + b"\n")
+                elif evt_type == "message_stop":
+                    await response.write(json.dumps({"content": "", "done": True}).encode() + b"\n")
+                    return
+            except json.JSONDecodeError:
+                pass
+    await response.write(json.dumps({"content": "", "done": True}).encode() + b"\n")
 
 
 # ---------- TTS: Edge-TTS + Piper ----------
@@ -458,6 +734,8 @@ def create_app():
     app.router.add_route("GET", "/ws", ws_proxy)
     app.router.add_route("GET", "/asr/models", asr_models_handler)
     app.router.add_route("POST", "/asr", asr_offline)
+    app.router.add_route("GET", "/llm/models", llm_models_handler)
+    app.router.add_route("POST", "/llm/chat", llm_chat)
     app.router.add_route("*", "/api/{path:.*}", ollama_proxy)
     app.router.add_route("GET", "/tts/voices", tts_voices)
     app.router.add_route("POST", "/tts", tts_speak)
@@ -480,6 +758,8 @@ def main():
     print(f"  /ws?model=xxx  → streaming ASR (WebSocket)")
     print(f"  /asr?model=xxx → offline ASR (POST audio)")
     print(f"  /asr/models    → ASR model list")
+    print(f"  /llm/chat      → LLM proxy (Ollama/OpenAI/Claude)")
+    print(f"  /llm/models    → LLM model list")
     print(f"  /api/*         → {OLLAMA_BASE}/api/* (Ollama)")
     print(f"  /tts           → Edge-TTS / Piper TTS")
     print(f"  /tts/voices    → TTS voice list")
@@ -488,6 +768,21 @@ def main():
     print(f"  ASR models:")
     for m in ASR_MODELS:
         print(f"    [{m['port']}] {m['label']}")
+    print(f"  LLM providers:")
+    providers = set()
+    for m in LLM_MODELS:
+        providers.add(m["provider"])
+        print(f"    [{m['provider']}] {m['label']}")
+    if not OPENAI_API_KEY:
+        print(f"    [openai] Not configured (set OPENAI_API_KEY in .env)")
+    if not ANTHROPIC_API_KEY:
+        print(f"    [claude] Not configured (set ANTHROPIC_API_KEY in .env)")
+    if not MOONSHOT_API_KEY:
+        print(f"    [moonshot] Not configured (set MOONSHOT_API_KEY in .env)")
+    if HTTP_PROXY:
+        print(f"  HTTP Proxy: {HTTP_PROXY}")
+    else:
+        print(f"  HTTP Proxy: None (set HTTP_PROXY in .env for OpenAI/Claude)")
     print(f"{'='*55}\n")
 
     web.run_app(app, host=HOST, port=PORT, ssl_context=ssl_ctx)

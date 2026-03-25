@@ -101,6 +101,10 @@
 
     <div id="settingsPanel">
       <div class="settings-row">
+        <label>LLM: <select id="llmModelSelect"><option>Loading...</option></select></label>
+        <label class="toggle"><input type="checkbox" id="llmProxyToggle" /> Proxy</label>
+      </div>
+      <div class="settings-row">
         <label>ASR: <select id="asrModelSelect"><option>Loading...</option></select></label>
         <span id="asrModelInfo" class="model-info"></span>
       </div>
@@ -170,14 +174,12 @@
 const IS_PROXIED = location.port === "8443";
 const _origin = location.protocol + "//" + location.host;
 const _base = IS_PROXIED ? _origin : "http://" + location.hostname + ":8443";
-const OLLAMA_URL = IS_PROXIED
-  ? _origin + "/api/chat"
-  : "http://" + location.hostname + ":11434/api/chat";
 const TTS_URL = _base + "/tts";
 const TTS_VOICES_URL = _base + "/tts/voices";
 const ASR_MODELS_URL = _base + "/asr/models";
 const ASR_OFFLINE_URL = _base + "/asr";
-const OLLAMA_MODEL = "qwen2.5:7b";
+const LLM_MODELS_URL = _base + "/llm/models";
+const LLM_CHAT_URL = _base + "/llm/chat";
 const TARGET_SAMPLE_RATE = 16000;
 
 // ===== Mode switching =====
@@ -227,11 +229,13 @@ const asrModelInfo = document.getElementById("asrModelInfo");
 const settingsBtn = document.getElementById("settingsBtn");
 const settingsPanel = document.getElementById("settingsPanel");
 const configSummary = document.getElementById("configSummary");
+const llmProxyToggle = document.getElementById("llmProxyToggle");
 const offlineActions = document.getElementById("offlineActions");
 const sendBtn = document.getElementById("sendBtn");
 const discardBtn = document.getElementById("discardBtn");
 const replayBtn = document.getElementById("replayBtn");
 const editHint = document.getElementById("editHint");
+const llmModelSelect = document.getElementById("llmModelSelect");
 
 function setHistoryEditable(on) {
   historyEl.contentEditable = on ? "true" : "false";
@@ -252,8 +256,53 @@ function updateConfigSummary() {
   const engine = ttsEngineSelect.value;
   const voice = voiceSelect.value || "-";
   const voiceReply = ttsToggle.checked ? "ON" : "OFF";
-  configSummary.textContent = "ASR: " + asrName + " (" + asrType + ") | TTS: " + engine + " / " + voice + " | Voice reply: " + voiceReply;
+  const llm = getSelectedLlm();
+  const llmName = llm ? llm.label : "?";
+  const proxyStatus = llmProxyToggle.checked ? "Proxy" : "Direct";
+  configSummary.textContent = "LLM: " + llmName + " (" + proxyStatus + ") | ASR: " + asrName + " (" + asrType + ") | TTS: " + engine;
 }
+
+// ===== LLM Models =====
+let llmModels = [];
+
+async function loadLlmModels() {
+  try {
+    const res = await fetch(LLM_MODELS_URL);
+    if (res.ok) llmModels = await res.json();
+  } catch (e) { console.warn("Failed to load LLM models:", e); }
+  if (llmModels.length === 0) {
+    llmModels = [{ provider: "ollama", model: "qwen2.5:7b", label: "Qwen 2.5 7B (Local)" }];
+  }
+  llmModelSelect.innerHTML = "";
+  for (const m of llmModels) {
+    const opt = document.createElement("option");
+    opt.value = m.provider + ":" + m.model;
+    opt.textContent = m.label;
+    llmModelSelect.appendChild(opt);
+  }
+  if (llmModels.length > 0) llmProxyToggle.checked = !!llmModels[0].use_proxy;
+  updateConfigSummary();
+}
+
+function getSelectedLlm() {
+  const val = llmModelSelect.value || "";
+  const [provider, ...rest] = val.split(":");
+  const model = rest.join(":");
+  const llm = llmModels.find(m => m.provider === provider && m.model === model) || llmModels[0];
+  return { ...llm, use_proxy: llmProxyToggle.checked };
+}
+
+llmModelSelect.onchange = () => {
+  // Auto-set proxy toggle based on model's default
+  const val = llmModelSelect.value || "";
+  const [provider, ...rest] = val.split(":");
+  const model = rest.join(":");
+  const llm = llmModels.find(m => m.provider === provider && m.model === model);
+  if (llm) llmProxyToggle.checked = !!llm.use_proxy;
+  updateConfigSummary();
+};
+llmProxyToggle.onchange = updateConfigSummary;
+loadLlmModels();
 
 // ASR Models
 let asrModels = [];
@@ -468,23 +517,21 @@ function downsample(buffer, inputRate) {
   return result;
 }
 
-// Ollama (free talk)
-async function askOllama(text) {
-  assistantEl.textContent = "Thinking...";
-  replayBtn.style.display = "none";
+// Unified LLM streaming reader (works for all providers via /llm/chat)
+async function streamLLM(targetEl, llm, messages, onDone) {
+  targetEl.textContent = "Thinking...";
   try {
-    const res = await fetch(OLLAMA_URL, {
+    const res = await fetch(LLM_CHAT_URL, {
       method: "POST", headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        model: OLLAMA_MODEL,
-        messages: [
-          { role: "system", content: "You are an English speaking coach for a child learner (Cambridge Flyers / KET level). Give short, friendly feedback. Always include a Chinese explanation." },
-          { role: "user", content: "Please help correct this spoken English:\n" + text + "\n\nRespond in this format:\n1. Corrected sentence\n2. More natural version\n3. Key mistakes\n4. Chinese explanation\n5. One practice sentence" }
-        ],
-        stream: true
+        provider: llm.provider,
+        model: llm.model,
+        messages: messages,
+        stream: true,
+        use_proxy: !!llm.use_proxy
       })
     });
-    assistantEl.textContent = "";
+    targetEl.textContent = "";
     const reader = res.body.getReader();
     const decoder = new TextDecoder("utf-8");
     let buf = "";
@@ -495,13 +542,29 @@ async function askOllama(text) {
       const lines = buf.split("\n"); buf = lines.pop() || "";
       for (const line of lines) {
         if (!line.trim()) continue;
-        try { const obj = JSON.parse(line); if (obj.message && obj.message.content) assistantEl.textContent += obj.message.content; } catch (e) {}
+        try {
+          const obj = JSON.parse(line);
+          if (obj.content) targetEl.textContent += obj.content;
+        } catch (e) {}
       }
     }
-    lastFeedbackText = assistantEl.textContent;
+    if (onDone) onDone(targetEl.textContent);
+  } catch (err) { targetEl.textContent = "LLM error: " + err.message; }
+}
+
+// Free talk LLM call
+async function askLLM(text) {
+  replayBtn.style.display = "none";
+  const llm = getSelectedLlm();
+  const messages = [
+    { role: "system", content: "You are an English speaking coach for a child learner (Cambridge Flyers / KET level). Give short, friendly feedback. Always include a Chinese explanation." },
+    { role: "user", content: "Please help correct this spoken English:\n" + text + "\n\nRespond in this format:\n1. Corrected sentence\n2. More natural version\n3. Key mistakes\n4. Chinese explanation\n5. One practice sentence" }
+  ];
+  await streamLLM(assistantEl, llm, messages, (fullText) => {
+    lastFeedbackText = fullText;
     if (lastFeedbackText) replayBtn.style.display = "inline-block";
-    speakText(assistantEl.textContent);
-  } catch (err) { assistantEl.textContent = "Ollama error: " + err.message; }
+    speakText(fullText);
+  });
 }
 
 // ASR: Streaming
@@ -514,7 +577,7 @@ function onAsrMessage(event) {
     partialEl.textContent = text;
     if (segment !== lastSegment && lastSegment >= 0) {
       const completed = sentences[sentences.length - 1];
-      if (completed && completed.trim()) askOllama(completed.trim());
+      if (completed && completed.trim()) askLLM(completed.trim());
     }
     if (segment !== lastSegment) { sentences.push(text); lastSegment = segment; }
     else sentences[sentences.length - 1] = text;
@@ -560,7 +623,7 @@ function stopStreaming() {
   if (ws && ws.readyState === WebSocket.OPEN) { ws.send("Done"); ws.close(); }
   ws = null;
   const last = sentences.length > 0 ? sentences[sentences.length - 1] : "";
-  if (last && last.trim()) askOllama(last.trim());
+  if (last && last.trim()) askLLM(last.trim());
 }
 
 // ASR: Offline
@@ -622,7 +685,7 @@ sendBtn.onclick = () => {
   if (editedText) {
     if (sentences.length > 0) sentences[sentences.length - 1] = editedText;
     historyEl.textContent = sentences.filter((s) => s.trim()).map((s, i) => (i + 1) + ". " + s).join("\n");
-    askOllama(editedText);
+    askLLM(editedText);
   }
   pendingOfflineText = "";
   setStatus("Stopped");
@@ -757,9 +820,10 @@ async function streamExamResponse(userText) {
   examRecordBtn.disabled = true;
 
   try {
-    const res = await fetch(OLLAMA_URL, {
+    const llm = getSelectedLlm();
+    const res = await fetch(LLM_CHAT_URL, {
       method: "POST", headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ model: OLLAMA_MODEL, messages: examMessages, stream: true })
+      body: JSON.stringify({ provider: llm.provider, model: llm.model, messages: examMessages, stream: true })
     });
 
     const reader = res.body.getReader();
@@ -782,8 +846,8 @@ async function streamExamResponse(userText) {
         if (!line.trim()) continue;
         try {
           const obj = JSON.parse(line);
-          if (obj.message && obj.message.content) {
-            fullResponse += obj.message.content;
+          if (obj.content) {
+            fullResponse += obj.content;
             div.textContent = fullResponse;
             examChat.scrollTop = examChat.scrollHeight;
           }
