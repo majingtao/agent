@@ -875,7 +875,8 @@ function buildSteps(testNum, startPart) {
     for (let i = 0; i < examBank.warmup.length; i++) {
       const w = examBank.warmup[i];
       steps.push({ type: "speak", text: w.examiner, label: "Warm-up" });
-      steps.push({ type: "judge", question: w.examiner, expected: "", label: "Warm-up " + (i+1) + "/" + examBank.warmup.length });
+      steps.push({ type: "judge", question: w.examiner, expected: "", sample: w.sample || "", open_ended: true,
+        label: "Warm-up " + (i+1) + "/" + examBank.warmup.length });
     }
   }
 
@@ -932,13 +933,13 @@ function buildSteps(testNum, startPart) {
       steps.push({ type: "speak", text: part.intro, label: "Part 4 — " + part.title });
       part.questions.forEach((q, i) => {
         steps.push({ type: "speak", text: q.examiner, label: "Part 4: " + (i+1) + "/" + part.questions.length });
-        steps.push({ type: "judge", question: q.examiner, expected: "",
+        steps.push({ type: "judge", question: q.examiner, expected: "", sample: q.sample || "", open_ended: true,
           label: "Part 4: " + (i+1) + "/" + part.questions.length });
       });
       if (part.followups && part.followups.length > 0) {
         part.followups.forEach((q, i) => {
           steps.push({ type: "speak", text: q.examiner, label: "Part 4+: " + (i+1) + "/" + part.followups.length });
-          steps.push({ type: "judge", question: q.examiner, expected: "",
+          steps.push({ type: "judge", question: q.examiner, expected: "", sample: q.sample || "", open_ended: true,
             label: "Part 4+: " + (i+1) + "/" + part.followups.length });
         });
       }
@@ -1079,7 +1080,10 @@ async function submitExamAnswer(text) {
   const isQ = step.type === "judge-question";
   const question = isQ ? ("Form a question using hint: " + step.hint) : step.question;
   const expected = isQ ? step.expected_question : (step.expected || "");
-  const result = await callJudge(question, expected, text);
+  // For open-ended questions, pass sample as reference hint to judge
+  const sample = step.sample || "";
+  const judgeExpected = expected || (sample ? "(open-ended, sample: " + sample + ")" : "");
+  const result = await callJudge(question, judgeExpected, text);
 
   if (result.ok) {
     addExamMsg("judge-ok", "\u2705 Correct!");
@@ -1089,27 +1093,45 @@ async function submitExamAnswer(text) {
     setTimeout(() => runStep(), 800);
   } else {
     ES.retries++;
-    // Prefer the structured expected answer over LLM's ans (LLM may return the prompt instead)
-    const ans = expected || result.ans || "";
     addExamMsg("judge-fail", "\u274c " + (result.fb || "Not quite."));
     if (result.cn) addExamMsg("hint", "\ud83c\udde8\ud83c\uddf3 " + result.cn);
 
-    if (ES.retries >= 2) {
-      addExamMsg("hint", "\ud83d\udcd6 Answer: " + ans);
-      addExamMsg("hint", "\ud83d\udc49 Please type the correct answer to continue.");
-      ES.score.showAnswer++;
-      ES._requireRepeat = ans;
-      setExamStatus("Type the correct answer", "connected");
+    if (step.open_ended) {
+      // Open-ended questions (Part 4, Warmup): show feedback + sample, then move on
+      if (ES.retries >= 2) {
+        if (sample) addExamMsg("hint", "\ud83d\udca1 Sample: " + sample);
+        addExamMsg("system", "Let's move on.");
+        ES.score.showAnswer++;
+        ES.stepIdx++;
+        setTimeout(() => runStep(), 1000);
+      } else {
+        if (sample) addExamMsg("hint", "\ud83d\udca1 Sample: " + sample);
+        addExamMsg("hint", "Try again.");
+        ES.score.retry++;
+        ES.waiting = true;
+        examSendBtn.disabled = false;
+        examRecordBtn.disabled = false;
+        examTextField.focus();
+      }
     } else {
-      if (ans) addExamMsg("hint", "\ud83d\udca1 Hint: " + ans);
-      addExamMsg("hint", "Try again.");
-      ES.score.retry++;
-      setExamStatus("Try again", "connected");
+      // Structured questions (Part 1-3): retry then require repeat
+      const ans = expected || "";
+      if (ES.retries >= 2) {
+        addExamMsg("hint", "\ud83d\udcd6 Answer: " + ans);
+        addExamMsg("hint", "\ud83d\udc49 Please type the correct answer to continue.");
+        ES.score.showAnswer++;
+        ES._requireRepeat = ans;
+        setExamStatus("Type the correct answer", "connected");
+      } else {
+        if (ans) addExamMsg("hint", "\ud83d\udca1 Hint: " + ans);
+        addExamMsg("hint", "Try again.");
+        ES.score.retry++;
+      }
+      ES.waiting = true;
+      examSendBtn.disabled = false;
+      examRecordBtn.disabled = false;
+      examTextField.focus();
     }
-    ES.waiting = true;
-    examSendBtn.disabled = false;
-    examRecordBtn.disabled = false;
-    examTextField.focus();
   }
   } catch (err) {
     // Safety net: always re-enable input on unexpected errors

@@ -388,7 +388,7 @@ async def llm_models_handler(request):
     return web.json_response(LLM_MODELS)
 
 
-JUDGE_SYSTEM_PROMPT = """You are a strict English exam judge. Compare the student's answer with the expected answer.
+JUDGE_SYSTEM_PROMPT = """You are a strict English exam judge for children (A2 level, age 7-12).
 Reply ONLY with this JSON, nothing else:
 {"ok":true} or {"ok":false,"fb":"brief feedback in English","cn":"简短中文提示","ans":"correct answer"}
 
@@ -397,6 +397,8 @@ Rules:
 - Spelling must be correct
 - If an expected answer is provided, key words must match (not paraphrase)
 - Minor differences in articles/prepositions are OK if meaning is the same
+- If the expected answer starts with "(open-ended", only judge grammar and relevance to the question. Accept any grammatically correct answer that addresses the question. Do NOT require specific content or length. The "sample" is just a reference, not the required answer.
+- The "ans" field in your response must be a SHORT corrected version of the student's answer, never include the question text
 - Do NOT explain, do NOT teach, do NOT add any text outside the JSON"""
 
 
