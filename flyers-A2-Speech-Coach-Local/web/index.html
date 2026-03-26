@@ -59,15 +59,20 @@
     .chat-examiner { background: #e3f2fd; color: #1565c0; margin-right: auto; }
     .chat-student { background: #e8f5e9; color: #2e7d32; margin-left: auto; text-align: right; }
     .chat-system { background: #fff3e0; color: #e65100; margin: 0 auto; text-align: center; font-size: 0.85em; }
-    #examInput { display: none; margin-top: 8px; gap: 8px; align-items: stretch; }
-    #examInput input { flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 8px; font-size: 1em; }
+    #examInput { display: none; margin-top: 8px; gap: 8px; flex-direction: column; }
+    #examTextField { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 8px; font-size: 1em; resize: vertical; box-sizing: border-box; font-family: inherit; }
+    #examBtnRow { display: flex; gap: 8px; }
     #examSendBtn { background: #4caf50; color: #fff; padding: 10px 18px; white-space: nowrap; }
     #examRecordBtn { background: #ff5722; color: #fff; padding: 10px 14px; font-size: 0.85em; white-space: nowrap; }
+    #examProgress { font-size: 0.85em; color: #555; margin-bottom: 8px; padding: 4px 8px; background: #f5f5f5; border-radius: 6px; }
+    .chat-judge { background: #fce4ec; color: #c62828; margin: 0 auto; text-align: center; font-size: 0.9em; padding: 6px 12px; }
+    .chat-judge.correct { background: #e8f5e9; color: #2e7d32; }
+    .chat-hint { background: #fff8e1; color: #f57f17; font-size: 0.85em; margin: 0 auto; text-align: center; }
     #examRecordBtn.recording { background: #b71c1c; }
     /* Section visibility */
     .section-freetalk, .section-exam { display: none; }
     .section-freetalk.visible, .section-exam.visible { display: block; }
-    #examInput.visible { display: flex; }
+    #examInput.visible { display: flex; flex-direction: column; }
     @media (max-width: 600px) {
       body { padding: 10px; }
       h2 { font-size: 1.15em; }
@@ -148,7 +153,7 @@
         <option value="5">Test 5</option>
       </select></label>
       <label>Start from: <select id="examPartSelect">
-        <option value="">Beginning (Warm-up)</option>
+        <option value="all">All (Warm-up → Part 4)</option>
         <option value="1">Part 1</option>
         <option value="2">Part 2</option>
         <option value="3">Part 3</option>
@@ -159,13 +164,16 @@
       <span id="examStatus" class="status"></span>
     </div>
 
+    <div id="examProgress"></div>
     <div class="label-row"><span class="label">Exam Conversation</span></div>
     <div id="examChat" class="box"></div>
 
     <div id="examInput">
-      <input type="text" id="examTextField" placeholder="Type your answer or use mic..." />
-      <button id="examRecordBtn">&#127908; Mic</button>
-      <button id="examSendBtn">Send</button>
+      <textarea id="examTextField" rows="3" placeholder="Type your answer or use mic..."></textarea>
+      <div id="examBtnRow">
+        <button id="examRecordBtn">&#127908; Mic</button>
+        <button id="examSendBtn">Send</button>
+      </div>
     </div>
   </div>
 
@@ -192,6 +200,9 @@ modeTabs.forEach(tab => {
   tab.onclick = () => {
     const mode = tab.dataset.mode;
     if (mode === currentMode) return;
+    // Release mic from previous mode
+    if (currentMode === "freetalk") releaseFreeTalkMic();
+    if (currentMode === "exam") releaseExamMic();
     currentMode = mode;
     modeTabs.forEach(t => t.classList.toggle("active", t.dataset.mode === mode));
     freetalkSection.classList.toggle("visible", mode === "freetalk");
@@ -595,10 +606,8 @@ async function startStreaming() {
   ws.binaryType = "arraybuffer";
   ws.onopen = async () => {
     setStatus("Listening...", "connected");
-    try {
-      mediaStream = await navigator.mediaDevices.getUserMedia({ audio: { channelCount: 1, sampleRate: TARGET_SAMPLE_RATE } });
-    } catch (err) { setStatus("Microphone denied", "error"); ws.close(); return; }
-    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const micOk = await ensureFreeTalkMic();
+    if (!micOk) { ws.close(); return; }
     sourceNode = audioCtx.createMediaStreamSource(mediaStream);
     processorNode = audioCtx.createScriptProcessor(4096, 1, 1);
     processorNode.onaudioprocess = (e) => {
@@ -618,12 +627,38 @@ async function startStreaming() {
 function stopStreaming() {
   if (processorNode) { processorNode.disconnect(); processorNode = null; }
   if (sourceNode) { sourceNode.disconnect(); sourceNode = null; }
-  if (audioCtx) { audioCtx.close(); audioCtx = null; }
-  if (mediaStream) { mediaStream.getTracks().forEach((t) => t.stop()); mediaStream = null; }
+  // Keep mediaStream & audioCtx alive for reuse (persistent mic pattern)
   if (ws && ws.readyState === WebSocket.OPEN) { ws.send("Done"); ws.close(); }
   ws = null;
   const last = sentences.length > 0 ? sentences[sentences.length - 1] : "";
   if (last && last.trim()) askLLM(last.trim());
+}
+
+// Persistent mic for Free Talk (acquire once, reuse across recordings)
+async function ensureFreeTalkMic() {
+  if (mediaStream && mediaStream.getTracks().some(t => t.readyState === "live")) {
+    if (!audioCtx || audioCtx.state === "closed") {
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    } else if (audioCtx.state === "suspended") {
+      await audioCtx.resume();
+    }
+    return true;
+  }
+  try {
+    mediaStream = await navigator.mediaDevices.getUserMedia({ audio: { channelCount: 1 } });
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    return true;
+  } catch (err) {
+    setStatus("Microphone denied", "error");
+    return false;
+  }
+}
+
+function releaseFreeTalkMic() {
+  if (processorNode) { processorNode.disconnect(); processorNode = null; }
+  if (sourceNode) { sourceNode.disconnect(); sourceNode = null; }
+  if (audioCtx) { audioCtx.close(); audioCtx = null; }
+  if (mediaStream) { mediaStream.getTracks().forEach(t => t.stop()); mediaStream = null; }
 }
 
 // ASR: Offline
@@ -631,10 +666,8 @@ async function startOffline() {
   partialEl.textContent = "Recording... Click Stop when done.";
   setStatus("Recording...", "connected");
   offlineActions.style.display = "none";
-  try {
-    mediaStream = await navigator.mediaDevices.getUserMedia({ audio: { channelCount: 1 } });
-  } catch (err) { setStatus("Microphone denied", "error"); startBtn.disabled = false; stopBtn.disabled = true; asrModelSelect.disabled = false; return; }
-  audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  const micOk = await ensureFreeTalkMic();
+  if (!micOk) { startBtn.disabled = false; stopBtn.disabled = true; asrModelSelect.disabled = false; return; }
   sourceNode = audioCtx.createMediaStreamSource(mediaStream);
   processorNode = audioCtx.createScriptProcessor(4096, 1, 1);
   offlineChunks = [];
@@ -649,8 +682,6 @@ async function startOffline() {
 async function stopOffline() {
   if (processorNode) { processorNode.disconnect(); processorNode = null; }
   if (sourceNode) { sourceNode.disconnect(); sourceNode = null; }
-  if (audioCtx) { audioCtx.close(); audioCtx = null; }
-  if (mediaStream) { mediaStream.getTracks().forEach((t) => t.stop()); mediaStream = null; }
   if (offlineChunks.length === 0) { partialEl.textContent = "No audio recorded."; setStatus("Stopped"); return; }
   partialEl.textContent = "Recognizing...";
   setStatus("Processing...");
@@ -733,7 +764,7 @@ stopBtn.onclick = stop;
 setTimeout(updateConfigSummary, 500);
 
 // =======================================
-// EXAM PRACTICE
+// EXAM PRACTICE (State Machine + LLM Judge)
 // =======================================
 const examTestSelect = document.getElementById("examTestSelect");
 const examPartSelect = document.getElementById("examPartSelect");
@@ -744,64 +775,78 @@ const examInput = document.getElementById("examInput");
 const examTextField = document.getElementById("examTextField");
 const examSendBtn = document.getElementById("examSendBtn");
 const examRecordBtn = document.getElementById("examRecordBtn");
+const examProgress = document.getElementById("examProgress");
 
-let examMessages = []; // {role, content} history for LLM
-let examInstructions = "";
-let examQuestionBank = "";
+let examBank = null;
 let examActive = false;
 let examRecording = false;
-let examAudioCtx = null;
+let examAudioCtx = null;       // persists for entire exam session
 let examSourceNode = null;
 let examProcessorNode = null;
-let examMediaStream = null;
+let examMediaStream = null;    // persists for entire exam session
 let examOfflineChunks = [];
+const JUDGE_URL = _base + "/llm/judge";
 
-// Load prompt files
-async function loadExamPrompts() {
+// Acquire mic + AudioContext once for the whole exam
+async function ensureExamMic() {
+  if (examMediaStream && examMediaStream.getTracks().some(t => t.readyState === "live")) {
+    // AudioContext may have been closed (not just suspended) — recreate if needed
+    if (!examAudioCtx || examAudioCtx.state === "closed") {
+      examAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    } else if (examAudioCtx.state === "suspended") {
+      await examAudioCtx.resume();
+    }
+    return true;
+  }
   try {
-    const [r1, r2] = await Promise.all([
-      fetch(_base + "/prompts/examiner-instructions.md"),
-      fetch(_base + "/prompts/question-bank.md"),
-    ]);
-    if (r1.ok) examInstructions = await r1.text();
-    if (r2.ok) examQuestionBank = await r2.text();
-  } catch (e) {
-    console.warn("Failed to load exam prompts:", e);
-  }
-  if (!examInstructions) {
-    // Fallback: try relative path (for localhost:8000 mode)
-    try {
-      const [r1, r2] = await Promise.all([
-        fetch("prompts/examiner-instructions.md"),
-        fetch("prompts/question-bank.md"),
-      ]);
-      if (r1.ok) examInstructions = await r1.text();
-      if (r2.ok) examQuestionBank = await r2.text();
-    } catch (e) {}
+    examMediaStream = await navigator.mediaDevices.getUserMedia({ audio: { channelCount: 1 } });
+    examAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    return true;
+  } catch (err) {
+    setExamStatus("Microphone denied", "error");
+    return false;
   }
 }
-loadExamPrompts();
 
-function extractTestSection(testNum) {
-  // Extract the specific test section from the full question bank
-  const marker = "## TEST " + testNum;
-  const nextMarker = "## TEST " + (parseInt(testNum) + 1);
-  let start = examQuestionBank.indexOf(marker);
-  if (start < 0) return examQuestionBank; // fallback: send all
-  // Include Part 0 (warm-up) always
-  const part0End = examQuestionBank.indexOf("## TEST 1");
-  const part0 = part0End > 0 ? examQuestionBank.substring(0, part0End) : "";
-  let end = examQuestionBank.indexOf(nextMarker, start);
-  if (end < 0) end = examQuestionBank.length;
-  return part0 + "\n" + examQuestionBank.substring(start, end);
+function releaseExamMic() {
+  if (examProcessorNode) { examProcessorNode.disconnect(); examProcessorNode = null; }
+  if (examSourceNode) { examSourceNode.disconnect(); examSourceNode = null; }
+  if (examAudioCtx) { examAudioCtx.close(); examAudioCtx = null; }
+  if (examMediaStream) { examMediaStream.getTracks().forEach(t => t.stop()); examMediaStream = null; }
+  examRecording = false;
 }
 
-function addChatMessage(role, text) {
+// Exam state machine
+const ES = {
+  steps: [],
+  stepIdx: 0,
+  retries: 0,
+  score: { correct: 0, retry: 0, showAnswer: 0 },
+  waiting: false,
+  _requireRepeat: null,
+};
+
+// Load question bank JSON
+async function loadExamBank() {
+  if (examBank) return;
+  try {
+    let res = await fetch(_base + "/question-bank.json");
+    if (!res.ok) res = await fetch("question-bank.json");
+    if (res.ok) examBank = await res.json();
+  } catch (e) { console.warn("Failed to load exam bank:", e); }
+}
+loadExamBank();
+
+function addExamMsg(role, text) {
   const div = document.createElement("div");
-  div.className = "chat-msg " + (role === "examiner" ? "chat-examiner" : role === "student" ? "chat-student" : "chat-system");
+  const cls = role === "examiner" ? "chat-examiner" : role === "student" ? "chat-student"
+    : role === "judge-ok" ? "chat-judge correct" : role === "judge-fail" ? "chat-judge"
+    : role === "hint" ? "chat-hint" : "chat-system";
+  div.className = "chat-msg " + cls;
   div.textContent = text;
   examChat.appendChild(div);
   examChat.scrollTop = examChat.scrollHeight;
+  return div;
 }
 
 function setExamStatus(text, cls) {
@@ -809,149 +854,341 @@ function setExamStatus(text, cls) {
   examStatus.className = "status" + (cls ? " " + cls : "");
 }
 
-async function streamExamResponse(userText) {
-  if (userText) {
-    examMessages.push({ role: "user", content: userText });
-    addChatMessage("student", userText);
-  }
-
-  setExamStatus("Examiner thinking...");
-  examSendBtn.disabled = true;
-  examRecordBtn.disabled = true;
-
-  try {
-    const llm = getSelectedLlm();
-    const res = await fetch(LLM_CHAT_URL, {
-      method: "POST", headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ provider: llm.provider, model: llm.model, messages: examMessages, stream: true })
-    });
-
-    const reader = res.body.getReader();
-    const decoder = new TextDecoder("utf-8");
-    let buf = "";
-    let fullResponse = "";
-
-    // Create a placeholder message
-    const div = document.createElement("div");
-    div.className = "chat-msg chat-examiner";
-    div.textContent = "";
-    examChat.appendChild(div);
-
-    while (true) {
-      const { value, done } = await reader.read();
-      if (done) break;
-      buf += decoder.decode(value, { stream: true });
-      const lines = buf.split("\n"); buf = lines.pop() || "";
-      for (const line of lines) {
-        if (!line.trim()) continue;
-        try {
-          const obj = JSON.parse(line);
-          if (obj.content) {
-            fullResponse += obj.content;
-            div.textContent = fullResponse;
-            examChat.scrollTop = examChat.scrollHeight;
-          }
-        } catch (e) {}
-      }
-    }
-
-    examMessages.push({ role: "assistant", content: fullResponse });
-
-    // TTS: speak the examiner's response
-    if (ttsToggle.checked && fullResponse) {
-      doSpeak(fullResponse);
-    }
-
-    setExamStatus("Your turn", "connected");
-  } catch (err) {
-    addChatMessage("system", "Error: " + err.message);
-    setExamStatus("Error", "error");
-  }
-
-  examSendBtn.disabled = false;
-  examRecordBtn.disabled = false;
-  examTextField.focus();
+function updateExamProgress() {
+  const step = ES.steps[ES.stepIdx];
+  if (!step) { examProgress.textContent = ""; return; }
+  const total = ES.steps.filter(s => s.type === "judge" || s.type === "judge-question").length;
+  const done = ES.steps.slice(0, ES.stepIdx).filter(s => s.type === "judge" || s.type === "judge-question").length;
+  examProgress.textContent = (step.label || "") + "  (" + done + "/" + total + " questions)";
 }
 
-// Start exam
-examStartBtn.onclick = async () => {
-  if (!examInstructions || !examQuestionBank) {
-    await loadExamPrompts();
-    if (!examInstructions) {
-      setExamStatus("Failed to load exam prompts", "error");
-      return;
+// Build flat step list from question bank
+function buildSteps(testNum, startPart) {
+  const steps = [];
+  const test = examBank.tests[testNum];
+  if (!test) return steps;
+
+  const doWarmup = startPart === "all";
+  const parts = startPart === "all" ? ["1","2","3","4"] : [startPart];
+
+  if (doWarmup && examBank.warmup) {
+    for (let i = 0; i < examBank.warmup.length; i++) {
+      const w = examBank.warmup[i];
+      steps.push({ type: "speak", text: w.examiner, label: "Warm-up" });
+      steps.push({ type: "judge", question: w.examiner, expected: "", label: "Warm-up " + (i+1) + "/" + examBank.warmup.length });
     }
   }
 
-  unlockAudio();
-  examActive = true;
-  examChat.innerHTML = "";
-  examMessages = [];
-  examInput.classList.add("visible");
-  examStartBtn.disabled = true;
-  examTestSelect.disabled = true;
-  examPartSelect.disabled = true;
+  for (const pn of parts) {
+    const part = test["part" + pn];
+    if (!part) continue;
 
-  const testNum = examTestSelect.value;
-  const partNum = examPartSelect.value;
-  const testSection = extractTestSection(testNum);
+    if (pn === "1") {
+      steps.push({ type: "speak", text: part.intro, label: "Part 1 — " + part.title });
+      if (part.example) steps.push({ type: "speak", text: part.example });
+      if (part.instruction) steps.push({ type: "speak", text: part.instruction });
+      part.questions.forEach((q, i) => {
+        steps.push({ type: "speak", text: q.examiner, label: "Part 1: " + (i+1) + "/" + part.questions.length });
+        steps.push({ type: "judge", question: q.examiner, expected: q.expected, prompt: q.prompt,
+          label: "Part 1: " + (i+1) + "/" + part.questions.length });
+      });
+    }
 
-  // Build system prompt
-  const systemPrompt = examInstructions + "\n\n---\n\n# Question Bank (Use ONLY this test)\n\n" + testSection;
-  examMessages.push({ role: "system", content: systemPrompt });
+    if (pn === "2") {
+      steps.push({ type: "speak", text: part.intro, label: "Part 2 — " + part.title });
+      part.phaseA.forEach((q, i) => {
+        steps.push({ type: "speak", text: q.examiner, label: "Part 2A: " + (i+1) + "/" + part.phaseA.length });
+        steps.push({ type: "judge", question: q.examiner, expected: q.expected,
+          label: "Part 2A: " + (i+1) + "/" + part.phaseA.length });
+      });
+      steps.push({ type: "speak", text: part.transition, label: "Part 2 — Now you ask" });
+      part.phaseB.forEach((q, i) => {
+        steps.push({ type: "show-hint", hint: q.hint, label: "Part 2B: " + (i+1) + "/" + part.phaseB.length });
+        steps.push({ type: "judge-question", expected_question: q.expected_question, hint: q.hint,
+          label: "Part 2B: " + (i+1) + "/" + part.phaseB.length });
+        steps.push({ type: "speak", text: q.answer, label: "Part 2B: answer" });
+      });
+    }
 
-  // First user message to kick off the exam
-  let kickoff;
-  if (partNum) {
-    kickoff = "Test " + testNum + " Part " + partNum;
-    addChatMessage("system", "Starting Test " + testNum + ", Part " + partNum + "...");
-  } else {
-    kickoff = "Let's start. Begin with the warm-up.";
-    addChatMessage("system", "Starting Test " + testNum + " from warm-up...");
+    if (pn === "3") {
+      steps.push({ type: "speak", text: part.intro, label: "Part 3 — " + part.title });
+      if (part.pic1) steps.push({ type: "speak", text: part.pic1 });
+      if (part.instruction) steps.push({ type: "speak", text: part.instruction });
+      part.pictures.forEach((pic) => {
+        steps.push({ type: "speak", text: "Picture " + pic.pic + ": " + pic.prompt, label: "Part 3: Picture " + pic.pic });
+        pic.sentences.forEach((s, si) => {
+          steps.push({ type: "judge", question: "Picture " + pic.pic + " — " + pic.prompt,
+            expected: s, label: "Part 3: Pic " + pic.pic + " (" + (si+1) + "/" + pic.sentences.length + ")" });
+        });
+      });
+    }
+
+    if (pn === "4") {
+      steps.push({ type: "speak", text: part.intro, label: "Part 4 — " + part.title });
+      part.questions.forEach((q, i) => {
+        steps.push({ type: "speak", text: q.examiner, label: "Part 4: " + (i+1) + "/" + part.questions.length });
+        steps.push({ type: "judge", question: q.examiner, expected: "",
+          label: "Part 4: " + (i+1) + "/" + part.questions.length });
+      });
+      if (part.followups && part.followups.length > 0) {
+        part.followups.forEach((q, i) => {
+          steps.push({ type: "speak", text: q.examiner, label: "Part 4+: " + (i+1) + "/" + part.followups.length });
+          steps.push({ type: "judge", question: q.examiner, expected: "",
+            label: "Part 4+: " + (i+1) + "/" + part.followups.length });
+        });
+      }
+    }
   }
 
-  await streamExamResponse(kickoff);
-};
+  steps.push({ type: "speak", text: "OK. Thank you. Goodbye.", label: "End" });
+  steps.push({ type: "end" });
+  return steps;
+}
+
+// Execute current step
+async function runStep() {
+  if (!examActive || ES.stepIdx >= ES.steps.length) return;
+  const step = ES.steps[ES.stepIdx];
+  updateExamProgress();
+
+  if (step.type === "speak") {
+    addExamMsg("examiner", step.text);
+    if (ttsToggle.checked) doSpeak(step.text);
+    ES.stepIdx++;
+    const next = ES.steps[ES.stepIdx];
+    if (next && (next.type === "judge" || next.type === "judge-question")) {
+      ES.waiting = true;
+      ES.retries = 0;
+      ES._requireRepeat = null;
+      setExamStatus("Your turn", "connected");
+      examSendBtn.disabled = false;
+      examRecordBtn.disabled = false;
+      examTextField.focus();
+      updateExamProgress();
+    } else if (next && next.type === "show-hint") {
+      setTimeout(() => runStep(), 300);
+    } else {
+      setTimeout(() => runStep(), 500);
+    }
+  }
+  else if (step.type === "show-hint") {
+    addExamMsg("hint", "Your turn to ask: " + step.hint);
+    ES.stepIdx++;
+    ES.waiting = true;
+    ES.retries = 0;
+    ES._requireRepeat = null;
+    setExamStatus("Form a question using the hint", "connected");
+    examSendBtn.disabled = false;
+    examRecordBtn.disabled = false;
+    examTextField.focus();
+    updateExamProgress();
+  }
+  else if (step.type === "judge" || step.type === "judge-question") {
+    // Consecutive judge step (no preceding speak) — e.g. Part 3 multiple sentences per picture
+    ES.waiting = true;
+    ES.retries = 0;
+    ES._requireRepeat = null;
+    setExamStatus("Your turn — next sentence", "connected");
+    examSendBtn.disabled = false;
+    examRecordBtn.disabled = false;
+    examTextField.focus();
+    updateExamProgress();
+  }
+  else if (step.type === "end") {
+    const s = ES.score;
+    addExamMsg("system", "Exam complete!  \u2705 " + s.correct + " correct  |  \ud83d\udd04 " + s.retry + " retried  |  \ud83d\udcd6 " + s.showAnswer + " shown answer");
+    setExamStatus("Exam finished");
+    examActive = false;
+    examSendBtn.disabled = true;
+    examRecordBtn.disabled = true;
+    examStartBtn.disabled = false;
+    examTestSelect.disabled = false;
+    examPartSelect.disabled = false;
+    examProgress.textContent = "";
+  }
+}
+
+// Call /llm/judge
+async function callJudge(question, expected, student) {
+  const llm = getSelectedLlm();
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), 30000);
+  try {
+    const res = await fetch(JUDGE_URL, {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      signal: ctrl.signal,
+      body: JSON.stringify({
+        provider: llm.provider, model: llm.model, use_proxy: !!llm.use_proxy,
+        question, expected, student
+      })
+    });
+    clearTimeout(timer);
+    if (!res.ok) return { ok: false, fb: "Server error " + res.status, cn: "服务器错误", ans: expected };
+    return await res.json();
+  } catch (e) {
+    clearTimeout(timer);
+    const msg = e.name === "AbortError" ? "Judge timed out (30s)" : "Network error: " + e.message;
+    return { ok: false, fb: msg, cn: e.name === "AbortError" ? "判分超时" : "网络错误", ans: expected };
+  }
+}
+
+// Handle student answer submission
+async function submitExamAnswer(text) {
+  if (!examActive || !ES.waiting) return;
+  ES.waiting = false;
+  examSendBtn.disabled = true;
+  examRecordBtn.disabled = true;
+  addExamMsg("student", text);
+
+  try {
+  // If in repeat mode (shown standard answer, must type it)
+  if (ES._requireRepeat) {
+    setExamStatus("Checking...");
+    const norm = s => s.toLowerCase().replace(/[^a-z0-9\s]/g, "").trim();
+    const match = norm(text) === norm(ES._requireRepeat);
+    if (match) {
+      addExamMsg("judge-ok", "\u2705 Good. Let's continue.");
+      ES._requireRepeat = null;
+      ES.stepIdx++;
+      setTimeout(() => runStep(), 800);
+    } else {
+      // Use LLM for fuzzy match
+      const result = await callJudge("Repeat this answer exactly", ES._requireRepeat, text);
+      if (result.ok) {
+        addExamMsg("judge-ok", "\u2705 Good. Let's continue.");
+        ES._requireRepeat = null;
+        ES.stepIdx++;
+        setTimeout(() => runStep(), 800);
+      } else {
+        addExamMsg("judge-fail", "\u274c Please type: " + ES._requireRepeat);
+        ES.waiting = true;
+        examSendBtn.disabled = false;
+        examRecordBtn.disabled = false;
+        examTextField.focus();
+      }
+    }
+    return;
+  }
+
+  setExamStatus("Judging...");
+  const step = ES.steps[ES.stepIdx];
+  const isQ = step.type === "judge-question";
+  const question = isQ ? ("Form a question using hint: " + step.hint) : step.question;
+  const expected = isQ ? step.expected_question : (step.expected || "");
+  const result = await callJudge(question, expected, text);
+
+  if (result.ok) {
+    addExamMsg("judge-ok", "\u2705 Correct!");
+    if (ttsToggle.checked) doSpeak("Correct!");
+    ES.score.correct++;
+    ES.stepIdx++;
+    setTimeout(() => runStep(), 800);
+  } else {
+    ES.retries++;
+    const ans = result.ans || expected || "";
+    addExamMsg("judge-fail", "\u274c " + (result.fb || "Not quite."));
+    if (result.cn) addExamMsg("hint", "\ud83c\udde8\ud83c\uddf3 " + result.cn);
+
+    if (ES.retries >= 2) {
+      addExamMsg("hint", "\ud83d\udcd6 Answer: " + ans);
+      addExamMsg("hint", "\ud83d\udc49 Please type the correct answer to continue.");
+      ES.score.showAnswer++;
+      ES._requireRepeat = ans;
+      setExamStatus("Type the correct answer", "connected");
+    } else {
+      if (ans) addExamMsg("hint", "\ud83d\udca1 Hint: " + ans);
+      addExamMsg("hint", "Try again.");
+      ES.score.retry++;
+      setExamStatus("Try again", "connected");
+    }
+    ES.waiting = true;
+    examSendBtn.disabled = false;
+    examRecordBtn.disabled = false;
+    examTextField.focus();
+  }
+  } catch (err) {
+    // Safety net: always re-enable input on unexpected errors
+    console.error("[exam] submitExamAnswer error:", err);
+    addExamMsg("system", "Error: " + err.message + " — try again.");
+    ES.waiting = true;
+    examSendBtn.disabled = false;
+    examRecordBtn.disabled = false;
+    setExamStatus("Error occurred, try again", "error");
+  }
+}
 
 // Send text answer
 function sendExamAnswer() {
   const text = examTextField.value.trim();
   if (!text || !examActive) return;
   examTextField.value = "";
-  streamExamResponse(text);
+  submitExamAnswer(text);
 }
 
 examSendBtn.onclick = sendExamAnswer;
 examTextField.onkeydown = (e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendExamAnswer(); } };
 
-// Mic recording for exam
+// Start exam
+examStartBtn.onclick = async () => {
+  if (!examBank) {
+    await loadExamBank();
+    if (!examBank) { setExamStatus("Failed to load question bank", "error"); return; }
+  }
+  unlockAudio();
+  // Acquire mic once at exam start (avoids repeated permission prompts)
+  const micOk = await ensureExamMic();
+  if (!micOk) return;
+
+  examActive = true;
+  examChat.innerHTML = "";
+  examInput.style.display = "flex";
+  examStartBtn.disabled = true;
+  examTestSelect.disabled = true;
+  examPartSelect.disabled = true;
+  examSendBtn.disabled = true;
+  examRecordBtn.disabled = true;
+
+  const testNum = examTestSelect.value;
+  const startPart = examPartSelect.value;
+
+  ES.score = { correct: 0, retry: 0, showAnswer: 0 };
+  ES._requireRepeat = null;
+  ES.steps = buildSteps(testNum, startPart);
+  ES.stepIdx = 0;
+
+  addExamMsg("system", "Starting Test " + testNum + (startPart === "all" ? " (full exam)" : " Part " + startPart));
+  await runStep();
+};
+
+// Mic recording for exam — reuses persistent stream/AudioContext
 examRecordBtn.onclick = async () => {
   if (examRecording) {
-    // Stop recording
+    // === STOP recording ===
     examRecording = false;
     examRecordBtn.textContent = "\u{1F3A4} Mic";
     examRecordBtn.classList.remove("recording");
 
+    // Disconnect processor but keep stream + AudioContext alive
     if (examProcessorNode) { examProcessorNode.disconnect(); examProcessorNode = null; }
     if (examSourceNode) { examSourceNode.disconnect(); examSourceNode = null; }
-    if (examAudioCtx) { examAudioCtx.close(); examAudioCtx = null; }
-    if (examMediaStream) { examMediaStream.getTracks().forEach((t) => t.stop()); examMediaStream = null; }
 
     if (examOfflineChunks.length === 0) { setExamStatus("No audio", "error"); return; }
 
     setExamStatus("Recognizing...");
     const totalLen = examOfflineChunks.reduce((sum, c) => sum + c.length, 0);
     const allSamples = new Float32Array(totalLen);
-    let offset = 0;
-    for (const c of examOfflineChunks) { allSamples.set(c, offset); offset += c.length; }
+    let off = 0;
+    for (const c of examOfflineChunks) { allSamples.set(c, off); off += c.length; }
     examOfflineChunks = [];
 
-    // Use whisper-medium-en for exam by default
-    const asrModel = "whisper-medium-en";
+    const asrCtrl = new AbortController();
+    const asrTimer = setTimeout(() => asrCtrl.abort(), 30000);
     try {
-      const res = await fetch(ASR_OFFLINE_URL + "?model=" + asrModel, {
-        method: "POST", headers: { "Content-Type": "application/octet-stream" }, body: allSamples.buffer,
+      const res = await fetch(ASR_OFFLINE_URL + "?model=whisper-medium-en", {
+        method: "POST", headers: { "Content-Type": "application/octet-stream" },
+        signal: asrCtrl.signal, body: allSamples.buffer,
       });
+      clearTimeout(asrTimer);
       const data = await res.json();
       const text = (data.text || "").trim();
       if (text) {
@@ -962,21 +1199,25 @@ examRecordBtn.onclick = async () => {
         setExamStatus("No speech detected", "error");
       }
     } catch (e) {
-      setExamStatus("ASR error: " + e.message, "error");
+      clearTimeout(asrTimer);
+      const msg = e.name === "AbortError" ? "ASR timed out (30s)" : "ASR error: " + e.message;
+      setExamStatus(msg, "error");
     }
   } else {
-    // Start recording
+    // === START recording ===
     unlockAudio();
-    try {
-      examMediaStream = await navigator.mediaDevices.getUserMedia({ audio: { channelCount: 1 } });
-    } catch (err) { setExamStatus("Microphone denied", "error"); return; }
+    // Ensure mic is still alive (re-acquire if browser revoked it)
+    const micOk = await ensureExamMic();
+    if (!micOk) return;
 
     examRecording = true;
     examRecordBtn.textContent = "\u23F9 Stop Mic";
     examRecordBtn.classList.add("recording");
     setExamStatus("Recording...", "connected");
 
-    examAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    // Resume AudioContext if suspended (mobile browsers suspend after inactivity)
+    if (examAudioCtx.state === "suspended") await examAudioCtx.resume();
+
     examSourceNode = examAudioCtx.createMediaStreamSource(examMediaStream);
     examProcessorNode = examAudioCtx.createScriptProcessor(4096, 1, 1);
     examOfflineChunks = [];
@@ -990,17 +1231,21 @@ examRecordBtn.onclick = async () => {
   }
 };
 
-// Reset exam when switching tests
+// Reset exam
 function resetExam() {
   examActive = false;
   examChat.innerHTML = "";
-  examMessages = [];
-  examInput.classList.remove("visible");
+  examInput.style.display = "none";
   examStartBtn.disabled = false;
   examTestSelect.disabled = false;
   examPartSelect.disabled = false;
+  examProgress.textContent = "";
   setExamStatus("");
   stopTts();
+  releaseExamMic();
+  ES.steps = [];
+  ES.stepIdx = 0;
+  ES._requireRepeat = null;
 }
 
 examTestSelect.onchange = resetExam;

@@ -86,7 +86,8 @@ load_dotenv()
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "")
 ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
 MOONSHOT_API_KEY = os.environ.get("MOONSHOT_API_KEY", "")
-OPENAI_BASE_URL = os.environ.get("OPENAI_BASE_URL", "https://api.openai.com/v1")
+#OPENAI_BASE_URL = os.environ.get("OPENAI_BASE_URL", "https://api.openai.com/v1")
+OPENAI_BASE_URL = os.environ.get("OPENAI_BASE_URL", "https://api.gptsapi.net/v1") #openai 中转
 ANTHROPIC_BASE_URL = os.environ.get("ANTHROPIC_BASE_URL", "https://api.anthropic.com")
 MOONSHOT_BASE_URL = os.environ.get("MOONSHOT_BASE_URL", "https://api.moonshot.cn/v1")
 HTTP_PROXY = os.environ.get("HTTP_PROXY", "") or os.environ.get("http_proxy", "")
@@ -381,10 +382,213 @@ async def ollama_proxy(request):
     return response
 
 
-# ---------- LLM proxy: /llm/chat + /llm/models ----------
+# ---------- LLM proxy: /llm/chat + /llm/models + /llm/judge ----------
 
 async def llm_models_handler(request):
     return web.json_response(LLM_MODELS)
+
+
+JUDGE_SYSTEM_PROMPT = """You are a strict English exam judge. Compare the student's answer with the expected answer.
+Reply ONLY with this JSON, nothing else:
+{"ok":true} or {"ok":false,"fb":"brief feedback in English","cn":"简短中文提示","ans":"correct answer"}
+
+Rules:
+- Grammar must be correct
+- Spelling must be correct
+- If an expected answer is provided, key words must match (not paraphrase)
+- Minor differences in articles/prepositions are OK if meaning is the same
+- Do NOT explain, do NOT teach, do NOT add any text outside the JSON"""
+
+
+async def llm_judge(request):
+    """Non-streaming LLM judge for exam mode. Returns JSON verdict."""
+    try:
+        body = await request.json()
+    except Exception:
+        return web.json_response({"ok": False, "fb": "Invalid request", "cn": "请求格式错误", "ans": ""}, status=400)
+
+    provider = body.get("provider", "openai")
+    model = body.get("model", "gpt-4o")
+    use_proxy = body.get("use_proxy", False)
+    proxy = HTTP_PROXY if (use_proxy and HTTP_PROXY) else None
+    question = body.get("question", "")
+    expected = body.get("expected", "")
+    student = body.get("student", "")
+
+    if not student:
+        return web.json_response({"ok": False, "fb": "No answer provided", "cn": "没有回答", "ans": expected})
+
+    # Build the user message
+    parts = []
+    if question:
+        parts.append(f'Examiner: "{question}"')
+    if expected:
+        parts.append(f'Expected answer: "{expected}"')
+    parts.append(f'Student said: "{student}"')
+    parts.append("Judge:")
+    user_msg = "\n".join(parts)
+
+    messages = [
+        {"role": "system", "content": JUDGE_SYSTEM_PROMPT},
+        {"role": "user", "content": user_msg},
+    ]
+
+    log.info("[judge] provider=%s model=%s q=%s student=%s", provider, model, question[:50], student[:50])
+
+    session = request.app["session"]
+
+    try:
+        if provider == "ollama":
+            coro = _judge_ollama(session, model, messages)
+        elif provider == "openai":
+            coro = _judge_openai(session, model, messages, proxy)
+        elif provider == "claude":
+            coro = _judge_claude(session, model, messages, proxy)
+        elif provider == "moonshot":
+            coro = _judge_openai_compat(session, model, messages, MOONSHOT_BASE_URL, MOONSHOT_API_KEY, proxy)
+        else:
+            return web.json_response({"ok": False, "fb": "Unknown provider", "cn": "未知提供商", "ans": expected})
+        result = await asyncio.wait_for(coro, timeout=25)
+    except asyncio.TimeoutError:
+        log.error("[judge] Timed out after 25s: provider=%s model=%s", provider, model)
+        result = {"ok": False, "fb": "Judge timed out (25s)", "cn": "判分超时", "ans": expected}
+    except Exception as e:
+        log.error("[judge] Error: %s", e)
+        result = {"ok": False, "fb": f"Judge error: {e}", "cn": "判分出错", "ans": expected}
+
+    log.info("[judge] result: %s", json.dumps(result, ensure_ascii=False)[:200])
+    return web.json_response(result)
+
+
+def _parse_judge_json(text):
+    """Try to parse JSON from LLM response, with fallback."""
+    text = text.strip()
+    # Try direct parse
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError:
+        pass
+    # Try to find JSON in the text
+    start = text.find("{")
+    end = text.rfind("}") + 1
+    if start >= 0 and end > start:
+        try:
+            return json.loads(text[start:end])
+        except json.JSONDecodeError:
+            pass
+    return None
+
+
+async def _judge_ollama(session, model, messages):
+    """Non-streaming Ollama judge call."""
+    payload = json.dumps({"model": model, "messages": messages, "stream": False, "format": "json"})
+    async with session.post(
+        OLLAMA_BASE + "/api/chat",
+        data=payload,
+        headers={"Content-Type": "application/json"},
+    ) as resp:
+        data = await resp.json()
+        content = data.get("message", {}).get("content", "")
+        result = _parse_judge_json(content)
+        if result and "ok" in result:
+            return result
+        return {"ok": False, "fb": "Could not parse response", "cn": "无法解析回复", "ans": ""}
+
+
+async def _judge_openai(session, model, messages, proxy=None):
+    """Non-streaming OpenAI judge call with response_format."""
+    payload = json.dumps({
+        "model": model, "messages": messages, "stream": False,
+        "response_format": {"type": "json_object"},
+    })
+    url = OPENAI_BASE_URL.rstrip("/") + "/chat/completions"
+    kwargs = {
+        "data": payload,
+        "headers": {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + OPENAI_API_KEY,
+        },
+    }
+    if proxy:
+        kwargs["proxy"] = proxy
+    async with session.post(url, **kwargs) as resp:
+        data = await resp.json()
+        if resp.status != 200:
+            err = data.get("error", {}).get("message", str(data))
+            return {"ok": False, "fb": f"OpenAI error: {err[:100]}", "cn": "API错误", "ans": ""}
+        content = data.get("choices", [{}])[0].get("message", {}).get("content", "")
+        result = _parse_judge_json(content)
+        if result and "ok" in result:
+            return result
+        return {"ok": False, "fb": "Could not parse response", "cn": "无法解析回复", "ans": ""}
+
+
+async def _judge_claude(session, model, messages, proxy=None):
+    """Non-streaming Claude judge call."""
+    system_text = ""
+    chat_msgs = []
+    for m in messages:
+        if m["role"] == "system":
+            system_text += m["content"] + "\n"
+        else:
+            chat_msgs.append({"role": m["role"], "content": m["content"]})
+
+    payload = {"model": model, "max_tokens": 256, "messages": chat_msgs}
+    if system_text.strip():
+        payload["system"] = system_text.strip()
+
+    url = ANTHROPIC_BASE_URL.rstrip("/") + "/v1/messages"
+    kwargs = {
+        "data": json.dumps(payload),
+        "headers": {
+            "Content-Type": "application/json",
+            "x-api-key": ANTHROPIC_API_KEY,
+            "anthropic-version": "2023-06-01",
+        },
+    }
+    if proxy:
+        kwargs["proxy"] = proxy
+    async with session.post(url, **kwargs) as resp:
+        data = await resp.json()
+        if resp.status != 200:
+            err = data.get("error", {}).get("message", str(data))
+            return {"ok": False, "fb": f"Claude error: {err[:100]}", "cn": "API错误", "ans": ""}
+        content = ""
+        for block in data.get("content", []):
+            if block.get("type") == "text":
+                content += block.get("text", "")
+        result = _parse_judge_json(content)
+        if result and "ok" in result:
+            return result
+        return {"ok": False, "fb": "Could not parse response", "cn": "无法解析回复", "ans": ""}
+
+
+async def _judge_openai_compat(session, model, messages, base_url, api_key, proxy=None):
+    """Non-streaming OpenAI-compatible judge call (Moonshot etc.)."""
+    payload = json.dumps({
+        "model": model, "messages": messages, "stream": False,
+        "response_format": {"type": "json_object"},
+    })
+    url = base_url.rstrip("/") + "/chat/completions"
+    kwargs = {
+        "data": payload,
+        "headers": {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + api_key,
+        },
+    }
+    if proxy:
+        kwargs["proxy"] = proxy
+    async with session.post(url, **kwargs) as resp:
+        data = await resp.json()
+        if resp.status != 200:
+            err = data.get("error", {}).get("message", str(data))
+            return {"ok": False, "fb": f"API error: {err[:100]}", "cn": "API错误", "ans": ""}
+        content = data.get("choices", [{}])[0].get("message", {}).get("content", "")
+        result = _parse_judge_json(content)
+        if result and "ok" in result:
+            return result
+        return {"ok": False, "fb": "Could not parse response", "cn": "无法解析回复", "ans": ""}
 
 
 async def llm_chat(request):
@@ -736,6 +940,7 @@ def create_app():
     app.router.add_route("POST", "/asr", asr_offline)
     app.router.add_route("GET", "/llm/models", llm_models_handler)
     app.router.add_route("POST", "/llm/chat", llm_chat)
+    app.router.add_route("POST", "/llm/judge", llm_judge)
     app.router.add_route("*", "/api/{path:.*}", ollama_proxy)
     app.router.add_route("GET", "/tts/voices", tts_voices)
     app.router.add_route("POST", "/tts", tts_speak)
