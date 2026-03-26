@@ -960,14 +960,13 @@ function buildSteps(testNum, startPart) {
       if (part.pic1) steps.push({ type: "speak", text: part.pic1 });
       if (part.instruction) steps.push({ type: "speak", text: part.instruction });
       part.pictures.forEach((pic) => {
-        // Split multi-question prompts so each judge step gets its own sub-question
-        const subQs = pic.prompt.split(/\?\s*/).filter(q => q.trim()).map(q => q.trim() + "?");
         steps.push({ type: "speak", text: "Picture " + pic.pic + ": " + pic.prompt, label: "Part 3: Picture " + pic.pic });
         pic.sentences.forEach((s, si) => {
-          // Map each sentence to its corresponding sub-question (or fallback to full prompt)
-          const subQ = subQs[si] || pic.prompt;
-          steps.push({ type: "judge", question: "Picture " + pic.pic + " — " + subQ,
-            expected: s, hint_text: subQ,
+          // Support both old format (string) and new format ({text, hint})
+          const sText = typeof s === "string" ? s : s.text;
+          const sHint = typeof s === "string" ? pic.prompt : s.hint;
+          steps.push({ type: "judge", question: "Picture " + pic.pic + " — " + sHint,
+            expected: sText, hint_text: sHint,
             label: "Part 3: Pic " + pic.pic + " (" + (si+1) + "/" + pic.sentences.length + ")" });
         });
       });
