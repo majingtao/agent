@@ -1252,10 +1252,12 @@ examRecordBtn.onclick = async () => {
     for (const c of examOfflineChunks) { allSamples.set(c, off); off += c.length; }
     examOfflineChunks = [];
 
+    const asrModel = getSelectedAsrModel();
+    setExamStatus("Recognizing (" + asrModel.id + ")...");
     const asrCtrl = new AbortController();
-    const asrTimer = setTimeout(() => asrCtrl.abort(), 30000);
+    const asrTimer = setTimeout(() => asrCtrl.abort(), 120000);
     try {
-      const res = await fetch(ASR_OFFLINE_URL + "?model=whisper-medium-en", {
+      const res = await fetch(ASR_OFFLINE_URL + "?model=" + asrModel.id, {
         method: "POST", headers: { "Content-Type": "application/octet-stream" },
         signal: asrCtrl.signal, body: allSamples.buffer,
       });
@@ -1271,7 +1273,7 @@ examRecordBtn.onclick = async () => {
       }
     } catch (e) {
       clearTimeout(asrTimer);
-      const msg = e.name === "AbortError" ? "ASR timed out (30s)" : "ASR error: " + e.message;
+      const msg = e.name === "AbortError" ? "ASR timed out (2min)" : "ASR error: " + e.message;
       setExamStatus(msg, "error");
     }
   } else {
