@@ -445,20 +445,25 @@ function unlockAudio() {
 
 function speakWithSystem(text) {
   synth.cancel();
+  if (_ttsResolve) { _ttsResolve(); _ttsResolve = null; }
   const toSpeak = extractEnglishText(text);
-  if (!toSpeak) return;
-  const voice = systemVoices.find((v) => v.name === voiceSelect.value) || systemVoices[0];
-  const chunks = []; const parts = toSpeak.match(/[^.!?]+[.!?]+|[^.!?]+$/g) || [toSpeak];
-  let cur = "";
-  for (const s of parts) { if ((cur + s).length > 200) { if (cur.trim()) chunks.push(cur.trim()); cur = s; } else cur += s; }
-  if (cur.trim()) chunks.push(cur.trim());
-  for (let i = 0; i < chunks.length; i++) {
-    const u = new SpeechSynthesisUtterance(chunks[i]); u.lang = "en-US"; u.rate = 0.9;
-    if (voice) u.voice = voice;
-    if (i === 0) u.onstart = () => { ttsStopBtn.style.display = "inline-block"; ttsStopBtn2.style.display = "inline-block"; };
-    if (i === chunks.length - 1) u.onend = () => { ttsStopBtn.style.display = "none"; ttsStopBtn2.style.display = "none"; if (_activeSpeakBtn) _onTtsEndForBtn(); };
-    synth.speak(u);
-  }
+  if (!toSpeak) return Promise.resolve();
+  return new Promise((resolve) => {
+    _ttsResolve = resolve;
+    const done = () => { ttsStopBtn.style.display = "none"; ttsStopBtn2.style.display = "none"; if (_activeSpeakBtn) _onTtsEndForBtn(); if (_ttsResolve === resolve) { _ttsResolve = null; } resolve(); };
+    const voice = systemVoices.find((v) => v.name === voiceSelect.value) || systemVoices[0];
+    const chunks = []; const parts = toSpeak.match(/[^.!?]+[.!?]+|[^.!?]+$/g) || [toSpeak];
+    let cur = "";
+    for (const s of parts) { if ((cur + s).length > 200) { if (cur.trim()) chunks.push(cur.trim()); cur = s; } else cur += s; }
+    if (cur.trim()) chunks.push(cur.trim());
+    for (let i = 0; i < chunks.length; i++) {
+      const u = new SpeechSynthesisUtterance(chunks[i]); u.lang = "en-US"; u.rate = 0.9;
+      if (voice) u.voice = voice;
+      if (i === 0) u.onstart = () => { ttsStopBtn.style.display = "inline-block"; ttsStopBtn2.style.display = "inline-block"; };
+      if (i === chunks.length - 1) { u.onend = done; u.onerror = done; }
+      synth.speak(u);
+    }
+  });
 }
 
 async function speakWithServer(text, engine) {
@@ -477,9 +482,13 @@ async function speakWithServer(text, engine) {
     if (_lastBlobUrl) URL.revokeObjectURL(_lastBlobUrl);
     _lastBlobUrl = URL.createObjectURL(blob);
     ttsAudio.src = _lastBlobUrl;
-    ttsAudio.onended = () => { ttsStopBtn.style.display = "none"; ttsStopBtn2.style.display = "none"; if (_activeSpeakBtn) _onTtsEndForBtn(); };
-    ttsAudio.onerror = () => { ttsStopBtn.style.display = "none"; ttsStopBtn2.style.display = "none"; if (_activeSpeakBtn) _onTtsEndForBtn(); };
-    ttsAudio.play().catch(() => { ttsStopBtn.style.display = "none"; ttsStopBtn2.style.display = "none"; if (_activeSpeakBtn) _onTtsEndForBtn(); });
+    return new Promise((resolve) => {
+      _ttsResolve = resolve;
+      const done = () => { ttsStopBtn.style.display = "none"; ttsStopBtn2.style.display = "none"; if (_activeSpeakBtn) _onTtsEndForBtn(); if (_ttsResolve === resolve) { _ttsResolve = null; } resolve(); };
+      ttsAudio.onended = done;
+      ttsAudio.onerror = done;
+      ttsAudio.play().catch(done);
+    });
   } catch (e) { console.error("TTS error:", e); ttsStopBtn.style.display = "none"; ttsStopBtn2.style.display = "none"; }
 }
 
@@ -488,10 +497,12 @@ function speakText(text) {
   doSpeak(text);
 }
 
+let _ttsResolve = null; // resolve callback for current doSpeak promise
+
 function doSpeak(text) {
   const engine = ttsEngineSelect.value;
-  if (engine === "system") speakWithSystem(text);
-  else speakWithServer(text, engine);
+  if (engine === "system") return speakWithSystem(text);
+  return speakWithServer(text, engine);
 }
 
 function stopTts() {
@@ -500,6 +511,8 @@ function stopTts() {
   ttsStopBtn.style.display = "none";
   ttsStopBtn2.style.display = "none";
   if (_activeSpeakBtn) _onTtsEndForBtn();
+  // Resolve any pending doSpeak promise so await doesn't hang
+  if (_ttsResolve) { _ttsResolve(); _ttsResolve = null; }
 }
 
 const ttsStopBtn2 = document.getElementById("ttsStopBtn2");
@@ -1002,7 +1015,7 @@ async function runStep() {
 
   if (step.type === "speak") {
     addExamMsg("examiner", step.text);
-    if (ttsToggle.checked) doSpeak(step.text);
+    if (ttsToggle.checked) await doSpeak(step.text);
     ES.stepIdx++;
     const next = ES.steps[ES.stepIdx];
     if (next && (next.type === "judge" || next.type === "judge-question")) {
@@ -1017,7 +1030,7 @@ async function runStep() {
     } else if (next && next.type === "show-hint") {
       setTimeout(() => runStep(), 300);
     } else {
-      setTimeout(() => runStep(), 500);
+      setTimeout(() => runStep(), ttsToggle.checked ? 300 : 500);
     }
   }
   else if (step.type === "show-hint") {
@@ -1036,7 +1049,7 @@ async function runStep() {
     // Consecutive judge step (no preceding speak) — e.g. Part 3 multiple sentences per picture
     if (step.hint_text) {
       addExamMsg("examiner", step.hint_text);
-      if (ttsToggle.checked) doSpeak(step.hint_text);
+      if (ttsToggle.checked) await doSpeak(step.hint_text);
     }
     ES.waiting = true;
     ES.retries = 0;
@@ -1130,10 +1143,10 @@ async function submitExamAnswer(text) {
 
   if (result.ok) {
     addExamMsg("judge-ok", "\u2705 Correct!");
-    if (ttsToggle.checked) doSpeak("Correct!");
+    if (ttsToggle.checked) await doSpeak("Correct!");
     ES.score.correct++;
     ES.stepIdx++;
-    setTimeout(() => runStep(), 800);
+    setTimeout(() => runStep(), 300);
   } else {
     ES.retries++;
     addExamMsg("judge-fail", "\u274c " + (result.fb || "Not quite."));
