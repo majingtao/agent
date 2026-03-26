@@ -915,10 +915,15 @@ function buildSteps(testNum, startPart) {
       if (part.pic1) steps.push({ type: "speak", text: part.pic1 });
       if (part.instruction) steps.push({ type: "speak", text: part.instruction });
       part.pictures.forEach((pic) => {
+        // Split multi-question prompts so each judge step gets its own sub-question
+        const subQs = pic.prompt.split(/\?\s*/).filter(q => q.trim()).map(q => q.trim() + "?");
         steps.push({ type: "speak", text: "Picture " + pic.pic + ": " + pic.prompt, label: "Part 3: Picture " + pic.pic });
         pic.sentences.forEach((s, si) => {
-          steps.push({ type: "judge", question: "Picture " + pic.pic + " — " + pic.prompt,
-            expected: s, label: "Part 3: Pic " + pic.pic + " (" + (si+1) + "/" + pic.sentences.length + ")" });
+          // Map each sentence to its corresponding sub-question (or fallback to full prompt)
+          const subQ = subQs[si] || pic.prompt;
+          steps.push({ type: "judge", question: "Picture " + pic.pic + " — " + subQ,
+            expected: s, hint_text: subQ,
+            label: "Part 3: Pic " + pic.pic + " (" + (si+1) + "/" + pic.sentences.length + ")" });
         });
       });
     }
@@ -985,6 +990,10 @@ async function runStep() {
   }
   else if (step.type === "judge" || step.type === "judge-question") {
     // Consecutive judge step (no preceding speak) — e.g. Part 3 multiple sentences per picture
+    if (step.hint_text) {
+      addExamMsg("examiner", step.hint_text);
+      if (ttsToggle.checked) doSpeak(step.hint_text);
+    }
     ES.waiting = true;
     ES.retries = 0;
     ES._requireRepeat = null;
@@ -1044,28 +1053,23 @@ async function submitExamAnswer(text) {
   // If in repeat mode (shown standard answer, must type it)
   if (ES._requireRepeat) {
     setExamStatus("Checking...");
-    const norm = s => s.toLowerCase().replace(/[^a-z0-9\s]/g, "").trim();
-    const match = norm(text) === norm(ES._requireRepeat);
-    if (match) {
+    const norm = s => s.toLowerCase().replace(/[^a-z0-9\s]/g, "").replace(/\s+/g, " ").trim();
+    const nStudent = norm(text), nExpected = norm(ES._requireRepeat);
+    // Accept if normalized text matches, or if >70% of key words are present
+    const expWords = nExpected.split(" ").filter(w => w.length > 2);
+    const matched = expWords.filter(w => nStudent.includes(w)).length;
+    const ratio = expWords.length > 0 ? matched / expWords.length : 0;
+    if (nStudent === nExpected || ratio >= 0.7) {
       addExamMsg("judge-ok", "\u2705 Good. Let's continue.");
       ES._requireRepeat = null;
       ES.stepIdx++;
       setTimeout(() => runStep(), 800);
     } else {
-      // Use LLM for fuzzy match
-      const result = await callJudge("Repeat this answer exactly", ES._requireRepeat, text);
-      if (result.ok) {
-        addExamMsg("judge-ok", "\u2705 Good. Let's continue.");
-        ES._requireRepeat = null;
-        ES.stepIdx++;
-        setTimeout(() => runStep(), 800);
-      } else {
-        addExamMsg("judge-fail", "\u274c Please type: " + ES._requireRepeat);
-        ES.waiting = true;
-        examSendBtn.disabled = false;
-        examRecordBtn.disabled = false;
-        examTextField.focus();
-      }
+      addExamMsg("judge-fail", "\u274c Please type: " + ES._requireRepeat);
+      ES.waiting = true;
+      examSendBtn.disabled = false;
+      examRecordBtn.disabled = false;
+      examTextField.focus();
     }
     return;
   }
@@ -1085,7 +1089,8 @@ async function submitExamAnswer(text) {
     setTimeout(() => runStep(), 800);
   } else {
     ES.retries++;
-    const ans = result.ans || expected || "";
+    // Prefer the structured expected answer over LLM's ans (LLM may return the prompt instead)
+    const ans = expected || result.ans || "";
     addExamMsg("judge-fail", "\u274c " + (result.fb || "Not quite."));
     if (result.cn) addExamMsg("hint", "\ud83c\udde8\ud83c\uddf3 " + result.cn);
 
