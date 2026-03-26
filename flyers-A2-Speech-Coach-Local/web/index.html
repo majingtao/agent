@@ -67,7 +67,10 @@
     #examProgress { font-size: 0.85em; color: #555; margin-bottom: 8px; padding: 4px 8px; background: #f5f5f5; border-radius: 6px; }
     .chat-judge { background: #fce4ec; color: #c62828; margin: 0 auto; text-align: center; font-size: 0.9em; padding: 6px 12px; }
     .chat-judge.correct { background: #e8f5e9; color: #2e7d32; }
-    .chat-hint { background: #fff8e1; color: #f57f17; font-size: 0.85em; margin: 0 auto; text-align: center; }
+    .chat-hint { background: #fff8e1; color: #f57f17; font-size: 0.85em; margin: 0 auto; text-align: center; position: relative; }
+    .speak-btn { background: none; border: none; cursor: pointer; font-size: 1em; padding: 0 0 0 6px; vertical-align: middle; opacity: 0.7; }
+    .speak-btn:hover { opacity: 1; }
+    .speak-btn.playing { opacity: 1; }
     #examRecordBtn.recording { background: #b71c1c; }
     /* Section visibility */
     .section-freetalk, .section-exam { display: none; }
@@ -453,7 +456,7 @@ function speakWithSystem(text) {
     const u = new SpeechSynthesisUtterance(chunks[i]); u.lang = "en-US"; u.rate = 0.9;
     if (voice) u.voice = voice;
     if (i === 0) u.onstart = () => { ttsStopBtn.style.display = "inline-block"; ttsStopBtn2.style.display = "inline-block"; };
-    if (i === chunks.length - 1) u.onend = () => { ttsStopBtn.style.display = "none"; ttsStopBtn2.style.display = "none"; };
+    if (i === chunks.length - 1) u.onend = () => { ttsStopBtn.style.display = "none"; ttsStopBtn2.style.display = "none"; if (_activeSpeakBtn) _onTtsEndForBtn(); };
     synth.speak(u);
   }
 }
@@ -474,9 +477,9 @@ async function speakWithServer(text, engine) {
     if (_lastBlobUrl) URL.revokeObjectURL(_lastBlobUrl);
     _lastBlobUrl = URL.createObjectURL(blob);
     ttsAudio.src = _lastBlobUrl;
-    ttsAudio.onended = () => { ttsStopBtn.style.display = "none"; ttsStopBtn2.style.display = "none"; };
-    ttsAudio.onerror = () => { ttsStopBtn.style.display = "none"; ttsStopBtn2.style.display = "none"; };
-    ttsAudio.play().catch(() => { ttsStopBtn.style.display = "none"; ttsStopBtn2.style.display = "none"; });
+    ttsAudio.onended = () => { ttsStopBtn.style.display = "none"; ttsStopBtn2.style.display = "none"; if (_activeSpeakBtn) _onTtsEndForBtn(); };
+    ttsAudio.onerror = () => { ttsStopBtn.style.display = "none"; ttsStopBtn2.style.display = "none"; if (_activeSpeakBtn) _onTtsEndForBtn(); };
+    ttsAudio.play().catch(() => { ttsStopBtn.style.display = "none"; ttsStopBtn2.style.display = "none"; if (_activeSpeakBtn) _onTtsEndForBtn(); });
   } catch (e) { console.error("TTS error:", e); ttsStopBtn.style.display = "none"; ttsStopBtn2.style.display = "none"; }
 }
 
@@ -496,6 +499,7 @@ function stopTts() {
   if (!ttsAudio.paused) { ttsAudio.pause(); ttsAudio.currentTime = 0; }
   ttsStopBtn.style.display = "none";
   ttsStopBtn2.style.display = "none";
+  if (_activeSpeakBtn) _onTtsEndForBtn();
 }
 
 const ttsStopBtn2 = document.getElementById("ttsStopBtn2");
@@ -837,13 +841,53 @@ async function loadExamBank() {
 }
 loadExamBank();
 
+let _activeSpeakBtn = null;
+
+function _onTtsEndForBtn() {
+  if (_activeSpeakBtn) { _activeSpeakBtn.textContent = "\ud83d\udd0a"; _activeSpeakBtn.classList.remove("playing"); _activeSpeakBtn = null; }
+}
+
 function addExamMsg(role, text) {
   const div = document.createElement("div");
   const cls = role === "examiner" ? "chat-examiner" : role === "student" ? "chat-student"
     : role === "judge-ok" ? "chat-judge correct" : role === "judge-fail" ? "chat-judge"
     : role === "hint" ? "chat-hint" : "chat-system";
   div.className = "chat-msg " + cls;
-  div.textContent = text;
+
+  // Add speak button for hint/answer messages that contain English sentences
+  // Show speak button for hint messages with English content (skip short phrases like "Try again.")
+  const needSpeak = role === "hint" && /(?:Hint|Answer|Sample|Your turn to ask):/i.test(text);
+  if (needSpeak) {
+    // Extract the sentence part after emoji prefix (e.g. "💡 Hint: xxx" → "xxx")
+    const sentenceMatch = text.match(/(?:Hint|Answer|Sample|Please type|Your turn to ask):\s*(.+)/i);
+    const speakText = sentenceMatch ? sentenceMatch[1].trim() : text.replace(/^[\u{1F000}-\u{1FFFF}\s]+/u, "").trim();
+
+    const span = document.createElement("span");
+    span.textContent = text;
+    div.appendChild(span);
+
+    const btn = document.createElement("button");
+    btn.className = "speak-btn";
+    btn.textContent = "\ud83d\udd0a";
+    btn.title = "Play";
+    btn.onclick = () => {
+      if (_activeSpeakBtn === btn) {
+        // Currently playing this one — stop
+        stopTts();
+        btn.textContent = "\ud83d\udd0a"; btn.classList.remove("playing"); _activeSpeakBtn = null;
+        return;
+      }
+      // Reset previous
+      if (_activeSpeakBtn) { _activeSpeakBtn.textContent = "\ud83d\udd0a"; _activeSpeakBtn.classList.remove("playing"); }
+      _activeSpeakBtn = btn;
+      btn.textContent = "\u23f9"; btn.classList.add("playing");
+      doSpeak(speakText);
+    };
+    div.appendChild(btn);
+  } else {
+    div.textContent = text;
+  }
+
   examChat.appendChild(div);
   examChat.scrollTop = examChat.scrollHeight;
   return div;
