@@ -367,8 +367,18 @@ let systemVoices = [];
 let edgeVoices = [];
 let ttsUnlocked = false;
 const ttsAudio = new Audio();
+ttsAudio.autoplay = false;
 let ttsAudioUnlocked = false;
 let _lastBlobUrl = null;
+// Shared AudioContext for decoding TTS when HTML5 Audio autoplay is blocked
+let _ttsAudioCtx = null;
+let _ttsSourceNode = null;
+function _getTtsAudioCtx() {
+  if (!_ttsAudioCtx || _ttsAudioCtx.state === "closed")
+    _ttsAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  if (_ttsAudioCtx.state === "suspended") _ttsAudioCtx.resume();
+  return _ttsAudioCtx;
+}
 
 function loadSystemVoices() {
   systemVoices = synth.getVoices().filter((v) => v.lang.startsWith("en"));
@@ -473,7 +483,7 @@ async function speakWithServer(text, engine) {
     : { engine: "edge", text: toSpeak, voice: voiceSelect.value || "en-US-AnaNeural", rate: "-10%" };
   try {
     const res = await fetch(TTS_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
-    if (!res.ok) { ttsStopBtn.style.display = "none"; ttsStopBtn2.style.display = "none"; return; }
+    if (!res.ok) { console.warn("TTS server error:", res.status); ttsStopBtn.style.display = "none"; ttsStopBtn2.style.display = "none"; return; }
     const blob = await res.blob();
     if (_lastBlobUrl) URL.revokeObjectURL(_lastBlobUrl);
     _lastBlobUrl = URL.createObjectURL(blob);
@@ -483,7 +493,24 @@ async function speakWithServer(text, engine) {
       const done = () => { ttsStopBtn.style.display = "none"; ttsStopBtn2.style.display = "none"; if (_activeSpeakBtn) _onTtsEndForBtn(); if (_ttsResolve === resolve) { _ttsResolve = null; } resolve(); };
       ttsAudio.onended = done;
       ttsAudio.onerror = done;
-      ttsAudio.play().catch(done);
+      ttsAudio.play().catch(async (err) => {
+        // Autoplay blocked — fallback to AudioContext decoding
+        console.warn("Audio.play() blocked, falling back to AudioContext:", err.message);
+        try {
+          const ctx = _getTtsAudioCtx();
+          const arrayBuf = await blob.arrayBuffer();
+          const audioBuf = await ctx.decodeAudioData(arrayBuf);
+          if (_ttsSourceNode) { try { _ttsSourceNode.stop(); } catch(e) {} }
+          _ttsSourceNode = ctx.createBufferSource();
+          _ttsSourceNode.buffer = audioBuf;
+          _ttsSourceNode.connect(ctx.destination);
+          _ttsSourceNode.onended = done;
+          _ttsSourceNode.start();
+        } catch (e2) {
+          console.error("AudioContext fallback also failed:", e2);
+          done();
+        }
+      });
     });
   } catch (e) { console.error("TTS error:", e); ttsStopBtn.style.display = "none"; ttsStopBtn2.style.display = "none"; }
 }
@@ -504,6 +531,7 @@ function doSpeak(text) {
 function stopTts() {
   synth.cancel();
   if (!ttsAudio.paused) { ttsAudio.pause(); ttsAudio.currentTime = 0; }
+  if (_ttsSourceNode) { try { _ttsSourceNode.stop(); } catch(e) {} _ttsSourceNode = null; }
   ttsStopBtn.style.display = "none";
   ttsStopBtn2.style.display = "none";
   if (_activeSpeakBtn) _onTtsEndForBtn();
