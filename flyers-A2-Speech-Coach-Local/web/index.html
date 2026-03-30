@@ -484,33 +484,20 @@ async function speakWithServer(text, engine) {
   try {
     const res = await fetch(TTS_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
     if (!res.ok) { console.warn("TTS server error:", res.status); ttsStopBtn.style.display = "none"; ttsStopBtn2.style.display = "none"; return; }
-    const blob = await res.blob();
-    if (_lastBlobUrl) URL.revokeObjectURL(_lastBlobUrl);
-    _lastBlobUrl = URL.createObjectURL(blob);
-    ttsAudio.src = _lastBlobUrl;
+    const arrayBuf = await res.arrayBuffer();
+    console.log("[TTS] received", arrayBuf.byteLength, "bytes, content-type:", res.headers.get("content-type"));
+    if (arrayBuf.byteLength < 256) { console.warn("[TTS] audio too small, skipping"); ttsStopBtn.style.display = "none"; ttsStopBtn2.style.display = "none"; return; }
+    const ctx = _getTtsAudioCtx();
+    const audioBuf = await ctx.decodeAudioData(arrayBuf.slice(0));
     return new Promise((resolve) => {
       _ttsResolve = resolve;
-      const done = () => { ttsStopBtn.style.display = "none"; ttsStopBtn2.style.display = "none"; if (_activeSpeakBtn) _onTtsEndForBtn(); if (_ttsResolve === resolve) { _ttsResolve = null; } resolve(); };
-      ttsAudio.onended = done;
-      ttsAudio.onerror = done;
-      ttsAudio.play().catch(async (err) => {
-        // Autoplay blocked — fallback to AudioContext decoding
-        console.warn("Audio.play() blocked, falling back to AudioContext:", err.message);
-        try {
-          const ctx = _getTtsAudioCtx();
-          const arrayBuf = await blob.arrayBuffer();
-          const audioBuf = await ctx.decodeAudioData(arrayBuf);
-          if (_ttsSourceNode) { try { _ttsSourceNode.stop(); } catch(e) {} }
-          _ttsSourceNode = ctx.createBufferSource();
-          _ttsSourceNode.buffer = audioBuf;
-          _ttsSourceNode.connect(ctx.destination);
-          _ttsSourceNode.onended = done;
-          _ttsSourceNode.start();
-        } catch (e2) {
-          console.error("AudioContext fallback also failed:", e2);
-          done();
-        }
-      });
+      const done = () => { ttsStopBtn.style.display = "none"; ttsStopBtn2.style.display = "none"; _ttsSourceNode = null; if (_activeSpeakBtn) _onTtsEndForBtn(); if (_ttsResolve === resolve) { _ttsResolve = null; } resolve(); };
+      if (_ttsSourceNode) { try { _ttsSourceNode.stop(); } catch(e) {} }
+      _ttsSourceNode = ctx.createBufferSource();
+      _ttsSourceNode.buffer = audioBuf;
+      _ttsSourceNode.connect(ctx.destination);
+      _ttsSourceNode.onended = done;
+      _ttsSourceNode.start();
     });
   } catch (e) { console.error("TTS error:", e); ttsStopBtn.style.display = "none"; ttsStopBtn2.style.display = "none"; }
 }
