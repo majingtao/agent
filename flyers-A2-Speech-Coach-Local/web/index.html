@@ -149,11 +149,7 @@
   <div id="examSection" class="section-exam">
     <div class="exam-settings">
       <label>Test: <select id="examTestSelect">
-        <option value="1">Test 1</option>
-        <option value="2">Test 2</option>
-        <option value="3">Test 3</option>
-        <option value="4">Test 4</option>
-        <option value="5">Test 5</option>
+        <option value="">Loading...</option>
       </select></label>
       <label>Start from: <select id="examPartSelect">
         <option value="all">All (Warm-up → Part 4)</option>
@@ -851,6 +847,16 @@ async function loadExamBank() {
     if (!res.ok) res = await fetch("question-bank.json");
     if (res.ok) examBank = await res.json();
   } catch (e) { console.warn("Failed to load exam bank:", e); }
+  if (examBank && examBank.tests) populateTestSelect();
+}
+function populateTestSelect() {
+  examTestSelect.innerHTML = "";
+  for (const [id, test] of Object.entries(examBank.tests)) {
+    const opt = document.createElement("option");
+    opt.value = id;
+    opt.textContent = test.label || id;
+    examTestSelect.appendChild(opt);
+  }
 }
 loadExamBank();
 
@@ -1239,7 +1245,8 @@ examStartBtn.onclick = async () => {
   ES.steps = buildSteps(testNum, startPart);
   ES.stepIdx = 0;
 
-  addExamMsg("system", "Starting Test " + testNum + (startPart === "all" ? " (full exam)" : " Part " + startPart));
+  const testLabel = examBank.tests[testNum]?.label || testNum;
+  addExamMsg("system", "Starting " + testLabel + (startPart === "all" ? " (full exam)" : " Part " + startPart));
   await runStep();
 };
 
