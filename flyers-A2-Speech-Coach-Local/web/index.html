@@ -696,15 +696,21 @@ async function startOffline() {
   offlineActions.style.display = "none";
   const micOk = await ensureFreeTalkMic();
   if (!micOk) { startBtn.disabled = false; stopBtn.disabled = true; asrModelSelect.disabled = false; return; }
-  sourceNode = audioCtx.createMediaStreamSource(mediaStream);
-  processorNode = audioCtx.createScriptProcessor(4096, 1, 1);
-  offlineChunks = [];
-  processorNode.onaudioprocess = (e) => {
-    const raw = e.inputBuffer.getChannelData(0);
-    offlineChunks.push(downsample(raw, audioCtx.sampleRate));
-  };
-  sourceNode.connect(processorNode);
-  processorNode.connect(audioCtx.destination);
+  try {
+    sourceNode = audioCtx.createMediaStreamSource(mediaStream);
+    processorNode = audioCtx.createScriptProcessor(4096, 1, 1);
+    offlineChunks = [];
+    processorNode.onaudioprocess = (e) => {
+      const raw = e.inputBuffer.getChannelData(0);
+      offlineChunks.push(downsample(raw, audioCtx.sampleRate));
+    };
+    sourceNode.connect(processorNode);
+    processorNode.connect(audioCtx.destination);
+  } catch (e) {
+    console.error("[free-talk] startOffline error:", e);
+    setStatus("Mic error: " + e.message, "error");
+    startBtn.disabled = false; stopBtn.disabled = true; asrModelSelect.disabled = false;
+  }
 }
 
 async function stopOffline() {
@@ -713,13 +719,13 @@ async function stopOffline() {
   if (offlineChunks.length === 0) { partialEl.textContent = "No audio recorded."; setStatus("Stopped"); return; }
   partialEl.textContent = "Recognizing...";
   setStatus("Processing...");
-  const totalLen = offlineChunks.reduce((sum, c) => sum + c.length, 0);
-  const allSamples = new Float32Array(totalLen);
-  let offset = 0;
-  for (const c of offlineChunks) { allSamples.set(c, offset); offset += c.length; }
-  offlineChunks = [];
-  const model = getSelectedAsrModel();
   try {
+    const totalLen = offlineChunks.reduce((sum, c) => sum + c.length, 0);
+    const allSamples = new Float32Array(totalLen);
+    let offset = 0;
+    for (const c of offlineChunks) { allSamples.set(c, offset); offset += c.length; }
+    offlineChunks = [];
+    const model = getSelectedAsrModel();
     const res = await fetch(ASR_OFFLINE_URL + "?model=" + model.id, {
       method: "POST", headers: { "Content-Type": "application/octet-stream" }, body: allSamples.buffer,
     });
@@ -734,7 +740,11 @@ async function stopOffline() {
       setHistoryEditable(true);
       setStatus("Edit if needed, then Send or Discard");
     } else { partialEl.textContent = "No speech detected."; setStatus("Stopped"); }
-  } catch (e) { partialEl.textContent = "Recognition error: " + e.message; setStatus("Stopped"); }
+  } catch (e) {
+    offlineChunks = [];
+    partialEl.textContent = "Recognition error: " + e.message;
+    setStatus("Stopped");
+  }
 }
 
 sendBtn.onclick = () => {
@@ -774,17 +784,22 @@ async function start() {
   startBtn.disabled = true;
   stopBtn.disabled = false;
   asrModelSelect.disabled = true;
-  if (isOfflineMode()) await startOffline();
-  else await startStreaming();
+  try {
+    if (isOfflineMode()) await startOffline();
+    else await startStreaming();
+  } catch (e) {
+    console.error("[free-talk] start error:", e);
+    setStatus("Error: " + e.message, "error");
+    startBtn.disabled = false; stopBtn.disabled = true; asrModelSelect.disabled = false;
+  }
 }
 
-function stop() {
-  if (isOfflineMode()) stopOffline();
-  else stopStreaming();
-  if (!isOfflineMode()) setStatus("Stopped");
+async function stop() {
   startBtn.disabled = false;
   stopBtn.disabled = true;
   asrModelSelect.disabled = false;
+  if (isOfflineMode()) await stopOffline();
+  else { stopStreaming(); setStatus("Stopped"); }
 }
 
 startBtn.onclick = start;
@@ -841,6 +856,7 @@ function releaseExamMic() {
   if (examSourceNode) { examSourceNode.disconnect(); examSourceNode = null; }
   if (examAudioCtx) { examAudioCtx.close(); examAudioCtx = null; }
   if (examMediaStream) { examMediaStream.getTracks().forEach(t => t.stop()); examMediaStream = null; }
+  if (_examRecTimer) { clearInterval(_examRecTimer); _examRecTimer = null; }
   examRecording = false;
 }
 
@@ -1266,10 +1282,16 @@ examStartBtn.onclick = async () => {
 };
 
 // Mic recording for exam — reuses persistent stream/AudioContext
+let _examMicBusy = false; // re-entrance guard
+let _examRecTimer = null; // recording duration timer
 examRecordBtn.onclick = async () => {
+  if (_examMicBusy) return;
+  _examMicBusy = true;
+  try {
   if (examRecording) {
     // === STOP recording ===
     examRecording = false;
+    if (_examRecTimer) { clearInterval(_examRecTimer); _examRecTimer = null; }
     examRecordBtn.textContent = "\u{1F3A4} Mic";
     examRecordBtn.classList.remove("recording");
 
@@ -1279,63 +1301,82 @@ examRecordBtn.onclick = async () => {
 
     if (examOfflineChunks.length === 0) { setExamStatus("No audio", "error"); return; }
 
-    setExamStatus("Recognizing...");
-    const totalLen = examOfflineChunks.reduce((sum, c) => sum + c.length, 0);
-    const allSamples = new Float32Array(totalLen);
-    let off = 0;
-    for (const c of examOfflineChunks) { allSamples.set(c, off); off += c.length; }
-    examOfflineChunks = [];
-
-    const asrModel = getSelectedAsrModel();
-    setExamStatus("Recognizing (" + asrModel.id + ")...");
-    const asrCtrl = new AbortController();
-    const asrTimer = setTimeout(() => asrCtrl.abort(), 120000);
     try {
-      const res = await fetch(ASR_OFFLINE_URL + "?model=" + asrModel.id, {
-        method: "POST", headers: { "Content-Type": "application/octet-stream" },
-        signal: asrCtrl.signal, body: allSamples.buffer,
-      });
-      clearTimeout(asrTimer);
-      const data = await res.json();
-      const text = (data.text || "").trim();
-      if (text) {
-        examTextField.value = text;
-        setExamStatus("Recognized. Edit if needed, then Send.", "connected");
-        examTextField.focus();
-      } else {
-        setExamStatus("No speech detected", "error");
+      setExamStatus("Recognizing...");
+      const totalLen = examOfflineChunks.reduce((sum, c) => sum + c.length, 0);
+      const allSamples = new Float32Array(totalLen);
+      let off = 0;
+      for (const c of examOfflineChunks) { allSamples.set(c, off); off += c.length; }
+      examOfflineChunks = [];
+
+      const asrModel = getSelectedAsrModel();
+      setExamStatus("Recognizing (" + asrModel.id + ")...");
+      const asrCtrl = new AbortController();
+      const asrTimer = setTimeout(() => asrCtrl.abort(), 120000);
+      try {
+        const res = await fetch(ASR_OFFLINE_URL + "?model=" + asrModel.id, {
+          method: "POST", headers: { "Content-Type": "application/octet-stream" },
+          signal: asrCtrl.signal, body: allSamples.buffer,
+        });
+        clearTimeout(asrTimer);
+        const data = await res.json();
+        const text = (data.text || "").trim();
+        if (text) {
+          examTextField.value = text;
+          setExamStatus("Recognized. Edit if needed, then Send.", "connected");
+          examTextField.focus();
+        } else {
+          setExamStatus("No speech detected", "error");
+        }
+      } catch (e) {
+        clearTimeout(asrTimer);
+        const msg = e.name === "AbortError" ? "ASR timed out (2min)" : "ASR error: " + e.message;
+        setExamStatus(msg, "error");
       }
-    } catch (e) {
-      clearTimeout(asrTimer);
-      const msg = e.name === "AbortError" ? "ASR timed out (2min)" : "ASR error: " + e.message;
-      setExamStatus(msg, "error");
+    } catch (e2) {
+      console.error("[exam] stop-recording error:", e2);
+      setExamStatus("Error: " + e2.message, "error");
+      examOfflineChunks = [];
     }
   } else {
     // === START recording ===
     unlockAudio();
-    // Ensure mic is still alive (re-acquire if browser revoked it)
     const micOk = await ensureExamMic();
     if (!micOk) return;
 
-    examRecording = true;
-    examRecordBtn.textContent = "\u23F9 Stop Mic";
-    examRecordBtn.classList.add("recording");
-    setExamStatus("Recording...", "connected");
+    try {
+      if (examAudioCtx.state === "suspended") await examAudioCtx.resume();
+      examSourceNode = examAudioCtx.createMediaStreamSource(examMediaStream);
+      examProcessorNode = examAudioCtx.createScriptProcessor(4096, 1, 1);
+      examOfflineChunks = [];
 
-    // Resume AudioContext if suspended (mobile browsers suspend after inactivity)
-    if (examAudioCtx.state === "suspended") await examAudioCtx.resume();
+      examProcessorNode.onaudioprocess = (e) => {
+        const raw = e.inputBuffer.getChannelData(0);
+        examOfflineChunks.push(downsample(raw, examAudioCtx.sampleRate));
+      };
+      examSourceNode.connect(examProcessorNode);
+      examProcessorNode.connect(examAudioCtx.destination);
 
-    examSourceNode = examAudioCtx.createMediaStreamSource(examMediaStream);
-    examProcessorNode = examAudioCtx.createScriptProcessor(4096, 1, 1);
-    examOfflineChunks = [];
-
-    examProcessorNode.onaudioprocess = (e) => {
-      const raw = e.inputBuffer.getChannelData(0);
-      examOfflineChunks.push(downsample(raw, examAudioCtx.sampleRate));
-    };
-    examSourceNode.connect(examProcessorNode);
-    examProcessorNode.connect(examAudioCtx.destination);
+      examRecording = true;
+      examRecordBtn.textContent = "\u23F9 Stop Mic";
+      examRecordBtn.classList.add("recording");
+      // Show recording duration so user knows it's active
+      let recSec = 0;
+      setExamStatus("Recording... 0s", "connected");
+      _examRecTimer = setInterval(() => {
+        recSec++;
+        setExamStatus("Recording... " + recSec + "s", "connected");
+      }, 1000);
+    } catch (e) {
+      console.error("[exam] start-recording error:", e);
+      setExamStatus("Mic error: " + e.message, "error");
+      // Clean up partial state
+      if (examProcessorNode) { try { examProcessorNode.disconnect(); } catch(x) {} examProcessorNode = null; }
+      if (examSourceNode) { try { examSourceNode.disconnect(); } catch(x) {} examSourceNode = null; }
+      examRecording = false;
+    }
   }
+  } finally { _examMicBusy = false; }
 };
 
 // Reset exam
