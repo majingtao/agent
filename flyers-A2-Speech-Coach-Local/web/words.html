@@ -41,6 +41,11 @@
     .word-card .variant { font-size: 0.72em; color: #af6e00; }
     .word-card .speaker { font-size: 1em; opacity: 0.5; }
     .word-card:hover .speaker { opacity: 1; }
+    .word-card.learned { background: #e8f5e9; border-color: #a5d6a7; }
+    .word-card.learned .word { color: #2e7d32; }
+    .word-card .star { font-size: 0.9em; opacity: 0.3; padding: 2px; margin-left: auto; }
+    .word-card .star:hover { opacity: 1; transform: scale(1.3); }
+    .word-card.learned .star { opacity: 0.8; }
 
     /* Theme tag */
     .theme-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 12px; }
@@ -82,9 +87,16 @@
       <option value="">All Words</option>
     </select>
   </label>
+  <label>Show:
+    <select id="learnFilter">
+      <option value="">All</option>
+      <option value="unlearned">Unlearned</option>
+      <option value="learned">Learned</option>
+    </select>
+  </label>
 </div>
 
-<div class="stats" id="stats"></div>
+<div class="stats"><span id="stats"></span> &nbsp; <span id="learnedStats" style="color:#2e7d32;"></span></div>
 <div class="letter-nav" id="letterNav"></div>
 <div id="wordList"><div class="loading">Loading words...</div></div>
 
@@ -157,9 +169,24 @@ const voiceSelect = document.getElementById("voiceSelect");
 const ttsStatus = document.getElementById("ttsStatus");
 const searchInput = document.getElementById("searchInput");
 const themeSelect = document.getElementById("themeSelect");
+const learnFilter = document.getElementById("learnFilter");
 const letterNav = document.getElementById("letterNav");
 const wordListEl = document.getElementById("wordList");
 const statsEl = document.getElementById("stats");
+
+// ---- Learned words (localStorage) ----
+const LS_KEY = "flyers_learned_words";
+let learnedSet = new Set(JSON.parse(localStorage.getItem(LS_KEY) || "[]"));
+
+function saveLearned() { localStorage.setItem(LS_KEY, JSON.stringify([...learnedSet])); }
+
+function toggleLearned(word, cardEl, e) {
+  e.stopPropagation();
+  if (learnedSet.has(word)) { learnedSet.delete(word); cardEl.classList.remove("learned"); }
+  else { learnedSet.add(word); cardEl.classList.add("learned"); }
+  saveLearned();
+  updateStats();
+}
 
 // ---- Edge-TTS voices ----
 async function loadVoices() {
@@ -214,9 +241,17 @@ async function loadData() {
 }
 
 // ---- Render ----
+function updateStats() {
+  const total = allWords.length;
+  const learned = learnedSet.size;
+  const pct = total > 0 ? Math.round(learned / total * 100) : 0;
+  document.getElementById("learnedStats").textContent = learned + "/" + total + " learned (" + pct + "%)";
+}
+
 function render() {
   const query = searchInput.value.trim().toLowerCase();
   const theme = themeSelect.value;
+  const lf = learnFilter.value;
 
   let filtered = allWords;
   if (theme) {
@@ -226,6 +261,8 @@ function render() {
   if (query) {
     filtered = filtered.filter(w => w.word.toLowerCase().includes(query));
   }
+  if (lf === "learned") filtered = filtered.filter(w => learnedSet.has(w.word));
+  if (lf === "unlearned") filtered = filtered.filter(w => !learnedSet.has(w.word));
 
   // Group by letter
   const groups = {};
@@ -243,7 +280,8 @@ function render() {
   }).join("");
 
   // Stats
-  statsEl.textContent = filtered.length + " words" + (theme ? " in " + theme : "") + (query ? " matching \"" + query + "\"" : "");
+  statsEl.textContent = filtered.length + " words" + (theme ? " in " + theme : "") + (query ? ' matching "' + query + '"' : "");
+  updateStats();
 
   // Word list
   if (filtered.length === 0) {
@@ -258,9 +296,14 @@ function render() {
     for (const w of groups[letter]) {
       const variant = w.variant ? `<span class="variant">(${w.variant})</span>` : "";
       const pos = w.pos ? `<span class="pos">${w.pos}</span>` : "";
-      html += `<div class="word-card" data-word="${w.word.replace(/"/g, '&quot;')}" onclick="speak('${w.word.replace(/'/g, "\\'")}', this)">
+      const isLearned = learnedSet.has(w.word);
+      const cls = isLearned ? "word-card learned" : "word-card";
+      const starIcon = isLearned ? "✅" : "○";
+      const safeWord = w.word.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+      html += `<div class="${cls}" data-word="${safeWord}" onclick="speak('${safeWord}', this)">
         <span class="speaker">🔊</span>
         <span class="word">${w.word}</span>${pos}${variant}
+        <span class="star" onclick="toggleLearned('${safeWord}', this.parentElement, event)" title="Mark as learned">${starIcon}</span>
       </div>`;
     }
     html += `</div></div>`;
@@ -270,6 +313,7 @@ function render() {
 
 searchInput.oninput = render;
 themeSelect.onchange = render;
+learnFilter.onchange = render;
 
 loadData();
 </script>
