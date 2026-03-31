@@ -101,6 +101,7 @@
       <button id="startBtn">Start</button>
       <button id="stopBtn" disabled>Stop</button>
       <button id="ttsStopBtn">Stop speaking</button>
+      <span id="ttsLoading" style="display:none;font-size:0.85em;color:#888;">&#9203; Loading audio...</span>
       <button id="settingsBtn">&#9881; Settings</button>
       <span id="statusText" class="status"></span>
     </div>
@@ -160,6 +161,7 @@
       </select></label>
       <button id="examStartBtn">Start Exam</button>
       <button id="ttsStopBtn2" style="background:#ff9800;color:#fff;font-size:0.85em;padding:8px 14px;display:none;">Stop speaking</button>
+      <span id="ttsLoading2" style="display:none;font-size:0.85em;color:#888;">&#9203; Loading audio...</span>
       <span id="examStatus" class="status"></span>
     </div>
 
@@ -472,6 +474,12 @@ function speakWithSystem(text) {
   });
 }
 
+const ttsLoading = document.getElementById("ttsLoading");
+const ttsLoading2 = document.getElementById("ttsLoading2");
+let _ttsLoadingTimer = null;
+function _showTtsLoading() { ttsLoading.style.display = "inline"; ttsLoading2.style.display = "inline"; }
+function _hideTtsLoading() { if (_ttsLoadingTimer) { clearTimeout(_ttsLoadingTimer); _ttsLoadingTimer = null; } ttsLoading.style.display = "none"; ttsLoading2.style.display = "none"; }
+
 async function speakWithServer(text, engine) {
   stopTts();
   const toSpeak = extractEnglishText(text);
@@ -481,8 +489,10 @@ async function speakWithServer(text, engine) {
   const body = engine === "piper"
     ? { engine: "piper", text: toSpeak, speed: 1.0 }
     : { engine: "edge", text: toSpeak, voice: voiceSelect.value || "en-US-AnaNeural", rate: "-10%" };
+  _ttsLoadingTimer = setTimeout(_showTtsLoading, 1000);
   try {
     const res = await fetch(TTS_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+    _hideTtsLoading();
     if (!res.ok) { console.warn("TTS server error:", res.status); ttsStopBtn.style.display = "none"; ttsStopBtn2.style.display = "none"; return; }
     const arrayBuf = await res.arrayBuffer();
     console.log("[TTS] received", arrayBuf.byteLength, "bytes, content-type:", res.headers.get("content-type"));
@@ -499,7 +509,7 @@ async function speakWithServer(text, engine) {
       _ttsSourceNode.onended = done;
       _ttsSourceNode.start();
     });
-  } catch (e) { console.error("TTS error:", e); ttsStopBtn.style.display = "none"; ttsStopBtn2.style.display = "none"; }
+  } catch (e) { console.error("TTS error:", e); _hideTtsLoading(); ttsStopBtn.style.display = "none"; ttsStopBtn2.style.display = "none"; }
 }
 
 function speakText(text) {
@@ -519,6 +529,7 @@ function stopTts() {
   synth.cancel();
   if (!ttsAudio.paused) { ttsAudio.pause(); ttsAudio.currentTime = 0; }
   if (_ttsSourceNode) { try { _ttsSourceNode.stop(); } catch(e) {} _ttsSourceNode = null; }
+  _hideTtsLoading();
   ttsStopBtn.style.display = "none";
   ttsStopBtn2.style.display = "none";
   if (_activeSpeakBtn) _onTtsEndForBtn();
