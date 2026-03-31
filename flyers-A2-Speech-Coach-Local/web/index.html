@@ -1210,6 +1210,7 @@ async function submitExamAnswer(text) {
   } else {
     ES.retries++;
     addExamMsg("judge-fail", "\u274c " + (result.fb || "Not quite."));
+    if (ttsToggle.checked) await doSpeak("Not quite. Try again.");
     if (result.cn) addExamMsg("hint", "\ud83c\udde8\ud83c\uddf3 " + result.cn);
 
     if (step.open_ended) {
