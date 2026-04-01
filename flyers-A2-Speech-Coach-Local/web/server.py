@@ -125,6 +125,7 @@ if MOONSHOT_API_KEY:
 
 if OPENROUTER_API_KEY:
     LLM_MODELS.extend([
+        {"provider": "openrouter", "model": "qwen/qwen3.6-plus-preview:free", "label": "Qwen 3.6 Plus Free (OR)", "use_proxy": False},
         {"provider": "openrouter", "model": "google/gemini-2.5-flash", "label": "Gemini 2.5 Flash (OR)", "use_proxy": False},
         {"provider": "openrouter", "model": "google/gemini-2.5-pro", "label": "Gemini 2.5 Pro (OR)", "use_proxy": False},
         {"provider": "openrouter", "model": "deepseek/deepseek-chat-v3", "label": "DeepSeek V3 (OR)", "use_proxy": False},
