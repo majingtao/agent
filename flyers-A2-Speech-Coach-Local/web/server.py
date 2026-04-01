@@ -86,15 +86,19 @@ load_dotenv()
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "")
 ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
 MOONSHOT_API_KEY = os.environ.get("MOONSHOT_API_KEY", "")
+OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY", "")
 #OPENAI_BASE_URL = os.environ.get("OPENAI_BASE_URL", "https://api.openai.com/v1")
 OPENAI_BASE_URL = os.environ.get("OPENAI_BASE_URL", "https://api.gptsapi.net/v1") #openai 中转
 ANTHROPIC_BASE_URL = os.environ.get("ANTHROPIC_BASE_URL", "https://api.anthropic.com")
 MOONSHOT_BASE_URL = os.environ.get("MOONSHOT_BASE_URL", "https://api.moonshot.cn/v1")
+OPENROUTER_BASE_URL = os.environ.get("OPENROUTER_BASE_URL", "https://openrouter.ai/api/v1")
 HTTP_PROXY = os.environ.get("HTTP_PROXY", "") or os.environ.get("http_proxy", "")
 
 # ---------- LLM model registry ----------
 
 LLM_MODELS = [
+    {"provider": "ollama", "model": "qwen3.5:7b", "label": "Qwen 3.5 7B (Local)", "use_proxy": False},
+    {"provider": "ollama", "model": "qwen3.5:4b", "label": "Qwen 3.5 4B (Local)", "use_proxy": False},
     {"provider": "ollama", "model": "qwen2.5:7b", "label": "Qwen 2.5 7B (Local)", "use_proxy": False},
     {"provider": "ollama", "model": "qwen2.5:3b", "label": "Qwen 2.5 3B (Local)", "use_proxy": False},
 ]
@@ -117,6 +121,14 @@ if MOONSHOT_API_KEY:
     LLM_MODELS.extend([
         {"provider": "moonshot", "model": "kimi-k2.5", "label": "Kimi K2.5", "use_proxy": False},
         {"provider": "moonshot", "model": "kimi-k2-thinking", "label": "Kimi K2 Thinking", "use_proxy": False},
+    ])
+
+if OPENROUTER_API_KEY:
+    LLM_MODELS.extend([
+        {"provider": "openrouter", "model": "google/gemini-2.5-flash", "label": "Gemini 2.5 Flash (OR)", "use_proxy": False},
+        {"provider": "openrouter", "model": "google/gemini-2.5-pro", "label": "Gemini 2.5 Pro (OR)", "use_proxy": False},
+        {"provider": "openrouter", "model": "deepseek/deepseek-chat-v3", "label": "DeepSeek V3 (OR)", "use_proxy": False},
+        {"provider": "openrouter", "model": "qwen/qwen3-235b-a22b", "label": "Qwen3 235B (OR)", "use_proxy": False},
     ])
 
 
@@ -448,6 +460,8 @@ async def llm_judge(request):
             coro = _judge_claude(session, model, messages, proxy)
         elif provider == "moonshot":
             coro = _judge_openai_compat(session, model, messages, MOONSHOT_BASE_URL, MOONSHOT_API_KEY, proxy)
+        elif provider == "openrouter":
+            coro = _judge_openai_compat(session, model, messages, OPENROUTER_BASE_URL, OPENROUTER_API_KEY, proxy)
         else:
             return web.json_response({"ok": False, "fb": "Unknown provider", "cn": "未知提供商", "ans": expected})
         result = await asyncio.wait_for(coro, timeout=25)
@@ -628,6 +642,9 @@ async def llm_chat(request):
         elif provider == "moonshot":
             await _stream_openai_compat(session, response, model, messages,
                                         MOONSHOT_BASE_URL, MOONSHOT_API_KEY, "Moonshot", proxy)
+        elif provider == "openrouter":
+            await _stream_openai_compat(session, response, model, messages,
+                                        OPENROUTER_BASE_URL, OPENROUTER_API_KEY, "OpenRouter", proxy)
         else:
             await response.write(json.dumps({"content": "Unknown provider: " + provider, "done": True}).encode() + b"\n")
     except (ConnectionResetError, asyncio.CancelledError):
@@ -965,7 +982,7 @@ def main():
     print(f"  /ws?model=xxx  → streaming ASR (WebSocket)")
     print(f"  /asr?model=xxx → offline ASR (POST audio)")
     print(f"  /asr/models    → ASR model list")
-    print(f"  /llm/chat      → LLM proxy (Ollama/OpenAI/Claude)")
+    print(f"  /llm/chat      → LLM proxy (Ollama/OpenAI/Claude/OpenRouter)")
     print(f"  /llm/models    → LLM model list")
     print(f"  /api/*         → {OLLAMA_BASE}/api/* (Ollama)")
     print(f"  /tts           → Edge-TTS / Piper TTS")
@@ -986,6 +1003,8 @@ def main():
         print(f"    [claude] Not configured (set ANTHROPIC_API_KEY in .env)")
     if not MOONSHOT_API_KEY:
         print(f"    [moonshot] Not configured (set MOONSHOT_API_KEY in .env)")
+    if not OPENROUTER_API_KEY:
+        print(f"    [openrouter] Not configured (set OPENROUTER_API_KEY in .env)")
     if HTTP_PROXY:
         print(f"  HTTP Proxy: {HTTP_PROXY}")
     else:
