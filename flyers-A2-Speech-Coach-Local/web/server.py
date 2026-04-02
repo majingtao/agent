@@ -1,4 +1,4 @@
-"""
+﻿"""
 HTTPS reverse proxy + static file server + multi-model ASR + TTS + LLM proxy.
 
 All traffic goes through one HTTPS port (8443):
@@ -18,6 +18,7 @@ Usage:
 """
 
 import asyncio
+import copy
 import io
 import json
 import logging
@@ -27,6 +28,7 @@ import struct
 import subprocess
 import sys
 import wave
+from pathlib import Path
 
 import numpy as np
 
@@ -56,12 +58,47 @@ except ImportError:
     sherpa_onnx = None
     print("[warn] sherpa-onnx not installed, Piper TTS disabled. Run: pip install sherpa-onnx")
 
+
+try:
+    import torch
+except ImportError:
+    torch = None
+
+try:
+    import soundfile as sf
+except ImportError:
+    sf = None
+
+try:
+    from vibevoice.modular.modeling_vibevoice_streaming_inference import (
+        VibeVoiceStreamingForConditionalGenerationInference,
+    )
+    from vibevoice.processor.vibevoice_streaming_processor import (
+        VibeVoiceStreamingProcessor,
+    )
+except ImportError:
+    VibeVoiceStreamingForConditionalGenerationInference = None
+    VibeVoiceStreamingProcessor = None
+
 HOST = "0.0.0.0"
 PORT = 8443
 CERT_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "cert.pem")
 KEY_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "key.pem")
 STATIC_DIR = os.path.dirname(os.path.abspath(__file__))
 MODELS_DIR = os.path.join(os.path.dirname(STATIC_DIR), "models")
+PROJECT_ROOT = os.path.dirname(os.path.dirname(STATIC_DIR))
+VIBEVOICE_MODEL_DIR = os.environ.get(
+    "VIBEVOICE_MODEL_DIR",
+    os.path.join(PROJECT_ROOT, "audio", "VibeVoice-Realtime-0.5B"),
+)
+VIBEVOICE_VOICE_DIR = os.environ.get(
+    "VIBEVOICE_VOICE_DIR",
+    os.path.join(PROJECT_ROOT, "assets", "vibevoice", "voices"),
+)
+VIBEVOICE_DEVICE = os.environ.get("VIBEVOICE_DEVICE", "auto")
+VIBEVOICE_CFG_SCALE = float(os.environ.get("VIBEVOICE_CFG_SCALE", "1.5"))
+ENABLE_VIBEVOICE_TTS = os.environ.get("ENABLE_VIBEVOICE_TTS", "true").lower() not in ("0", "false", "no")
+
 
 OLLAMA_BASE = "http://localhost:11434"
 
@@ -819,6 +856,110 @@ async def _stream_claude(session, response, model, messages, proxy=None):
 
 # ---------- TTS: Edge-TTS + Piper ----------
 
+def _scan_vibevoice_voices():
+    entries = []
+    mapping = {}
+    voice_dir = Path(VIBEVOICE_VOICE_DIR)
+    if not voice_dir.exists():
+        return entries, mapping
+    for path in sorted(voice_dir.glob("*.pt")):
+        stem = path.stem
+        locale = stem.split("-")[0].upper()
+        gender = "neutral"
+        lower = stem.lower()
+        if lower.endswith("_man"):
+            gender = "male"
+        elif lower.endswith("_woman"):
+            gender = "female"
+        label = stem if gender == "neutral" else f"{stem} ({gender})"
+        entries.append({"name": stem, "label": label, "locale": locale, "gender": gender})
+        mapping[lower] = str(path)
+    return entries, mapping
+
+def _ensure_vibevoice_voice_cache(app):
+    entries = app.get("vibevoice_voice_entries")
+    mapping = app.get("vibevoice_voice_map")
+    if entries is None or mapping is None:
+        entries, mapping = _scan_vibevoice_voices()
+        app["vibevoice_voice_entries"] = entries
+        app["vibevoice_voice_map"] = mapping
+    return entries, mapping
+
+def _resolve_vibevoice_voice(name, app):
+    _, mapping = _ensure_vibevoice_voice_cache(app)
+    normalized = (name or "").lower()
+    path = mapping.get(normalized)
+    if path:
+        return path
+    raise FileNotFoundError(f"Voice preset '{name}' not found in {VIBEVOICE_VOICE_DIR}")
+
+def _auto_vibevoice_device():
+    if VIBEVOICE_DEVICE and VIBEVOICE_DEVICE.lower() != "auto":
+        return VIBEVOICE_DEVICE
+    if torch is None:
+        return "cpu"
+    if torch.cuda.is_available():
+        return "cuda"
+    if getattr(torch.backends, "mps", None) and torch.backends.mps.is_available():
+        return "mps"
+    return "cpu"
+
+def _synthesize_vibevoice_sync(state, voice_path, text, cfg_scale):
+    if torch is None:
+        raise RuntimeError("PyTorch is required for VibeVoice TTS")
+    if sf is None:
+        raise RuntimeError("soundfile is required for VibeVoice TTS output")
+    processor = state["processor"]
+    model = state["model"]
+    device = state["device"]
+    cached_prompt = torch.load(voice_path, map_location=device, weights_only=False)
+    inputs = processor.process_input_with_cached_prompt(
+        text=text,
+        cached_prompt=cached_prompt,
+        padding=True,
+        return_tensors="pt",
+        return_attention_mask=True,
+    )
+    for key, value in inputs.items():
+        if torch.is_tensor(value):
+            inputs[key] = value.to(device)
+    outputs = model.generate(
+        **inputs,
+        cfg_scale=cfg_scale,
+        tokenizer=processor.tokenizer,
+        verbose=False,
+        all_prefilled_outputs=copy.deepcopy(cached_prompt),
+    )
+    if not outputs.speech_outputs or outputs.speech_outputs[0] is None:
+        raise RuntimeError("No speech output generated")
+    speech = outputs.speech_outputs[0]
+    if torch.is_tensor(speech):
+        audio = speech.detach().cpu().numpy()
+    else:
+        audio = np.asarray(speech)
+    if audio.ndim > 1:
+        audio = audio[0]
+    sample_rate = getattr(getattr(processor, "audio_processor", None), "sampling_rate", 24000)
+    buf = io.BytesIO()
+    sf.write(buf, audio, sample_rate, format="WAV")
+    buf.seek(0)
+    return buf.read()
+
+async def _generate_vibevoice_audio(app, text, voice_path, cfg_scale):
+    state = app.get("vibevoice")
+    if not state:
+        raise RuntimeError("VibeVoice engine is not initialized")
+    loop = asyncio.get_event_loop()
+    lock = app.get("vibevoice_lock")
+
+    def _task():
+        return _synthesize_vibevoice_sync(state, voice_path, text, cfg_scale)
+
+    if lock:
+        async with lock:
+            return await loop.run_in_executor(None, _task)
+    return await loop.run_in_executor(None, _task)
+
 _edge_voice_cache = None
 
 
@@ -829,17 +970,25 @@ async def tts_voices(request):
         piper_voices = [{"name": "amy (en-US)", "gender": "Female", "locale": "en-US"}]
         return web.json_response(piper_voices)
 
-    global _edge_voice_cache
-    if _edge_voice_cache is None:
+    if engine == "vibevoice":
+        entries, _ = _ensure_vibevoice_voice_cache(request.app)
+        return web.json_response(entries)
+
+    lang = request.query.get("lang", "en")  # "en", "zh", "all"
+    global _edge_voice_cache, _edge_voice_cache_all
+    if not hasattr(tts_voices, '_all_cache') or tts_voices._all_cache is None:
         all_voices = await edge_tts.list_voices()
-        _edge_voice_cache = [
+        tts_voices._all_cache = [
             {"name": v["ShortName"], "gender": v["Gender"], "locale": v["Locale"]}
             for v in all_voices
-            if v["Locale"].startswith("en-")
         ]
-        _edge_voice_cache.sort(key=lambda v: (v["locale"], v["gender"], v["name"]))
-        log.info("[tts] Loaded %d English Edge voices", len(_edge_voice_cache))
-    return web.json_response(_edge_voice_cache)
+        tts_voices._all_cache.sort(key=lambda v: (v["locale"], v["gender"], v["name"]))
+        log.info("[tts] Loaded %d Edge voices total", len(tts_voices._all_cache))
+    if lang == "all":
+        return web.json_response(tts_voices._all_cache)
+    prefix = "zh-" if lang == "zh" else "en-"
+    filtered = [v for v in tts_voices._all_cache if v["locale"].startswith(prefix)]
+    return web.json_response(filtered)
 
 
 async def tts_speak(request):
@@ -853,6 +1002,28 @@ async def tts_speak(request):
 
     if not text:
         return web.Response(text="No text provided", status=400)
+
+    if engine == "vibevoice":
+        vibevoice_state = request.app.get("vibevoice")
+        if not vibevoice_state:
+            return web.Response(text="VibeVoice TTS not available", status=503)
+        voice_name = body.get("voice") or "en-Carter_man"
+        try:
+            voice_path = _resolve_vibevoice_voice(voice_name, request.app)
+        except FileNotFoundError as exc:
+            return web.Response(text=str(exc), status=404)
+        cfg_scale = float(body.get("cfg_scale") or vibevoice_state.get("cfg_scale", VIBEVOICE_CFG_SCALE))
+        log.info("[tts/vibevoice] voice=%s len=%d cfg=%.2f", voice_name, len(text), cfg_scale)
+        try:
+            audio_bytes = await _generate_vibevoice_audio(request.app, text, voice_path, cfg_scale)
+        except Exception as e:
+            log.error("[tts/vibevoice] Error: %s", e)
+            return web.Response(text=f"VibeVoice error: {e}", status=500)
+        return web.Response(
+            body=audio_bytes,
+            content_type="audio/wav",
+            headers={"Cache-Control": "no-cache"},
+        )
 
     # --- Piper TTS ---
     if engine == "piper":
@@ -912,6 +1083,64 @@ async def tts_speak(request):
     return response
 
 
+async def init_vibevoice_tts(app):
+    _ensure_vibevoice_voice_cache(app)
+    if not ENABLE_VIBEVOICE_TTS:
+        log.info("VibeVoice TTS disabled via ENABLE_VIBEVOICE_TTS")
+        return
+    if VibeVoiceStreamingForConditionalGenerationInference is None or VibeVoiceStreamingProcessor is None:
+        log.info("VibeVoice packages not installed; skipping TTS init")
+        return
+    if torch is None:
+        log.info("PyTorch not available; skipping VibeVoice TTS init")
+        return
+    if sf is None:
+        log.warning("soundfile not installed; VibeVoice TTS disabled")
+        return
+    if not os.path.isdir(VIBEVOICE_MODEL_DIR):
+        log.info("VibeVoice model dir not found: %s", VIBEVOICE_MODEL_DIR)
+        return
+
+    device = _auto_vibevoice_device()
+    loop = asyncio.get_event_loop()
+    log.info("Loading VibeVoice TTS (%s) on %s", VIBEVOICE_MODEL_DIR, device)
+
+    def _load():
+        processor = VibeVoiceStreamingProcessor.from_pretrained(VIBEVOICE_MODEL_DIR)
+        dtype = torch.bfloat16 if device == "cuda" else torch.float32
+        attn_impl = "flash_attention_2" if device == "cuda" else "sdpa"
+        model = VibeVoiceStreamingForConditionalGenerationInference.from_pretrained(
+            VIBEVOICE_MODEL_DIR,
+            torch_dtype=dtype,
+            device_map=(device if device in ("cuda", "cpu") else None),
+            attn_implementation=attn_impl,
+        )
+        if device == "mps":
+            model.to("mps")
+        model.eval()
+        model.set_ddpm_inference_steps(num_steps=5)
+        return processor, model
+
+    try:
+        processor, model = await loop.run_in_executor(None, _load)
+    except Exception as exc:
+        log.error("Failed to initialize VibeVoice TTS: %s", exc)
+        return
+
+    app["vibevoice"] = {
+        "processor": processor,
+        "model": model,
+        "device": device,
+        "cfg_scale": VIBEVOICE_CFG_SCALE,
+    }
+    app["vibevoice_lock"] = asyncio.Lock()
+    log.info(
+        "VibeVoice TTS ready (%s, voices=%d)",
+        device,
+        len(app.get("vibevoice_voice_entries", [])),
+    )
+
+
 # ---------- Piper TTS init ----------
 
 async def init_piper_tts(app):
@@ -953,6 +1182,7 @@ def create_app():
     app = web.Application()
     app.on_startup.append(create_shared_session)
     app.on_startup.append(init_piper_tts)
+    app.on_startup.append(init_vibevoice_tts)
     app.on_cleanup.append(close_shared_session)
 
     app.router.add_route("GET", "/ws", ws_proxy)
@@ -986,7 +1216,7 @@ def main():
     print(f"  /llm/chat      → LLM proxy (Ollama/OpenAI/Claude/OpenRouter)")
     print(f"  /llm/models    → LLM model list")
     print(f"  /api/*         → {OLLAMA_BASE}/api/* (Ollama)")
-    print(f"  /tts           → Edge-TTS / Piper TTS")
+    print(f"  /tts           → Edge/Piper/VibeVoice TTS")
     print(f"  /tts/voices    → TTS voice list")
     print(f"  /*             → {STATIC_DIR} (static files)")
     print(f"{'='*55}")
@@ -1017,3 +1247,14 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+
+
+
+
+
+
+
+
+
